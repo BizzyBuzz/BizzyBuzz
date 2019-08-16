@@ -19,7 +19,7 @@ defmodule Csv do
           col = cols |> Enum.at(i)
           cond do
             i == 7 -> 
-              parts = col |> String.split(" -- ") |> IO.inspect
+              parts = col |> String.split(" -- ")
             i == 12 || i == 14 || i == 16 || i == 18 ->
               parts = col |> String.split(",")
             true ->
