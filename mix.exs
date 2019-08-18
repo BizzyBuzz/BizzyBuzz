@@ -44,6 +44,10 @@ defmodule SalesByVendor.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"}, 
       {:nimble_csv, "~> 0.3"}, 
+      {:comeonin, "~> 4.1"}, {:bcrypt_elixir, "~> 1.0"}, {:pbkdf2_elixir, "~> 0.12"}, 
+      {:poison, "~> 2.0"}, 
+      {:httpotion, "~> 3.1.0"}, 
+      {:timex, "~> 3.1"},
     ]
   end
 

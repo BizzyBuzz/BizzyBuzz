@@ -1,0 +1,5 @@
+<h1 id="show-user">Showing User</h1>
+<b><%= first_name(@user) %> <%= last_name(@user) %></b> (<%= @user.id %>)
+<br />
+<input type="checkbox" id="deactivate" value="<%= @user.id %>" />
+deactivate this user
