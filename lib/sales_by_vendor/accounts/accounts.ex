@@ -75,11 +75,19 @@ defmodule SalesByVendor.Accounts do
     Repo.all(User)
   end
 
-  def get_user_by_email(email) do
-    from(u in User, join: c in assoc(u, :credential), where: c.email == ^email) 
-    |> Repo.one()
-    |> Repo.preload(:credential)
+  def get_user_by_username(username) do
+    q = from u in User, 
+      where: u.username == ^username, 
+      limit: 1,  
+      preload: [:credential]
+    Repo.one(q)
   end
+
+  # def get_user_by_email(email) do
+  #   from(u in User, join: c in assoc(u, :credential), where: c.email == ^email) 
+  #   |> Repo.one()
+  #   |> Repo.preload(:credential)
+  # end
 
   def get_user_by_reset_password_token(reset_password_token) do
     from(u in User, where: u.reset_password_token == ^reset_password_token) 
@@ -87,8 +95,8 @@ defmodule SalesByVendor.Accounts do
     |> Repo.preload(:credential)
   end
 
-  def authenticate_by_email_and_pass(email, given_pass) do
-    user = get_user_by_email(email)
+  def authenticate_by_username_and_pass(username, given_pass) do
+    user = get_user_by_username(username)
     cond do
       user && Comeonin.Pbkdf2.checkpw(given_pass, user.credential.password_hash) && !user.deactivated -> 
         {:ok, user}
@@ -99,6 +107,19 @@ defmodule SalesByVendor.Accounts do
         {:error, :not_found}
     end 
   end
+
+  # def authenticate_by_email_and_pass(email, given_pass) do
+  #   user = get_user_by_email(email)
+  #   cond do
+  #     user && Comeonin.Pbkdf2.checkpw(given_pass, user.credential.password_hash) && !user.deactivated -> 
+  #       {:ok, user}
+  #     user ->
+  #       {:error, :unauthorized}
+  #     true -> 
+  #       Comeonin.Bcrypt.dummy_checkpw() 
+  #       {:error, :not_found}
+  #   end 
+  # end
 
   def list_credentials do
     Repo.all(Credential)
@@ -126,8 +147,8 @@ defmodule SalesByVendor.Accounts do
     Credential.changeset(credential, %{})
   end
 
-  # def mark_as_verified(user) do
-  #   {ok, user} = update_user(%{id: user.id, verified: true})
-  # end
+  def mark_as_verified(user) do
+    {ok, user} = update_user(%{id: user.id, verified: true})
+  end
 
 end

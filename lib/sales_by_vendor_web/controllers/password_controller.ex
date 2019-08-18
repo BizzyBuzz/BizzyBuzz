@@ -15,12 +15,15 @@ defmodule SalesByVendorWeb.PasswordController do
   end
 
   def create(conn, params) do
+    username = params["username"]
     email = params["credential"]["email"]
-    user = case email do
+    user = case username do # user = case email do
       nil ->
         nil
-      email ->
-        Accounts.get_user_by_email(email)
+      username -> 
+        Accounts.get_user_by_username(username)
+      # email ->
+      #   Accounts.get_user_by_email(email)
     end
     case user do
       nil ->
@@ -40,8 +43,6 @@ defmodule SalesByVendorWeb.PasswordController do
   def edit(conn, %{"token" => token}) do
     # setup edit page for subsequent update 
     user = Accounts.get_user_by(%{reset_password_token: token})
-    IO.inspect "XXXXXXXXXXXXX"
-    IO.inspect user
     case user do
       nil ->
         conn

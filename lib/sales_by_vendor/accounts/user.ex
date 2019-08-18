@@ -19,7 +19,8 @@ defmodule SalesByVendor.Accounts.User do
   def changeset(user, attrs) do 
     user
     |> cast(attrs, [:name, :username, :admin, :deactivated, :verified])
-    |> validate_required([:name, :username])
+    |> validate_required([:username])
+    # |> validate_required([:name, :username])
     |> validate_length(:username, min: 1, max: 20)
   end
 

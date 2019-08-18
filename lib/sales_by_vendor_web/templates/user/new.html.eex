@@ -6,12 +6,12 @@
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
-  <div>
+  <!-- <div>
     <%= text_input f, :name, placeholder: "Name" %>
     <%= error_tag f, :name %> 
-  </div>
+  </div> -->
   <div>
-    <%= text_input f, :username, placeholder: "Username" %>
+    <%= text_input f, :username, placeholder: "Vendor Code" %>
     <%= error_tag f, :username %> 
   </div>
   <div>
