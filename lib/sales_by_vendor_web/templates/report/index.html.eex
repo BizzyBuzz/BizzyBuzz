@@ -1,0 +1,9 @@
+<section class="row">
+  <a href="reports/dtd?date=7/11/2019">DTD Report</a>
+</section>
+<section class="row">
+  <a href="reports/mtd?month=7&year=2019">MTD Report</a>
+</section>
+<section class="row">
+    <a href="reports/ytd?year=2019">YTD Report</a>
+  </section>

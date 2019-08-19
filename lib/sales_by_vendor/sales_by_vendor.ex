@@ -16,6 +16,60 @@ defmodule SalesByVendor.SalesByVendor do
     end
   end
 
+  def get_dtd(date) do
+    q = 
+      from x in SalesByVendor, 
+      where: x.i == ^date
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+    %{sales_by_vendors: sales_by_vendors}
+  end
+
+  def get_mtd(m, yyyy) do
+    regex = "^#{m}\/[1-31]\/#{yyyy}$"
+    q = 
+      from x in SalesByVendor, 
+      where: fragment("? ~ ?", x.i, ^regex)
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+    %{sales_by_vendors: sales_by_vendors}
+    # where: ilike(x.first_name, ^"%#{m}%/")
+  end
+
+  def get_ytd(yyyy) do
+    q = 
+      from x in SalesByVendor, 
+      where: like(x.i, ^"%#{yyyy}")
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+    %{sales_by_vendors: sales_by_vendors}
+  end
+
+  def get_all(:id, id) do
+    q = 
+      from x in SalesByVendor, 
+      where: x.h == ^id
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+    %{sales_by_vendors: sales_by_vendors}
+  end
+
   def insert(row) do
     a = row |> Enum.at(0)
     b = row |> Enum.at(1)
@@ -43,19 +97,6 @@ defmodule SalesByVendor.SalesByVendor do
     w = row |> Enum.at(23)
     x = row |> Enum.at(24)
     create(%{a: a, b: b, c: c, d: d, e: e, f: f, g: g, h: h, h2: h2, i: i, j: j, k: k, l: l, m: m, n: n, o: o, p: p, q: q, r: r, s: s, t: t, u: u, v: v, w: w, x: x})
-  end
-
-  def get_all(:id, id) do
-    q = 
-      from x in SalesByVendor, 
-      where: x.h == ^id
-    sales_by_vendors = Repo.all(q)
-    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
-      sales_by_vendor
-      |> Map.delete(:__meta__)
-      |> Map.delete(:__struct__)
-    end)
-    %{sales_by_vendors: sales_by_vendors}
   end
 
 end

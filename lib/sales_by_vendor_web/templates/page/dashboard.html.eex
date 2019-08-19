@@ -1,1 +1,4 @@
 dashboard
+<section class="row">
+  <a href="/reports">Reports</a>
+</section>
