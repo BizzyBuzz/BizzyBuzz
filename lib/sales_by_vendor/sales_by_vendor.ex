@@ -33,7 +33,6 @@ defmodule SalesByVendor.SalesByVendor do
   def get_mtd(m, yyyy, username) do
     IO.inspect username
     regex = "^#{m}\/[0-9][0-9]*\/#{yyyy}"
-    # regex = "^#{m}\/[1-31]\/#{yyyy}$"
     q = 
       from x in SalesByVendor, 
       where: fragment("? ~ ?", x.i, ^regex)
