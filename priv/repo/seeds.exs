@@ -13,6 +13,15 @@ defmodule CsvDb do
       "admin" => false,
       "verified" => true
     })
+    Accounts.register_user(%{
+      "credential" => %{
+        "email" => "mike@onenie.com",
+        "password" => "rapidfire23"},
+      "name" => "",
+      "username" => "BELL1",
+      "admin" => false,
+      "verified" => true
+    })
   end
 
   def insert_ytd_sales() do

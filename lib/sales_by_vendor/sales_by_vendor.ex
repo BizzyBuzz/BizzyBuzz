@@ -16,10 +16,11 @@ defmodule SalesByVendor.SalesByVendor do
     end
   end
 
-  def get_dtd(date) do
+  def get_dtd(date, username) do
     q = 
       from x in SalesByVendor, 
       where: x.i == ^date
+      and x.h == ^username
     sales_by_vendors = Repo.all(q)
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
       sales_by_vendor
@@ -29,11 +30,14 @@ defmodule SalesByVendor.SalesByVendor do
     %{sales_by_vendors: sales_by_vendors}
   end
 
-  def get_mtd(m, yyyy) do
-    regex = "^#{m}\/[1-31]\/#{yyyy}$"
+  def get_mtd(m, yyyy, username) do
+    IO.inspect username
+    regex = "^#{m}\/[0-9][0-9]*\/#{yyyy}"
+    # regex = "^#{m}\/[1-31]\/#{yyyy}$"
     q = 
       from x in SalesByVendor, 
       where: fragment("? ~ ?", x.i, ^regex)
+      and x.h == ^username
     sales_by_vendors = Repo.all(q)
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
       sales_by_vendor
@@ -41,13 +45,13 @@ defmodule SalesByVendor.SalesByVendor do
       |> Map.delete(:__struct__)
     end)
     %{sales_by_vendors: sales_by_vendors}
-    # where: ilike(x.first_name, ^"%#{m}%/")
   end
 
-  def get_ytd(yyyy) do
+  def get_ytd(yyyy, username) do
     q = 
       from x in SalesByVendor, 
       where: like(x.i, ^"%#{yyyy}")
+      and x.h == ^username
     sales_by_vendors = Repo.all(q)
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
       sales_by_vendor

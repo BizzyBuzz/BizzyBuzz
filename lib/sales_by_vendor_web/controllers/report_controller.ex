@@ -10,17 +10,20 @@ defmodule SalesByVendorWeb.ReportController do
   end
 
   def dtd(conn, params) do
-    dtd = SalesByVendor.get_dtd(params["date"]) # 7/11/2019
+    username = conn.assigns.current_user.username
+    dtd = SalesByVendor.get_dtd(params["date"], username) # 7/11/2019
     render(conn, "dtd.html", dtd)
   end
 
   def mtd(conn, params) do
-    mtd = SalesByVendor.get_mtd(params["month"], params["year"])
+    username = conn.assigns.current_user.username
+    mtd = SalesByVendor.get_mtd(params["month"], params["year"], username)
     render(conn, "mtd.html", mtd)
   end
 
   def ytd(conn, params) do
-    ytd = SalesByVendor.get_ytd(params["year"])
+    username = conn.assigns.current_user.username
+    ytd = SalesByVendor.get_ytd(params["year"], username)
     render(conn, "ytd.html", ytd)
   end
 

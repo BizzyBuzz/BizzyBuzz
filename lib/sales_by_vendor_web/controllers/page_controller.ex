@@ -3,7 +3,7 @@ defmodule SalesByVendorWeb.PageController do
 
   alias SalesByVendor.SalesByVendor
 
-  plug :authenticate when action not in [:dashboard]
+  plug :authenticate when action not in [:dashboard, :insert_new_sales]
 
   def dashboard(conn, _params) do
     render(conn, "dashboard.html")
