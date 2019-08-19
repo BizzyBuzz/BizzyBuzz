@@ -1,7 +1,19 @@
 alias NimbleCSV.RFC4180, as: CSVParser
-alias SalesByVendor.SalesByVendor
+alias SalesByVendor.{SalesByVendor, Accounts}
 
 defmodule CsvDb do
+
+  def create_users() do
+    Accounts.register_user(%{
+      "credential" => %{
+        "email" => "james@onenie.com",
+        "password" => "rapidfire23"},
+      "name" => "",
+      "username" => "BBI",
+      "admin" => false,
+      "verified" => true
+    })
+  end
 
   def insert_ytd_sales() do
     "Sales By Vendor - YTD.csv"
@@ -21,4 +33,5 @@ defmodule CsvDb do
 
 end
 
+CsvDb.create_users()
 CsvDb.main()
