@@ -2,3 +2,8 @@ dashboard
 <section class="row">
   <a href="/reports">Reports</a>
 </section>
+<%= if @current_user && @current_user.admin do %>
+<section class="row">
+  <a href="/vendors">Vendors</a>
+</section>  
+<% end %>

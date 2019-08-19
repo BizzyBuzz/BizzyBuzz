@@ -18,16 +18,16 @@ defmodule SalesByVendorWeb.UserController do
     end 
   end
 
-  defp only_admin(conn, _opts) do
-    if conn.assigns.current_user && conn.assigns.current_user.admin do
-      conn
-    else
-      conn
-      |> put_flash(:error, "You must be logged in as admin to access that page") 
-      |> redirect(to: Routes.session_path(conn, :new))
-      |> halt()
-    end 
-  end
+  # defp only_admin(conn, _opts) do
+  #   if conn.assigns.current_user && conn.assigns.current_user.admin do
+  #     conn
+  #   else
+  #     conn
+  #     |> put_flash(:error, "You must be logged in as admin to access that page") 
+  #     |> redirect(to: Routes.session_path(conn, :new))
+  #     |> halt()
+  #   end 
+  # end
 
   def create(conn, %{"user" => user_params}) do 
     IO.inspect user_params

@@ -4,6 +4,19 @@ defmodule SalesByVendorWeb.VendorController do
   alias SalesByVendor.Vendors
   alias SalesByVendor.Vendors.Vendor
 
+  plug :only_admin
+
+  defp only_admin(conn, _opts) do
+    if conn.assigns.current_user && conn.assigns.current_user.admin do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in as admin to access that page") 
+      |> redirect(to: Routes.session_path(conn, :new))
+      |> halt()
+    end 
+  end
+
   def index(conn, _params) do
     vendors = Vendors.list_vendors()
     render(conn, "index.html", vendors: vendors)
