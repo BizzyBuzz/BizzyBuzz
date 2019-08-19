@@ -3,6 +3,7 @@ defmodule SalesByVendor.Vendors do
   The Vendors context.
   """
 
+  import Ecto.Changeset
   import Ecto.Query, warn: false
   alias SalesByVendor.Repo
 
@@ -52,6 +53,8 @@ defmodule SalesByVendor.Vendors do
   def create_vendor(attrs \\ %{}) do
     %Vendor{}
     |> Vendor.changeset(attrs)
+    |> unique_constraint(:name, name: :vendors_name_index)
+    |> unique_constraint(:email, name: :vendors_email_index)
     |> Repo.insert()
   end
 

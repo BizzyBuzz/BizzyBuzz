@@ -29,7 +29,7 @@ defmodule SalesByVendorWeb.Router do
     resources "/users", UserController, only: [:index, :show, :new, :create]
     put "/update-password/:token", PasswordController, :update
     get "/verify", UserController, :verify_email
-    resources "/vendors", VendorController, only: [:index, :show, :new, :create]
+    resources "/vendors", VendorController
     get "/*path", PageController, :dashboard
   end
 

@@ -4,24 +4,24 @@ alias SalesByVendor.{SalesByVendor, Accounts}
 defmodule CsvDb do
 
   def create_users() do
-    Accounts.register_user(%{
-      "credential" => %{
-        "email" => "james@onenie.com",
-        "password" => "rapidfire23"},
-      "name" => "",
-      "username" => "BBI",
-      "admin" => false,
-      "verified" => true
-    })
-    Accounts.register_user(%{
-      "credential" => %{
-        "email" => "mike@onenie.com",
-        "password" => "rapidfire23"},
-      "name" => "",
-      "username" => "BELL1",
-      "admin" => false,
-      "verified" => true
-    })
+    # Accounts.register_user(%{
+    #   "credential" => %{
+    #     "email" => "james@onenie.com",
+    #     "password" => "rapidfire23"},
+    #   "name" => "",
+    #   "username" => "BBI",
+    #   "admin" => false,
+    #   "verified" => true
+    # })
+    # Accounts.register_user(%{
+    #   "credential" => %{
+    #     "email" => "mike@onenie.com",
+    #     "password" => "rapidfire23"},
+    #   "name" => "",
+    #   "username" => "BELL1",
+    #   "admin" => false,
+    #   "verified" => true
+    # })
   end
 
   def insert_ytd_sales() do

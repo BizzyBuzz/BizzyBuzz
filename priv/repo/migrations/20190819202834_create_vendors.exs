@@ -9,5 +9,7 @@ defmodule SalesByVendor.Repo.Migrations.CreateVendors do
       timestamps()
     end
 
+    create unique_index(:vendors, [:name], name: :vendors_name_index)
+    create unique_index(:vendors, [:email], name: :vendors_email_index)
   end
 end
