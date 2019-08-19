@@ -18,7 +18,6 @@ defmodule SalesByVendorWeb.PageController do
 
   def insert_new_sales(conn, params) do
     api_key = params["apikey"]
-    IO.inspect api_key
     if api_key == System.get_env("BIZZ_API_KEY") do
       file = params["file"]
       filename = file.filename
