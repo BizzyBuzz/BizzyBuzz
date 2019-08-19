@@ -3,6 +3,7 @@ defmodule SalesByVendor.Accounts.User do
   import Ecto.Changeset
 
   alias SalesByVendor.Accounts.Credential
+  alias SalesByVendor.Vendors
   
   schema "users" do
     field :name, :string
@@ -25,10 +26,19 @@ defmodule SalesByVendor.Accounts.User do
   end
 
   def registration_changeset(user, params) do 
-    user
-    |> changeset(params)
-    |> unique_constraint(:username)
-    |> cast_assoc(:credential, with: &Credential.changeset/2, required: true) 
+    username = params["username"]
+    email = params["credential"]["email"]
+    vendor = Vendors.get_vendor(%{username: username, email: email})
+    if vendor do
+      user
+      |> changeset(params)
+      |> unique_constraint(:username)
+      |> cast_assoc(:credential, with: &Credential.changeset/2, required: true) 
+    else
+      user
+      |> changeset(params)
+      |> add_error(:username, "Vendor does not exist or email does not match vendor email")
+    end
   end
 
   def password_token_changeset(user, params) do

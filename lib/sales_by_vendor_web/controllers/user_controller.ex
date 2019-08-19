@@ -30,6 +30,7 @@ defmodule SalesByVendorWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do 
+    IO.inspect user_params
     case Accounts.register_user(user_params) do
       {:ok, user} -> 
         token = Phoenix.Token.sign(conn, "user auth", user.id)
@@ -41,6 +42,8 @@ defmodule SalesByVendorWeb.UserController do
         |> redirect(to: Routes.session_path(conn, :new))
       {:error, %Ecto.Changeset{} = changeset} -> 
         render(conn, "new.html", changeset: changeset)
+      {:error, :no_record} -> 
+        render(conn, "new.html", error: :no_record)
     end 
   end
 

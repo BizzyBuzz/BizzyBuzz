@@ -38,6 +38,16 @@ defmodule SalesByVendor.Vendors do
   """
   def get_vendor!(id), do: Repo.get!(Vendor, id)
 
+  def get_vendor(%{username: username, email: email}) do
+    from(
+      v in Vendor, 
+      where: v.name == ^username
+      and v.email == ^email
+    ) 
+    |> Repo.one()
+    # |> Repo.preload(:credential)
+  end
+
   @doc """
   Creates a vendor.
 
