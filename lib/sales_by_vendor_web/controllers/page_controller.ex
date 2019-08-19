@@ -17,24 +17,30 @@ defmodule SalesByVendorWeb.PageController do
   end
 
   def insert_new_sales(conn, params) do
-    file = params["file"]
-    filename = file.filename
-    path = file.path
-    {:ok, file_binary} = File.read(path)
-    # IO.inspect "XXXXXXXXXXXXXX"
-    # IO.inspect file_binary
-    # IO.inspect "XXXXXXXXXXXXXX"
-
-    Csv.insert_new_sales(file_binary)
-
-    # csv_filename = "#{Bcs.Functions.create_timestamp()}.csv"
-    # {:ok, file} = File.open("hello", [:write])
-    # IO.binwrite(file, "world")
-    # File.close(file)
-
-    conn
-    # |> put_flash(:success, "File uploaded successfully!")
-    |> json(%{filename: filename})
+    api_key = params["apikey"]
+    IO.inspect api_key
+    if api_key == System.get_env("BIZZ_API_KEY") do
+      file = params["file"]
+      filename = file.filename
+      path = file.path
+      {:ok, file_binary} = File.read(path)
+  
+      Csv.insert_new_sales(file_binary)
+  
+      # csv_filename = "#{Bcs.Functions.create_timestamp()}.csv"
+      # {:ok, file} = File.open("hello", [:write])
+      # IO.binwrite(file, "world")
+      # File.close(file)
+  
+      conn
+      # |> put_flash(:success, "File uploaded successfully!")
+      |> put_status(200)
+      |> json(%{filename: filename})
+    else
+      conn 
+      |> put_status(401)
+      |> json(%{error: "unauthorized"})
+    end
   end
 
   defp authenticate(conn, _opts) do
