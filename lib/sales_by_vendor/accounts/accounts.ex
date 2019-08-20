@@ -77,10 +77,11 @@ defmodule SalesByVendor.Accounts do
 
   def get_user_by_username(username) do
     q = from u in User, 
-      where: u.username == ^username, 
+      where: u.username == ^username
+      and u.verified == true, 
       limit: 1,  
       preload: [:credential]
-    Repo.one(q)
+    Repo.one(q) |> IO.inspect
   end
 
   # def get_user_by_email(email) do

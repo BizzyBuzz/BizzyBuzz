@@ -30,7 +30,6 @@ defmodule SalesByVendorWeb.UserController do
   # end
 
   def create(conn, %{"user" => user_params}) do 
-    IO.inspect user_params
     case Accounts.register_user(user_params) do
       {:ok, user} -> 
         token = Phoenix.Token.sign(conn, "user auth", user.id)

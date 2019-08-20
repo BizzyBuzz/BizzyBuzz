@@ -10,20 +10,35 @@ defmodule SalesByVendorWeb.ReportController do
   end
 
   def dtd(conn, params) do
-    username = conn.assigns.current_user.username
-    dtd = SalesByVendor.get_dtd(params["date"], username) # 7/11/2019
+    dtd =
+      if conn.assigns.current_user.admin do
+        dtd = SalesByVendor.get_dtd(params["date"]) 
+      else
+        username = conn.assigns.current_user.username
+        dtd = SalesByVendor.get_dtd(params["date"], username)
+      end
     render(conn, "dtd.html", dtd)
   end
 
   def mtd(conn, params) do
-    username = conn.assigns.current_user.username
-    mtd = SalesByVendor.get_mtd(params["month"], params["year"], username)
+    mtd = 
+      if conn.assigns.current_user.admin do
+        mtd = SalesByVendor.get_mtd(params["month"], params["year"]) 
+      else
+        username = conn.assigns.current_user.username
+        mtd = SalesByVendor.get_mtd(params["month"], params["year"], username)
+      end
     render(conn, "mtd.html", mtd)
   end
 
   def ytd(conn, params) do
-    username = conn.assigns.current_user.username
-    ytd = SalesByVendor.get_ytd(params["year"], username)
+    ytd = 
+      if conn.assigns.current_user.admin do
+        ytd = SalesByVendor.get_ytd(params["year"]) 
+      else
+        username = conn.assigns.current_user.username
+        ytd = SalesByVendor.get_ytd(params["year"], username)
+      end
     render(conn, "ytd.html", ytd)
   end
 
