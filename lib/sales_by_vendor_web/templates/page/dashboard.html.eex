@@ -6,4 +6,7 @@ dashboard
 <section class="row">
   <a href="/vendors">Vendors</a>
 </section>  
+<section class="row">
+  <a href="/admin/logs">Admin Logs</a>
+</section>
 <% end %>

@@ -3,6 +3,7 @@ defmodule SalesByVendorWeb.VendorController do
 
   alias SalesByVendor.Vendors
   alias SalesByVendor.Vendors.Vendor
+  alias SalesByVendor.Logs
 
   plug :only_admin
 
@@ -15,6 +16,12 @@ defmodule SalesByVendorWeb.VendorController do
       |> redirect(to: Routes.session_path(conn, :new))
       |> halt()
     end 
+  end
+
+  def admin_logs(conn, params) do
+    logs = Logs.get_logs(:type, "admin")
+    
+    render(conn, "admin_logs.html", logs)
   end
 
   def index(conn, _params) do
@@ -72,4 +79,5 @@ defmodule SalesByVendorWeb.VendorController do
     |> put_flash(:info, "Vendor deleted successfully.")
     |> redirect(to: Routes.vendor_path(conn, :index))
   end
+
 end

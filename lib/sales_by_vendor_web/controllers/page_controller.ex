@@ -1,7 +1,7 @@
 defmodule SalesByVendorWeb.PageController do
   use SalesByVendorWeb, :controller
 
-  alias SalesByVendor.SalesByVendor
+  alias SalesByVendor.Logs
 
   plug :authenticate when action not in [:dashboard, :insert_new_sales]
 
@@ -11,7 +11,7 @@ defmodule SalesByVendorWeb.PageController do
 
   def index(conn, params) do
     id = params["id"]
-    sales_by_vendors = SalesByVendor.get_all(:id, id)
+    sales_by_vendors = SalesByVendor.SalesByVendor.get_all(:id, id)
 
     render(conn, "index.html", sales_by_vendors)
   end
@@ -31,11 +31,13 @@ defmodule SalesByVendorWeb.PageController do
       # IO.binwrite(file, "world")
       # File.close(file)
   
+      Logs.create_log(%{type: "admin", status: "200", desc: filename})
       conn
       # |> put_flash(:success, "File uploaded successfully!")
       |> put_status(200)
       |> json(%{filename: filename})
     else
+      Logs.create_log(%{type: "admin", status: "401", desc: "unauthorized"})
       conn 
       |> put_status(401)
       |> json(%{error: "unauthorized"})

@@ -18,6 +18,7 @@ defmodule SalesByVendorWeb.Router do
     pipe_through :browser
     
     get "/", PageController, :dashboard
+    get "/admin/logs", VendorController, :admin_logs
     get "/sales-by-vendor/:id", PageController, :index
     get "reports", ReportController, :index
     get "/reports/dtd", ReportController, :dtd

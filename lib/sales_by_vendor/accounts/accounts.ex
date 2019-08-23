@@ -81,7 +81,7 @@ defmodule SalesByVendor.Accounts do
       and u.verified == true, 
       limit: 1,  
       preload: [:credential]
-    Repo.one(q) |> IO.inspect
+    Repo.one(q)
   end
 
   # def get_user_by_email(email) do

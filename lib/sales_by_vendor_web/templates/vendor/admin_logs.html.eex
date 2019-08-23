@@ -1,0 +1,21 @@
+admin logs
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Status</th>
+      <th>Desc</th>
+      <th>Date/Time</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= for log <- @logs do %>
+    <tr>
+      <td><%= log.type %></td>
+      <td><%= log.status %></td>
+      <td><%= log.desc %></td>
+      <td><%= log.inserted_at %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
