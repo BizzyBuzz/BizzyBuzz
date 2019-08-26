@@ -10,8 +10,8 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :sales_by_vendor, SalesByVendorWeb.Endpoint,
-  http: [:inet6, port: System.get_env("PORT") || 4000],
-  url: [host: "bizzybuzzportal.com", port: 80],
+  http: [:inet6, port: 4000],
+  url: [host: "bizzybuzzportal.com", port: 4000],
   https: [
     :inet6,
     port: 8443,
