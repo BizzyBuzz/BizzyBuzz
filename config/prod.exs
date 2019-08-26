@@ -11,8 +11,21 @@ use Mix.Config
 # before starting your production server.
 config :sales_by_vendor, SalesByVendorWeb.Endpoint,
   http: [:inet6, port: System.get_env("PORT") || 4000],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [host: "bizzybuzzportal.com", port: 80],
+  https: [
+    :inet6,
+    port: 8443,
+    cipher_suite: :strong,
+    keyfile: System.get_env("SSL_KEY_PATH"),
+    certfile: System.get_env("SSL_CERT_PATH")
+  ],
+  cache_static_manifest: "priv/static/cache_manifest.json", 
+  server: true,
+  root: ".",
+  version: Application.spec(:hrc_ux, :vsn)
+
+config :sales_by_vendor, SalesByVendorWeb.Endpoint,
+  force_ssl: [hsts: true]
 
 # Do not print debug messages in production
 config :logger, level: :info
