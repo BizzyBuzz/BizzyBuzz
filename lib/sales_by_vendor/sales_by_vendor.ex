@@ -148,7 +148,7 @@ defmodule SalesByVendor.SalesByVendor do
     total = 
       Enum.reduce(all_vendors, 0, fn vendor, acc ->  
         if vendor[column] do
-          amount = vendor[column] |> String.replace("$", "") |> Decimal.new()
+          amount = vendor[column] |> String.replace("$", "") |> String.replace(",", "") |> Decimal.new()
           Decimal.add(amount, acc)
         else
           acc
