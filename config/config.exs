@@ -19,11 +19,13 @@ config :sales_by_vendor, SalesByVendorWeb.Endpoint,
 
 config :logger, 
   backends: [:console, {LoggerFileBackend, :info_log}],
-  format: "[$level] $message\n"
+  format: "[$level] $message\n", 
+  truncate: :infinity
 
 config :logger, :info_log, 
   path: "/tmp/info.log",
-  level: :info
+  level: :info, 
+  truncate: :infinity
 
 # Configures Elixir's Logger
 config :logger, :console,
