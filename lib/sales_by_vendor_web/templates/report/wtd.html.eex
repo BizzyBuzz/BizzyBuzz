@@ -29,7 +29,7 @@ This Week's Sales
         <th>v</th>
         <th>w</th>
         <th>x</th>
-        <th>created date</th>
+        <th>create date</th>
       </tr>
   <%= for sales_by_vendor <- @sales_by_vendors do %>
     <tr>
