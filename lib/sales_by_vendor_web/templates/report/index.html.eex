@@ -1,9 +1,9 @@
 <section class="row">
-  <a href="reports/dtd?date=7/11/2019">DTD Report</a>
+  <a href="reports/dtd">Yesterday's Sales</a>
 </section>
 <section class="row">
-  <a href="reports/mtd?month=7&year=2019">MTD Report</a>
+  <a href="reports/wtd">This Week's Sales</a>
 </section>
 <section class="row">
-    <a href="reports/ytd?year=2019">YTD Report</a>
-  </section>
+  <a href="reports/mtd">This Month's Sales</a>
+</section>

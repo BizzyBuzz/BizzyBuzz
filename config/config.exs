@@ -17,6 +17,14 @@ config :sales_by_vendor, SalesByVendorWeb.Endpoint,
   render_errors: [view: SalesByVendorWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: SalesByVendor.PubSub, adapter: Phoenix.PubSub.PG2]
 
+config :logger, 
+  backends: [:console, {LoggerFileBackend, :info_log}],
+  format: "[$level] $message\n"
+
+config :logger, :info_log, 
+  path: "/tmp/info.log",
+  level: :info
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

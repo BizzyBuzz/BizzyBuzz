@@ -1,4 +1,4 @@
-MTD REPORT
+This Month's Sales
 
 <section class="row">
   <table>
@@ -29,33 +29,64 @@ MTD REPORT
         <th>v</th>
         <th>w</th>
         <th>x</th>
+        <th>created date</th>
       </tr>
   <%= for sales_by_vendor <- @sales_by_vendors do %>
-      <tr>
-        <td><%= sales_by_vendor.a %></td>
-        <td><%= sales_by_vendor.b %></td>
-        <td><%= sales_by_vendor.c %></td>
-        <td><%= sales_by_vendor.d %></td>
-        <td><%= sales_by_vendor.e %></td>
-        <td><%= sales_by_vendor.f %></td>
-        <td><%= sales_by_vendor.g %></td>
-        <td><%= sales_by_vendor.h %></td>
-        <td><%= sales_by_vendor.h2 %></td>
-        <td><%= sales_by_vendor.i %></td>
-        <td><%= sales_by_vendor.j %></td>
-        <td><%= sales_by_vendor.k %></td>
-        <td><%= sales_by_vendor.l %></td>
-        <td><%= sales_by_vendor.m %></td>
-        <td><%= sales_by_vendor.n %></td>
-        <td><%= sales_by_vendor.o %></td>
-        <td><%= sales_by_vendor.p %></td>
-        <td><%= sales_by_vendor.q %></td>
-        <td><%= sales_by_vendor.r %></td>
-        <td><%= sales_by_vendor.s %></td>
-        <td><%= sales_by_vendor.t %></td>
-        <td><%= sales_by_vendor.u %></td>
-        <td><%= sales_by_vendor.v %></td>
-        <td><%= sales_by_vendor.w %></td>
-        <td><%= sales_by_vendor.x %></td>
+    <tr>
+      <td><%= sales_by_vendor.a %></td>
+      <td><%= sales_by_vendor.b %></td>
+      <td><%= sales_by_vendor.c %></td>
+      <td><%= sales_by_vendor.d %></td>
+      <td><%= sales_by_vendor.e %></td>
+      <td><%= sales_by_vendor.f %></td>
+      <td><%= sales_by_vendor.g %></td>
+      <td><%= sales_by_vendor.h %></td>
+      <td><%= sales_by_vendor.h2 %></td>
+      <td><%= sales_by_vendor.i %></td>
+      <td><%= sales_by_vendor.j %></td>
+      <td><%= sales_by_vendor.k %></td>
+      <td><%= sales_by_vendor.l %></td>
+      <td><%= sales_by_vendor.m %></td>
+      <td><%= sales_by_vendor.n %></td>
+      <td><%= sales_by_vendor.o %></td>
+      <td><%= sales_by_vendor.p %></td>
+      <td><%= sales_by_vendor.q %></td>
+      <td><%= sales_by_vendor.r %></td>
+      <td><%= sales_by_vendor.s %></td>
+      <td><%= sales_by_vendor.t %></td>
+      <td><%= sales_by_vendor.u %></td>
+      <td><%= sales_by_vendor.v %></td>
+      <td><%= sales_by_vendor.w %></td>
+      <td><%= sales_by_vendor.x %></td>
+      <td><%= sales_by_vendor.inserted_at %></td>
+    </tr>
   <% end %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><%= @total_n %></td>
+    <td></td>
+    <td></td>
+    <td><%= @total_q %></td>
+    <td></td>
+    <td></td>
+    <td><%= @total_t %></td>
+    <td></td>
+    <td><%= @total_v %></td>
+    <td><%= @total_w %></td>
+    <td></td>
+    <td></td>
+  </tr>
 </section>

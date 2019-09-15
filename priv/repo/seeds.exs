@@ -8,7 +8,7 @@ defmodule CsvDb do
     Accounts.register_user(%{
       "credential" => %{
         "email" => "mhm@galtmidas.com",
-        "password" => "rapidfire23"},
+        "password" => "repidfire23"},
       "name" => "",
       "username" => "admin",
       "admin" => true,

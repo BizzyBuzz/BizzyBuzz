@@ -1,7 +1,8 @@
 defmodule SalesByVendor.SalesByVendor do
   import Ecto.Changeset
   import Ecto.Query
-  
+
+  alias SalesByVendor.Functions
   alias SalesByVendor.Repo
   alias SalesByVendor.SalesByVendor.SalesByVendor
 
@@ -16,91 +17,6 @@ defmodule SalesByVendor.SalesByVendor do
     end
   end
 
-  def get_dtd(date) do 
-    # date format: 7/11/2019
-    q = 
-      from x in SalesByVendor, 
-      where: x.i == ^date
-    sales_by_vendors = Repo.all(q)
-    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
-      sales_by_vendor
-      |> Map.delete(:__meta__)
-      |> Map.delete(:__struct__)
-    end)
-    %{sales_by_vendors: sales_by_vendors}
-  end
-
-  def get_dtd(date, username) do 
-    # date format: 7/11/2019
-    q = 
-      from x in SalesByVendor, 
-      where: x.i == ^date
-      and x.h == ^username
-    sales_by_vendors = Repo.all(q)
-    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
-      sales_by_vendor
-      |> Map.delete(:__meta__)
-      |> Map.delete(:__struct__)
-    end)
-    %{sales_by_vendors: sales_by_vendors}
-  end
-
-  def get_mtd(m, yyyy) do
-    regex = "^#{m}\/[0-9][0-9]*\/#{yyyy}"
-    q = 
-      from x in SalesByVendor, 
-      where: fragment("? ~ ?", x.i, ^regex)
-    sales_by_vendors = Repo.all(q)
-    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
-      sales_by_vendor
-      |> Map.delete(:__meta__)
-      |> Map.delete(:__struct__)
-    end)
-    %{sales_by_vendors: sales_by_vendors}
-  end
-
-  def get_mtd(m, yyyy, username) do
-    regex = "^#{m}\/[0-9][0-9]*\/#{yyyy}"
-    q = 
-      from x in SalesByVendor, 
-      where: fragment("? ~ ?", x.i, ^regex)
-      and x.h == ^username
-    sales_by_vendors = Repo.all(q)
-    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
-      sales_by_vendor
-      |> Map.delete(:__meta__)
-      |> Map.delete(:__struct__)
-    end)
-    %{sales_by_vendors: sales_by_vendors}
-  end
-
-  def get_ytd(yyyy) do
-    q = 
-      from x in SalesByVendor, 
-      where: like(x.i, ^"%#{yyyy}")
-    sales_by_vendors = Repo.all(q)
-    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
-      sales_by_vendor
-      |> Map.delete(:__meta__)
-      |> Map.delete(:__struct__)
-    end)
-    %{sales_by_vendors: sales_by_vendors}
-  end
-
-  def get_ytd(yyyy, username) do
-    q = 
-      from x in SalesByVendor, 
-      where: like(x.i, ^"%#{yyyy}")
-      and x.h == ^username
-    sales_by_vendors = Repo.all(q)
-    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
-      sales_by_vendor
-      |> Map.delete(:__meta__)
-      |> Map.delete(:__struct__)
-    end)
-    %{sales_by_vendors: sales_by_vendors}
-  end
-
   def get_all(:id, id) do
     q = 
       from x in SalesByVendor, 
@@ -112,6 +28,132 @@ defmodule SalesByVendor.SalesByVendor do
       |> Map.delete(:__struct__)
     end)
     %{sales_by_vendors: sales_by_vendors}
+  end
+
+  def get_dtd(username) do 
+    yesterday = DateTime.utc_now |> Timex.shift(days: -1) # ~U[2019-09-13 19:02:07.627417Z]
+    m = yesterday.month
+    d = yesterday.day 
+    yyyy = yesterday.year
+
+    q = 
+      from x in SalesByVendor, 
+      where: fragment("date_part('month', ?)", x.inserted_at) == ^m
+      and fragment("date_part('day', ?)", x.inserted_at) == ^d
+      and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy
+      and x.h == ^username
+    sales_by_vendors = Repo.all(q)
+
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
+  def get_all_vendors_dtd() do
+    yesterday = DateTime.utc_now |> Timex.shift(days: -1)
+    m = yesterday.month
+    d = yesterday.day 
+    yyyy = yesterday.year
+    
+    q = 
+      from x in SalesByVendor, 
+      where: fragment("date_part('month', ?)", x.inserted_at) == ^m
+      and fragment("date_part('day', ?)", x.inserted_at) == ^d
+      and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy, 
+      order_by: fragment("lower(?) ASC", x.h2)
+    sales_by_vendors = Repo.all(q)
+
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
+  def get_wtd(username) do
+    utc_now = DateTime.utc_now
+    day_of_week = Date.day_of_week utc_now
+    %{s: s, e: e} = Functions.mon_to_sun(day_of_week)
+    start_date_time = utc_now |> Timex.shift(days: -s)
+    end_date_time = utc_now
+
+    q = 
+      from x in SalesByVendor, 
+      where: x.inserted_at >= ^start_date_time
+      and x.inserted_at <= ^end_date_time
+      and x.h == ^username
+    sales_by_vendors = Repo.all(q)
+
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
+  def get_all_vendors_wtd() do
+    utc_now = DateTime.utc_now
+    day_of_week = Date.day_of_week utc_now
+    %{s: s, e: e} = Functions.mon_to_sun(day_of_week)
+    start_date_time = utc_now |> Timex.shift(days: -s)
+    end_date_time = utc_now
+    
+    q = 
+      from x in SalesByVendor,
+      where: x.inserted_at >= ^start_date_time
+      and x.inserted_at <= ^end_date_time 
+    sales_by_vendors = Repo.all(q)
+    
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
+  def get_mtd(username) do
+    m = DateTime.utc_now.month
+    yyyy = DateTime.utc_now.year
+    q = 
+      from x in SalesByVendor, 
+      where: fragment("date_part('month', ?)", x.inserted_at) == ^m
+      and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy 
+      and x.h == ^username
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
+  def get_all_vendors_mtd() do
+    m = DateTime.utc_now.month
+    yyyy = DateTime.utc_now.year
+    q = 
+      from x in SalesByVendor, 
+      where: fragment("date_part('month', ?)", x.inserted_at) == ^m
+      and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
+  def calc_total(all_vendors, column) do
+    total = 
+      Enum.reduce(all_vendors, 0, fn vendor, acc ->  
+        if vendor[column] do
+          amount = vendor[column] |> String.replace("$", "") |> Decimal.new()
+          Decimal.add(amount, acc)
+        else
+          acc
+        end
+      end)
   end
 
   def insert(row) do
@@ -143,4 +185,57 @@ defmodule SalesByVendor.SalesByVendor do
     create(%{a: a, b: b, c: c, d: d, e: e, f: f, g: g, h: h, h2: h2, i: i, j: j, k: k, l: l, m: m, n: n, o: o, p: p, q: q, r: r, s: s, t: t, u: u, v: v, w: w, x: x})
   end
 
+  def get_ytd(username) do
+    yyyy = Functions.now_year_in_utc()
+    q = 
+      from x in SalesByVendor, 
+      where: fragment("date_part('year', ?)", x.inserted_at) == ^yyyy 
+      # where: like(x.i, ^"%#{yyyy}")
+      and x.h == ^username
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
+  def get_all_vendors_ytd() do
+    yyyy = Functions.now_year_in_utc()
+    q = 
+      from x in SalesByVendor, 
+      where: fragment("date_part('year', ?)", x.inserted_at) == ^yyyy, 
+      order_by: fragment("lower(?) ASC", x.h2)
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
 end
+
+# where: like(x.i, ^"%#{yyyy}"), 
+
+# regex = "^#{m}\/[0-9][0-9]*\/#{yyyy}"
+# where: fragment("? ~ ?", x.i, ^regex)
+
+# regex = "^#{m}\/[0-9][0-9]*\/#{yyyy}"
+# where: fragment("? ~ ?", x.inserted_at, ^regex)
+
+# date_parts = String.split(date, "/")
+# month = date_parts |> Enum.at(0) |> String.to_integer()
+# day = date_parts |> Enum.at(1) |> String.to_integer()
+# year = date_parts |> Enum.at(2) |> String.to_integer()
+
+# def get_all_distinct_vendors() do
+#   q = 
+#     from(
+#       x in SalesByVendor, 
+#       distinct: true, 
+#       select: x.h2, 
+#       order_by: [x.h2]
+#     )                            # comes back as array, 
+#   sales_by_vendors = Repo.all(q) # don't need to take out __meta__ and __struct__
+# end

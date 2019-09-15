@@ -3,7 +3,11 @@ alias NimbleCSV.RFC4180, as: CSVParser
 defmodule Csv do
   alias SalesByVendor.SalesByVendor
 
+  require Logger
+
   def insert_new_sales(file_binary) do
+    Logger.info DateTime.utc_now
+    Logger.info file_binary
     csv = 
       file_binary
       |> String.split("\r\n")

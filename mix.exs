@@ -47,7 +47,9 @@ defmodule SalesByVendor.MixProject do
       {:comeonin, "~> 4.1"}, {:bcrypt_elixir, "~> 1.0"}, {:pbkdf2_elixir, "~> 0.12"}, 
       {:poison, "~> 2.0"}, 
       {:httpotion, "~> 3.1.0"}, 
-      {:timex, "~> 3.1"},
+      {:timex, "~> 3.1"}, 
+      {:decimal, "~> 1.0"}, 
+      {:logger_file_backend, "~> 0.0.10"}, 
     ]
   end
 

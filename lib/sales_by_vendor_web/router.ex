@@ -22,6 +22,7 @@ defmodule SalesByVendorWeb.Router do
     get "/sales-by-vendor/:id", PageController, :index
     get "reports", ReportController, :index
     get "/reports/dtd", ReportController, :dtd
+    get "/reports/wtd", ReportController, :wtd
     get "/reports/mtd", ReportController, :mtd
     get "/reports/ytd", ReportController, :ytd
     resources "/password", PasswordController, only: [:new, :create]
