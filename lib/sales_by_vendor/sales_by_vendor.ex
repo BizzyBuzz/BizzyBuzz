@@ -201,36 +201,36 @@ defmodule SalesByVendor.SalesByVendor do
     create(%{a: a, b: b, c: c, d: d, e: e, f: f, g: g, h: h, i: i, j: j, k: k, k2: k2, l: l, m: m, n: n, o: o, p: p, q: q, r: r, s: s, t: t, u: u, v: v, w: w, x: x, y: y, z: z, aa: aa, bb: bb, cc: cc, dd: dd, ee: ee, ff: ff, gg: gg, hh: hh})
   end
 
-  def get_ytd(username) do
-    yyyy = Functions.now_year_in_utc()
-    q = 
-      from x in SalesByVendor, 
-      where: fragment("date_part('year', ?)", x.inserted_at) == ^yyyy 
-      # where: like(x.i, ^"%#{yyyy}")
-      and x.h == ^username
-    sales_by_vendors = Repo.all(q)
-    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
-      sales_by_vendor
-      |> Map.delete(:__meta__)
-      |> Map.delete(:__struct__)
-    end)
-  end
-
-  def get_all_vendors_ytd() do
-    yyyy = Functions.now_year_in_utc()
-    q = 
-      from x in SalesByVendor, 
-      where: fragment("date_part('year', ?)", x.inserted_at) == ^yyyy, 
-      order_by: fragment("lower(?) ASC", x.h2)
-    sales_by_vendors = Repo.all(q)
-    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
-      sales_by_vendor
-      |> Map.delete(:__meta__)
-      |> Map.delete(:__struct__)
-    end)
-  end
-
 end
+
+# def get_ytd(username) do
+#   yyyy = Functions.now_year_in_utc()
+#   q = 
+#     from x in SalesByVendor, 
+#     where: fragment("date_part('year', ?)", x.inserted_at) == ^yyyy 
+#     # where: like(x.i, ^"%#{yyyy}")
+#     and x.h == ^username
+#   sales_by_vendors = Repo.all(q)
+#   sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+#     sales_by_vendor
+#     |> Map.delete(:__meta__)
+#     |> Map.delete(:__struct__)
+#   end)
+# end
+
+# def get_all_vendors_ytd() do
+#   yyyy = Functions.now_year_in_utc()
+#   q = 
+#     from x in SalesByVendor, 
+#     where: fragment("date_part('year', ?)", x.inserted_at) == ^yyyy, 
+#     order_by: fragment("lower(?) ASC", x.h2)
+#   sales_by_vendors = Repo.all(q)
+#   sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+#     sales_by_vendor
+#     |> Map.delete(:__meta__)
+#     |> Map.delete(:__struct__)
+#   end)
+# end
 
 # where: like(x.i, ^"%#{yyyy}"), 
 

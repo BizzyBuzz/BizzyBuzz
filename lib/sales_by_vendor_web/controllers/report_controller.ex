@@ -191,23 +191,24 @@ defmodule SalesByVendorWeb.ReportController do
     end
   end
 
-  def ytd(conn, params) do
-    ytd = 
-      if conn.assigns.current_user.admin do
-        all_vendors_ytd = SalesByVendor.get_all_vendors_ytd()
-        total_v = SalesByVendor.calc_total(all_vendors_ytd, :v)
-        ytd = %{sales_by_vendors: all_vendors_ytd, total_v: total_v} 
-      else
-        username = conn.assigns.current_user.username
-        vendor_ytd = SalesByVendor.get_ytd(username)
-        total_v = SalesByVendor.calc_total(vendor_ytd, :v)
-        ytd = %{sales_by_vendors: vendor_ytd, total_v: total_v}
-      end
-    render(conn, "ytd.html", ytd)
-  end
-
 end
 
 # FOR GARBAGE COLLECTION
+
+# def ytd(conn, params) do
+#   ytd = 
+#     if conn.assigns.current_user.admin do
+#       all_vendors_ytd = SalesByVendor.get_all_vendors_ytd()
+#       total_v = SalesByVendor.calc_total(all_vendors_ytd, :v)
+#       ytd = %{sales_by_vendors: all_vendors_ytd, total_v: total_v} 
+#     else
+#       username = conn.assigns.current_user.username
+#       vendor_ytd = SalesByVendor.get_ytd(username)
+#       total_v = SalesByVendor.calc_total(vendor_ytd, :v)
+#       ytd = %{sales_by_vendors: vendor_ytd, total_v: total_v}
+#     end
+#   render(conn, "ytd.html", ytd)
+# end
+
 # mtd = SalesByVendor.get_mtd(params["month"], params["year"]) 
 # vendor_dtd = SalesByVendor.get_dtd(vendor, params["date"])
