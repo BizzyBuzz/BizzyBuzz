@@ -80,7 +80,6 @@ defmodule SalesByVendor.SalesByVendor do
     %{s: s, e: e} = Functions.mon_to_sun(day_of_week)
     start_date_time = utc_now |> Timex.shift(days: -s)
     end_date_time = utc_now
-
     q = 
       from x in SalesByVendor, 
       where: x.inserted_at >= ^start_date_time

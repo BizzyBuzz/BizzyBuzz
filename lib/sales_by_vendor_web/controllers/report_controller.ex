@@ -80,7 +80,7 @@ defmodule SalesByVendorWeb.ReportController do
         total_cc = SalesByVendor.calc_total(all_vendors_wtd, :cc)
         total_dd = SalesByVendor.calc_total(all_vendors_wtd, :dd)
         total_gg = SalesByVendor.calc_total(all_vendors_wtd, :gg)
-        dtd = %{
+        wtd = %{
           sales_by_vendors: all_vendors_wtd, 
           total_o: total_o, 
           total_p: total_p, 
@@ -106,7 +106,7 @@ defmodule SalesByVendorWeb.ReportController do
         total_cc = SalesByVendor.calc_total(vendor_wtd, :cc)
         total_dd = SalesByVendor.calc_total(vendor_wtd, :dd)
         total_gg = SalesByVendor.calc_total(vendor_wtd, :gg)
-        dtd = %{
+        wtd = %{
           sales_by_vendors: vendor_wtd, 
           total_o: total_o, 
           total_p: total_p, 
@@ -137,7 +137,7 @@ defmodule SalesByVendorWeb.ReportController do
         total_cc = SalesByVendor.calc_total(all_vendors_mtd, :cc)
         total_dd = SalesByVendor.calc_total(all_vendors_mtd, :dd)
         total_gg = SalesByVendor.calc_total(all_vendors_mtd, :gg)
-        dtd = %{
+        mtd = %{
           sales_by_vendors: all_vendors_mtd, 
           total_o: total_o, 
           total_p: total_p, 
@@ -163,7 +163,7 @@ defmodule SalesByVendorWeb.ReportController do
         total_cc = SalesByVendor.calc_total(vendor_mtd, :cc)
         total_dd = SalesByVendor.calc_total(vendor_mtd, :dd)
         total_gg = SalesByVendor.calc_total(vendor_mtd, :gg)
-        dtd = %{
+        mtd = %{
           sales_by_vendors: vendor_mtd, 
           total_o: total_o, 
           total_p: total_p, 
