@@ -11,10 +11,10 @@ defmodule SalesByVendor.SalesByVendor.SalesByVendor do
     field(:f, :string)
     field(:g, :string)
     field(:h, :string)
-    field(:h2, :string)
     field(:i, :string)
     field(:j, :string)
     field(:k, :string)
+    field(:k2, :string)
     field(:l, :string)
     field(:m, :string)
     field(:n, :string)
@@ -28,12 +28,22 @@ defmodule SalesByVendor.SalesByVendor.SalesByVendor do
     field(:v, :string)
     field(:w, :string)
     field(:x, :string)
+    field(:y, :string)
+    field(:z, :string)
+    field(:aa, :string)
+    field(:bb, :string)
+    field(:cc, :string)
+    field(:dd, :string)
+    field(:ee, :string)
+    field(:ff, :string)
+    field(:gg, :string)
+    field(:hh, :string)
     timestamps()
   end
 
   def changeset(struct, attrs) do
     struct
-    |> cast(attrs, [:a, :b, :c, :d, :e, :f, :g, :h, :h2, :i, :j, :k, :l, :m, :n, :o, :p, :q, :r, :s, :t, :u, :v, :w, :x])
+    |> cast(attrs, [:a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :k2, :l, :m, :n, :o, :p, :q, :r, :s, :t, :u, :v, :w, :x, :y, :z, :aa, :bb, :cc, :dd, :ee, :ff, :gg, :hh])
   end
 
 end

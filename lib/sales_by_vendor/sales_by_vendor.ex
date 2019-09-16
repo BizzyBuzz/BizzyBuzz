@@ -30,8 +30,10 @@ defmodule SalesByVendor.SalesByVendor do
     %{sales_by_vendors: sales_by_vendors}
   end
 
-  def get_dtd(username) do 
-    yesterday = DateTime.utc_now |> Timex.shift(days: -1) # ~U[2019-09-13 19:02:07.627417Z]
+  def get_dtd(username) do
+    today = DateTime.utc_now 
+    
+    yesterday = today |> Timex.shift(days: -1) # ~U[2019-09-13 19:02:07.627417Z]
     m = yesterday.month
     d = yesterday.day 
     yyyy = yesterday.year
@@ -39,9 +41,9 @@ defmodule SalesByVendor.SalesByVendor do
     q = 
       from x in SalesByVendor, 
       where: fragment("date_part('month', ?)", x.inserted_at) == ^m
-      and fragment("date_part('day', ?)", x.inserted_at) == ^d
+      and fragment("date_part('day', ?)", x.inserted_at) >= ^d
       and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy
-      and x.h == ^username
+      and x.k == ^username
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -60,9 +62,9 @@ defmodule SalesByVendor.SalesByVendor do
     q = 
       from x in SalesByVendor, 
       where: fragment("date_part('month', ?)", x.inserted_at) == ^m
-      and fragment("date_part('day', ?)", x.inserted_at) == ^d
+      and fragment("date_part('day', ?)", x.inserted_at) >= ^d
       and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy, 
-      order_by: fragment("lower(?) ASC", x.h2)
+      order_by: fragment("lower(?) ASC", x.k2)
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -148,7 +150,12 @@ defmodule SalesByVendor.SalesByVendor do
     total = 
       Enum.reduce(all_vendors, 0, fn vendor, acc ->  
         if vendor[column] do
-          amount = vendor[column] |> String.replace("$", "") |> String.replace(",", "") |> Decimal.new()
+          amount = 
+            vendor[column] 
+            |> String.replace("$", "") 
+            |> String.replace(",", "")
+            |> String.replace(" ", "") 
+            |> Decimal.new()
           Decimal.add(amount, acc)
         else
           acc
@@ -165,10 +172,10 @@ defmodule SalesByVendor.SalesByVendor do
     f = row |> Enum.at(5) 
     g = row |> Enum.at(6)
     h = row |> Enum.at(7)
-    h2 = row |> Enum.at(8)
-    i = row |> Enum.at(9)
-    j = row |> Enum.at(10)
-    k = row |> Enum.at(11)
+    i = row |> Enum.at(8)
+    j = row |> Enum.at(9)
+    k = row |> Enum.at(10)
+    k2 = row |> Enum.at(11)
     l = row |> Enum.at(12)
     m = row |> Enum.at(13)
     n = row |> Enum.at(14)
@@ -182,7 +189,17 @@ defmodule SalesByVendor.SalesByVendor do
     v = row |> Enum.at(22)
     w = row |> Enum.at(23)
     x = row |> Enum.at(24)
-    create(%{a: a, b: b, c: c, d: d, e: e, f: f, g: g, h: h, h2: h2, i: i, j: j, k: k, l: l, m: m, n: n, o: o, p: p, q: q, r: r, s: s, t: t, u: u, v: v, w: w, x: x})
+    y = row |> Enum.at(25)
+    z = row |> Enum.at(26)
+    aa = row |> Enum.at(27)
+    bb = row |> Enum.at(28)
+    cc = row |> Enum.at(29)
+    dd = row |> Enum.at(30)
+    ee = row |> Enum.at(31)
+    ff = row |> Enum.at(32)
+    gg = row |> Enum.at(33)
+    hh = row |> Enum.at(34)
+    create(%{a: a, b: b, c: c, d: d, e: e, f: f, g: g, h: h, i: i, j: j, k: k, k2: k2, l: l, m: m, n: n, o: o, p: p, q: q, r: r, s: s, t: t, u: u, v: v, w: w, x: x, y: y, z: z, aa: aa, bb: bb, cc: cc, dd: dd, ee: ee, ff: ff, gg: gg, hh: hh})
   end
 
   def get_ytd(username) do

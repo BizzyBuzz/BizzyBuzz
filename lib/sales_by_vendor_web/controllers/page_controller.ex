@@ -1,6 +1,7 @@
 defmodule SalesByVendorWeb.PageController do
   use SalesByVendorWeb, :controller
 
+  alias SalesByVendor.Functions
   alias SalesByVendor.Logs
 
   plug :authenticate when action not in [:dashboard, :insert_new_sales]
@@ -26,7 +27,12 @@ defmodule SalesByVendorWeb.PageController do
   
       Csv.insert_new_sales(file_binary)
   
-      # csv_filename = "#{Bcs.Functions.create_timestamp()}.csv"
+      # csv = 
+      # file_binary
+      # |> String.split("\r\n")
+      # csv = ["a,b,c,d,e,f,g,h,i,j,k,k2, LLC,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,aa,bb,cc,dd,ee,ff,gg,hh"]
+      # csv_filename = "#{Functions.create_timestamp()}.csv"
+      # File.write!("#{csv_filename}", csv) # |> Functions.to_csv())
       # {:ok, file} = File.open("hello", [:write])
       # IO.binwrite(file, "world")
       # File.close(file)

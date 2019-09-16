@@ -4,6 +4,7 @@ Yesterday's Sales
   <table>
     <tbody>
       <tr>
+        <th>create date</th>
         <th>a</th>
         <th>b</th>
         <th>c</th>
@@ -12,10 +13,10 @@ Yesterday's Sales
         <th>f</th>
         <th>g</th>
         <th>h</th>
-        <th>h2</th>
         <th>i</th>
         <th>j</th>
         <th>k</th>
+        <th>k2</th>
         <th>l</th>
         <th>m</th>
         <th>n</th>
@@ -29,10 +30,20 @@ Yesterday's Sales
         <th>v</th>
         <th>w</th>
         <th>x</th>
-        <th>create date</th>
+        <th>y</th>
+        <th>z</th>
+        <th>aa</th>
+        <th>bb</th>
+        <th>cc</th>
+        <th>dd</th>
+        <th>ee</th>
+        <th>ff</th>
+        <th>gg</th>
+        <th>hh</th>
       </tr>
   <%= for sales_by_vendor <- @sales_by_vendors do %>
     <tr>
+      <td><%= sales_by_vendor.inserted_at %></td>
       <td><%= sales_by_vendor.a %></td>
       <td><%= sales_by_vendor.b %></td>
       <td><%= sales_by_vendor.c %></td>
@@ -41,10 +52,10 @@ Yesterday's Sales
       <td><%= sales_by_vendor.f %></td>
       <td><%= sales_by_vendor.g %></td>
       <td><%= sales_by_vendor.h %></td>
-      <td><%= sales_by_vendor.h2 %></td>
       <td><%= sales_by_vendor.i %></td>
       <td><%= sales_by_vendor.j %></td>
       <td><%= sales_by_vendor.k %></td>
+      <td><%= sales_by_vendor.k2 %></td>
       <td><%= sales_by_vendor.l %></td>
       <td><%= sales_by_vendor.m %></td>
       <td><%= sales_by_vendor.n %></td>
@@ -58,7 +69,16 @@ Yesterday's Sales
       <td><%= sales_by_vendor.v %></td>
       <td><%= sales_by_vendor.w %></td>
       <td><%= sales_by_vendor.x %></td>
-      <td><%= sales_by_vendor.inserted_at %></td>
+      <td><%= sales_by_vendor.y %></td>
+      <td><%= sales_by_vendor.z %></td>
+      <td><%= sales_by_vendor.aa %></td>
+      <td><%= sales_by_vendor.bb %></td>
+      <td><%= sales_by_vendor.cc %></td>
+      <td><%= sales_by_vendor.dd %></td>
+      <td><%= sales_by_vendor.ee %></td>
+      <td><%= sales_by_vendor.ff %></td>
+      <td><%= sales_by_vendor.gg %></td>
+      <td><%= sales_by_vendor.hh %></td>
     </tr>
   <% end %>
   <tr>
@@ -76,17 +96,27 @@ Yesterday's Sales
     <td></td>
     <td></td>
     <td></td>
-    <td><%= @total_n %></td>
     <td></td>
     <td></td>
-    <td><%= @total_q %></td>
+    <td><%= @total_o %></td>
+    <td><%= @total_p %></td>
     <td></td>
     <td></td>
-    <td><%= @total_t %></td>
+    <td><%= @total_s %></td>
+    <td></td>
     <td></td>
     <td><%= @total_v %></td>
     <td><%= @total_w %></td>
     <td></td>
+    <td></td>
+    <td><%= @total_z %></td>
+    <td></td>
+    <td><%= @total_bb %></td>
+    <td><%= @total_cc %></td>
+    <td><%= @total_dd %></td>
+    <td></td>
+    <td></td>
+    <td><%= @total_gg %></td>
     <td></td>
   </tr>
 </section>

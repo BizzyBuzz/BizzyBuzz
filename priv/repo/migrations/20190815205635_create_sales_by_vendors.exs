@@ -11,10 +11,10 @@ defmodule SalesByVendor.Repo.Migrations.CreateSalesByVendors do
       add :f, :string
       add :g, :string
       add :h, :string
-      add :h2, :string
       add :i, :string
       add :j, :string
       add :k, :string
+      add :k2, :string
       add :l, :string
       add :m, :string
       add :n, :string
@@ -28,6 +28,16 @@ defmodule SalesByVendor.Repo.Migrations.CreateSalesByVendors do
       add :v, :string
       add :w, :string
       add :x, :string
+      add :y, :string
+      add :z, :string
+      add :aa, :string
+      add :bb, :string
+      add :cc, :string
+      add :dd, :string
+      add :ee, :string
+      add :ff, :string
+      add :gg, :string
+      add :hh, :string
       timestamps()
     end
   end
