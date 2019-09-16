@@ -10,6 +10,14 @@ defmodule SalesByVendor.Functions do
     to_string(time_stamp)
   end
 
+  def local_to_utc_date_time(local_date_time) do
+    [{utc_date, utc_time}] = # [{{2019, 5, 24}, {19, 0, 0}}]
+      local_date_time |> :calendar.local_time_to_universal_time_dst()
+    {:ok, utc_date_elixir} = Date.from_erl(utc_date) # {:ok, ~D[2019-05-24]}
+    {:ok, utc_time_elixir} = Time.from_erl(utc_time) # {:ok, ~T[19:00:00]}
+    NaiveDateTime.new(utc_date_elixir, utc_time_elixir) # {:ok, ~N[2019-05-24 19:00:00]}
+  end
+
   def mon_to_sun(day_of_week) do # mon_to_sun(7) -> %{s: 1, e: 7}
     %{s: s, e: e} = 
       case day_of_week do

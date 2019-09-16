@@ -5,7 +5,7 @@ defmodule Csv do
 
   require Logger
 
-  def insert_new_sales(file_binary) do
+  def insert_new_sales(file_binary) do # appends actually
     Logger.info DateTime.utc_now
     Logger.info file_binary
     csv = 
