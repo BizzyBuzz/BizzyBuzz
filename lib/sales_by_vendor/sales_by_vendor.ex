@@ -31,7 +31,7 @@ defmodule SalesByVendor.SalesByVendor do
   end
 
   def get_dtd(username, client_now_utc) do
-    # convert client_now to elixir
+    # convert client_now_utc to elixir
     {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
     
     yesterday = client_now_utc |> Timex.shift(days: -1) # ~U[2019-09-13 19:02:07.627417Z]
@@ -55,7 +55,7 @@ defmodule SalesByVendor.SalesByVendor do
   end
 
   def get_all_vendors_dtd(client_now_utc) do # "2019-9-16 22:07:02" -> {:ok, ~N[2019-09-16 22:07:07]}
-    # convert client_now to elixir
+    # convert client_now_utc to elixir
     {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
 
     yesterday = client_now_utc |> Timex.shift(days: -1)
@@ -79,7 +79,6 @@ defmodule SalesByVendor.SalesByVendor do
   end
 
   def get_wtd(username, client_now_utc) do
-    IO.inspect client_now_utc
     {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
     day_of_week = Date.day_of_week client_now_utc
     %{s: s, e: e} = Functions.mon_to_sun(day_of_week)

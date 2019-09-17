@@ -33,7 +33,17 @@
     return months[short]
   }
 
-  function long_to_short_date_time(date_time) { // "Wed, 06 Mar 2019 18:30:00 GMT" -> "2019-3-06 18:30:00"
+  function long_to_short_date_time(date_time) { // "Wed, 06 Mar 2019 18:30:00 GMT" -> "2019-3-06 00:00:00"
+    var dateTimeParts = date_time.split(" ")
+    var day = dateTimeParts[1]
+    var month = short_to_month_number(dateTimeParts[2])
+    var year = dateTimeParts[3]
+    var time = dateTimeParts[4]
+    var date_time = `${year}-${month}-${day} 00:00:00`
+    return date_time
+  }
+
+  function long_to_short_date_time_2(date_time) { // "Wed, 06 Mar 2019 18:30:00 GMT" -> "2019-3-06 18:30:00"
     var dateTimeParts = date_time.split(" ")
     var day = dateTimeParts[1]
     var month = short_to_month_number(dateTimeParts[2])
@@ -56,7 +66,7 @@
   document.getElementById("wtdLink").addEventListener("click", e => {
     var now = getLocalTime();
     var utc = now.toUTCString()
-    utc = long_to_short_date_time(utc)
+    utc = long_to_short_date_time_2(utc)
  
     window.location = "reports/wtd?client_now_utc=" + utc
 
@@ -66,7 +76,7 @@
   document.getElementById("mtdLink").addEventListener("click", e => {
     var now = getLocalTime();
     var utc = now.toUTCString()
-    utc = long_to_short_date_time(utc)
+    utc = long_to_short_date_time_2(utc)
  
     window.location = "reports/mtd?client_now_utc=" + utc
 
