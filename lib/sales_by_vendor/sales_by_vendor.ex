@@ -20,7 +20,7 @@ defmodule SalesByVendor.SalesByVendor do
   def get_all(:id, id) do
     q = 
       from x in SalesByVendor, 
-      where: x.h == ^id
+      where: x.k == ^id
     sales_by_vendors = Repo.all(q)
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
       sales_by_vendor
@@ -30,10 +30,11 @@ defmodule SalesByVendor.SalesByVendor do
     %{sales_by_vendors: sales_by_vendors}
   end
 
-  def get_dtd(username) do
-    today = DateTime.utc_now 
+  def get_dtd(username, client_now_utc) do
+    # convert client_now to elixir
+    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
     
-    yesterday = today |> Timex.shift(days: -1) # ~U[2019-09-13 19:02:07.627417Z]
+    yesterday = client_now_utc |> Timex.shift(days: -1) # ~U[2019-09-13 19:02:07.627417Z]
     m = yesterday.month
     d = yesterday.day 
     yyyy = yesterday.year
@@ -53,8 +54,11 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_all_vendors_dtd() do
-    yesterday = DateTime.utc_now |> Timex.shift(days: -1)
+  def get_all_vendors_dtd(client_now_utc) do # "2019-9-16 22:07:02" -> {:ok, ~N[2019-09-16 22:07:07]}
+    # convert client_now to elixir
+    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
+
+    yesterday = client_now_utc |> Timex.shift(days: -1)
     m = yesterday.month
     d = yesterday.day 
     yyyy = yesterday.year
@@ -74,17 +78,18 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_wtd(username) do
-    utc_now = DateTime.utc_now
-    day_of_week = Date.day_of_week utc_now
+  def get_wtd(username, client_now_utc) do
+    IO.inspect client_now_utc
+    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
+    day_of_week = Date.day_of_week client_now_utc
     %{s: s, e: e} = Functions.mon_to_sun(day_of_week)
-    start_date_time = utc_now |> Timex.shift(days: -s)
-    end_date_time = utc_now
+    start_date_time = client_now_utc |> Timex.shift(days: -s)
+    end_date_time = client_now_utc
     q = 
       from x in SalesByVendor, 
       where: x.inserted_at >= ^start_date_time
       and x.inserted_at <= ^end_date_time
-      and x.h == ^username
+      and x.k == ^username
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -94,12 +99,12 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_all_vendors_wtd() do
-    utc_now = DateTime.utc_now
-    day_of_week = Date.day_of_week utc_now
+  def get_all_vendors_wtd(client_now_utc) do
+    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
+    day_of_week = Date.day_of_week client_now_utc
     %{s: s, e: e} = Functions.mon_to_sun(day_of_week)
-    start_date_time = utc_now |> Timex.shift(days: -s)
-    end_date_time = utc_now
+    start_date_time = client_now_utc |> Timex.shift(days: -s)
+    end_date_time = client_now_utc
     
     q = 
       from x in SalesByVendor,
@@ -114,15 +119,18 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_mtd(username) do
-    m = DateTime.utc_now.month
-    yyyy = DateTime.utc_now.year
+  def get_mtd(username, client_now_utc) do
+    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
+    m = client_now_utc.month
+    yyyy = client_now_utc.year
+
     q = 
       from x in SalesByVendor, 
       where: fragment("date_part('month', ?)", x.inserted_at) == ^m
       and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy 
-      and x.h == ^username
+      and x.k == ^username
     sales_by_vendors = Repo.all(q)
+
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
       sales_by_vendor
       |> Map.delete(:__meta__)
@@ -130,14 +138,17 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_all_vendors_mtd() do
-    m = DateTime.utc_now.month
-    yyyy = DateTime.utc_now.year
+  def get_all_vendors_mtd(client_now_utc) do
+    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
+    m = client_now_utc.month
+    yyyy = client_now_utc.year
+
     q = 
       from x in SalesByVendor, 
       where: fragment("date_part('month', ?)", x.inserted_at) == ^m
       and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy
     sales_by_vendors = Repo.all(q)
+    
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
       sales_by_vendor
       |> Map.delete(:__meta__)

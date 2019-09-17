@@ -6,6 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Bizzy</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script type="application/javascript">
+      function day_ordinal(dayNumber) {
+        var str_values = ["th", "st", "nd", "rd"];
+        var values = dayNumber % 100;
+        var dayOrdinal = dayNumber + (str_values[(values - 20) % 10] || str_values[values] || str_values[0])
+      
+        return dayOrdinal
+      }
+      function month_name(monthNumber) {
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        var monthName = monthNames[monthNumber - 1]
+  
+        return monthName
+      }
+
+      function extract_date_time(date) {
+        if (date === null) return
+        var d = new Date(date.toString()) // 2019-02-11T21:10:31 ->
+        var dStr = d.toString() // Mon Feb 11 2019 21:10:31 GMT-0500 (Eastern Standard Time)
+        var n = dStr.lastIndexOf(":")
+        var dStrUtc = dStr.substring(0, n + 4) + "GMT" // Mon Feb 11 2019 21:10:31 GMT
+        var dLocal = new Date(dStrUtc) // Mon Feb 11 2019 16:10:31 GMT-0500 (Eastern Standard Time)
+        var time = dLocal.toLocaleTimeString() // 4:10:31 PM
+        dLocal = dLocal.toLocaleDateString() // 2/11/2019
+      
+        // now parse it
+        var parts = dLocal.split('/')
+        var month = parts[0]
+        var monthName = month_name(month)
+        var day = parts[1]
+        var dayOrdinal = day_ordinal(day)
+        var year = parts[2]
+      
+        return {
+          monthName: monthName, 
+          dayOrdinal: dayOrdinal,
+          year: year,  
+          time: time
+        }
+      }
+    </script>
   </head>
   <body>
     <header>

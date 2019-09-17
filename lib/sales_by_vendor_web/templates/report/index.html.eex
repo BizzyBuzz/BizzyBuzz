@@ -1,9 +1,76 @@
 <section class="row">
-  <a href="reports/dtd">Yesterday's Sales</a>
+  <a id="dtdLink">Yesterday's Sales</a>
 </section>
 <section class="row">
-  <a href="reports/wtd">This Week's Sales</a>
+  <a id="wtdLink">This Week's Sales</a>
 </section>
 <section class="row">
-  <a href="reports/mtd">This Month's Sales</a>
+  <a id="mtdLink">This Month's Sales</a>
 </section>
+
+<script type="application/javascript">
+
+  function getLocalTime() {
+    var now = new Date();
+    
+    return now;
+  }
+
+  function short_to_month_number(short) {
+    const months = {
+      'Jan': 1, 
+      'Feb': 2, 
+      'Mar': 3, 
+      'Apr': 4, 
+      'May': 5, 
+      'Jun': 6, 
+      'Jul': 7, 
+      'Aug': 8, 
+      'Sep': 9, 
+      'Oct': 10, 
+      'Nov': 11, 
+      'Dec': 12}
+    return months[short]
+  }
+
+  function long_to_short_date_time(date_time) { // "Wed, 06 Mar 2019 18:30:00 GMT" -> "2019-3-06 18:30:00"
+    var dateTimeParts = date_time.split(" ")
+    var day = dateTimeParts[1]
+    var month = short_to_month_number(dateTimeParts[2])
+    var year = dateTimeParts[3]
+    var time = dateTimeParts[4]
+    var date_time = `${year}-${month}-${day} ${time}`
+    return date_time
+  }
+  
+  document.getElementById("dtdLink").addEventListener("click", e => {
+    var now = getLocalTime();
+    var utc = now.toUTCString()
+    utc = long_to_short_date_time(utc)
+ 
+    window.location = "reports/dtd?client_now_utc=" + utc
+
+    return false;
+  }) 
+
+  document.getElementById("wtdLink").addEventListener("click", e => {
+    var now = getLocalTime();
+    var utc = now.toUTCString()
+    utc = long_to_short_date_time(utc)
+ 
+    window.location = "reports/wtd?client_now_utc=" + utc
+
+    return false;
+  }) 
+
+  document.getElementById("mtdLink").addEventListener("click", e => {
+    var now = getLocalTime();
+    var utc = now.toUTCString()
+    utc = long_to_short_date_time(utc)
+ 
+    window.location = "reports/mtd?client_now_utc=" + utc
+
+    return false;
+  }) 
+
+</script>

@@ -10,9 +10,10 @@ defmodule SalesByVendorWeb.ReportController do
   end
 
   def dtd(conn, params) do # yesterday
+    client_now_utc = params["client_now_utc"]
     dtd =
       if conn.assigns.current_user.admin do
-        all_vendors_dtd = SalesByVendor.get_all_vendors_dtd()
+        all_vendors_dtd = SalesByVendor.get_all_vendors_dtd(client_now_utc)
         total_o = SalesByVendor.calc_total(all_vendors_dtd, :o)
         total_p = SalesByVendor.calc_total(all_vendors_dtd, :p)
         total_s = SalesByVendor.calc_total(all_vendors_dtd, :s)
@@ -38,7 +39,7 @@ defmodule SalesByVendorWeb.ReportController do
         } 
       else
         username = conn.assigns.current_user.username
-        vendor_dtd = SalesByVendor.get_dtd(username)
+        vendor_dtd = SalesByVendor.get_dtd(username, client_now_utc)
         total_o = SalesByVendor.calc_total(vendor_dtd, :o)
         total_p = SalesByVendor.calc_total(vendor_dtd, :p)
         total_s = SalesByVendor.calc_total(vendor_dtd, :s)
@@ -67,9 +68,10 @@ defmodule SalesByVendorWeb.ReportController do
   end
 
   def wtd(conn, params) do
+    client_now_utc = params["client_now_utc"]
     wtd = 
       if conn.assigns.current_user.admin do
-        all_vendors_wtd = SalesByVendor.get_all_vendors_wtd()
+        all_vendors_wtd = SalesByVendor.get_all_vendors_wtd(client_now_utc)
         total_o = SalesByVendor.calc_total(all_vendors_wtd, :o)
         total_p = SalesByVendor.calc_total(all_vendors_wtd, :p)
         total_s = SalesByVendor.calc_total(all_vendors_wtd, :s)
@@ -95,7 +97,7 @@ defmodule SalesByVendorWeb.ReportController do
         } 
       else
         username = conn.assigns.current_user.username
-        vendor_wtd = SalesByVendor.get_wtd(username)
+        vendor_wtd = SalesByVendor.get_wtd(username, client_now_utc)
         total_o = SalesByVendor.calc_total(vendor_wtd, :o)
         total_p = SalesByVendor.calc_total(vendor_wtd, :p)
         total_s = SalesByVendor.calc_total(vendor_wtd, :s)
@@ -124,9 +126,10 @@ defmodule SalesByVendorWeb.ReportController do
   end
 
   def mtd(conn, params) do
+    client_now_utc = params["client_now_utc"]
     mtd = 
       if conn.assigns.current_user.admin do
-        all_vendors_mtd = SalesByVendor.get_all_vendors_mtd()
+        all_vendors_mtd = SalesByVendor.get_all_vendors_mtd(client_now_utc)
         total_o = SalesByVendor.calc_total(all_vendors_mtd, :o)
         total_p = SalesByVendor.calc_total(all_vendors_mtd, :p)
         total_s = SalesByVendor.calc_total(all_vendors_mtd, :s)
@@ -152,7 +155,7 @@ defmodule SalesByVendorWeb.ReportController do
         } 
       else
         username = conn.assigns.current_user.username
-        vendor_mtd = SalesByVendor.get_mtd(username)
+        vendor_mtd = SalesByVendor.get_mtd(username, client_now_utc)
         total_o = SalesByVendor.calc_total(vendor_mtd, :o)
         total_p = SalesByVendor.calc_total(vendor_mtd, :p)
         total_s = SalesByVendor.calc_total(vendor_mtd, :s)
