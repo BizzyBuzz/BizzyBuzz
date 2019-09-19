@@ -119,15 +119,16 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_mtd(username, client_now_utc) do
-    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
-    m = client_now_utc.month
-    yyyy = client_now_utc.year
+  def get_mtd(username, client_month_start_utc, client_month_end_utc) do
+    {:ok, client_month_start_utc} = Functions.to_elixir_date_time(client_month_start_utc)
+    {:ok, client_month_end_utc} = Functions.to_elixir_date_time(client_month_end_utc)
 
     q = 
       from x in SalesByVendor, 
-      where: fragment("date_part('month', ?)", x.inserted_at) == ^m
-      and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy 
+      where: x.inserted_at >= ^client_month_start_utc
+      and x.inserted_at <= ^client_month_end_utc
+      # where: fragment("date_part('month', ?)", x.inserted_at) == ^m
+      # and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy 
       and x.k == ^username
     sales_by_vendors = Repo.all(q)
 
@@ -141,8 +142,7 @@ defmodule SalesByVendor.SalesByVendor do
   def get_all_vendors_mtd(client_month_start_utc, client_month_end_utc) do
     {:ok, client_month_start_utc} = Functions.to_elixir_date_time(client_month_start_utc)
     {:ok, client_month_end_utc} = Functions.to_elixir_date_time(client_month_end_utc)
-    IO.inspect client_month_start_utc
-    IO.inspect client_month_end_utc
+
     q = 
       from x in SalesByVendor, 
       where: x.inserted_at >= ^client_month_start_utc
