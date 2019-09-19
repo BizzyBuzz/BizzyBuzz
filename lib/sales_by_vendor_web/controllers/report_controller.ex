@@ -126,10 +126,11 @@ defmodule SalesByVendorWeb.ReportController do
   end
 
   def mtd(conn, params) do
-    client_now_utc = params["client_now_utc"]
+    client_month_start_utc = params["client_month_start_utc"]
+    client_month_end_utc = params["client_month_end_utc"]
     mtd = 
       if conn.assigns.current_user.admin do
-        all_vendors_mtd = SalesByVendor.get_all_vendors_mtd(client_now_utc)
+        all_vendors_mtd = SalesByVendor.get_all_vendors_mtd(client_month_start_utc, client_month_end_utc)
         total_o = SalesByVendor.calc_total(all_vendors_mtd, :o)
         total_p = SalesByVendor.calc_total(all_vendors_mtd, :p)
         total_s = SalesByVendor.calc_total(all_vendors_mtd, :s)
@@ -155,7 +156,7 @@ defmodule SalesByVendorWeb.ReportController do
         } 
       else
         username = conn.assigns.current_user.username
-        vendor_mtd = SalesByVendor.get_mtd(username, client_now_utc)
+        vendor_mtd = SalesByVendor.get_mtd(username, client_month_start_utc, client_month_end_utc)
         total_o = SalesByVendor.calc_total(vendor_mtd, :o)
         total_p = SalesByVendor.calc_total(vendor_mtd, :p)
         total_s = SalesByVendor.calc_total(vendor_mtd, :s)

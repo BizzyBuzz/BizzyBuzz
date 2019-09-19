@@ -7,18 +7,13 @@
     <title>Bizzy</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script type="application/javascript">
+
       function day_ordinal(dayNumber) {
         var str_values = ["th", "st", "nd", "rd"];
         var values = dayNumber % 100;
         var dayOrdinal = dayNumber + (str_values[(values - 20) % 10] || str_values[values] || str_values[0])
       
         return dayOrdinal
-      }
-      function month_name(monthNumber) {
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-        var monthName = monthNames[monthNumber - 1]
-  
-        return monthName
       }
 
       function extract_date_time(date) {
@@ -46,6 +41,79 @@
           time: time
         }
       }
+
+      function getLocalTime() {
+        var now = new Date();
+    
+        return now;
+      }
+    
+      function long_to_short_date_time(date_time) { // "Wed, 06 Mar 2019 18:30:00 GMT" -> "2019-3-06 00:00:00"
+        var dateTimeParts = date_time.split(" ")
+        var day = dateTimeParts[1]
+        var month = short_to_month_number(dateTimeParts[2])
+        var year = dateTimeParts[3]
+        var time = dateTimeParts[4]
+        var date_time = `${year}-${month}-${day} 00:00:00`
+        return date_time
+      }
+    
+      function long_to_short_date_time_2(date_time) { // "Wed, 06 Mar 2019 18:30:00 GMT" -> "2019-3-06 18:30:00"
+        var dateTimeParts = date_time.split(" ")
+        var day = dateTimeParts[1]
+        var month = short_to_month_number(dateTimeParts[2])
+        var year = dateTimeParts[3]
+        var time = dateTimeParts[4]
+        var date_time = `${year}-${month}-${day} ${time}`
+        return date_time
+      }
+          
+      function long_to_short_date_time_3(date_time) { // "Wed, 06 Mar 2019 18:30:00 GMT" -> "2019-3-06 00:00:00"
+        var dateTimeParts = date_time.split(" ")
+        var day = dateTimeParts[1]
+        var month = short_to_month_number(dateTimeParts[2])
+        var year = dateTimeParts[3]
+        var time = dateTimeParts[4]
+        var date_time = `${year}-${month}-${day} 23:59:59`
+        return date_time
+      }
+
+      function month_end_date_time(month, year) {
+        var d = new Date(year, month, 0)
+
+        return d
+      }
+
+      function month_name(monthNumber) {
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        var monthName = monthNames[monthNumber - 1]
+  
+        return monthName
+      }
+
+      function month_start_date_time(month, year) {
+        var d = new Date(year, month - 1, 1)
+
+        return d
+      }
+
+      function short_to_month_number(short) {
+        const months = {
+          'Jan': 1, 
+          'Feb': 2, 
+          'Mar': 3, 
+          'Apr': 4, 
+          'May': 5, 
+          'Jun': 6, 
+          'Jul': 7, 
+          'Aug': 8, 
+          'Sep': 9, 
+          'Oct': 10, 
+          'Nov': 11, 
+          'Dec': 12}
+        return months[short]
+      }
+
     </script>
   </head>
   <body>

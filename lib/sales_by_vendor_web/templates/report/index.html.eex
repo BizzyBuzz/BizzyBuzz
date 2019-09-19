@@ -9,49 +9,6 @@
 </section>
 
 <script type="application/javascript">
-
-  function getLocalTime() {
-    var now = new Date();
-    
-    return now;
-  }
-
-  function short_to_month_number(short) {
-    const months = {
-      'Jan': 1, 
-      'Feb': 2, 
-      'Mar': 3, 
-      'Apr': 4, 
-      'May': 5, 
-      'Jun': 6, 
-      'Jul': 7, 
-      'Aug': 8, 
-      'Sep': 9, 
-      'Oct': 10, 
-      'Nov': 11, 
-      'Dec': 12}
-    return months[short]
-  }
-
-  function long_to_short_date_time(date_time) { // "Wed, 06 Mar 2019 18:30:00 GMT" -> "2019-3-06 00:00:00"
-    var dateTimeParts = date_time.split(" ")
-    var day = dateTimeParts[1]
-    var month = short_to_month_number(dateTimeParts[2])
-    var year = dateTimeParts[3]
-    var time = dateTimeParts[4]
-    var date_time = `${year}-${month}-${day} 00:00:00`
-    return date_time
-  }
-
-  function long_to_short_date_time_2(date_time) { // "Wed, 06 Mar 2019 18:30:00 GMT" -> "2019-3-06 18:30:00"
-    var dateTimeParts = date_time.split(" ")
-    var day = dateTimeParts[1]
-    var month = short_to_month_number(dateTimeParts[2])
-    var year = dateTimeParts[3]
-    var time = dateTimeParts[4]
-    var date_time = `${year}-${month}-${day} ${time}`
-    return date_time
-  }
   
   document.getElementById("dtdLink").addEventListener("click", e => {
     var now = getLocalTime();
@@ -74,11 +31,20 @@
   }) 
 
   document.getElementById("mtdLink").addEventListener("click", e => {
-    var now = getLocalTime();
-    var utc = now.toUTCString()
-    utc = long_to_short_date_time_2(utc)
- 
-    window.location = "reports/mtd?client_now_utc=" + utc
+    var now = getLocalTime()
+    
+    utcMonth = now.getUTCMonth() + 1 // months are 0 based, add 1
+    utcYear = now.getUTCFullYear() // 2019
+
+    var monthStartUTC = month_start_date_time(utcMonth, utcYear)
+    var monthStartUTC = monthStartUTC.toUTCString()
+    monthStartUTC = long_to_short_date_time(monthStartUTC)
+
+    var monthEndUTC = month_end_date_time(utcMonth, utcYear)
+    monthEndUTC = monthEndUTC.toUTCString()
+    monthEndUTC = long_to_short_date_time_3(monthEndUTC)
+
+    window.location = "reports/mtd?client_month_start_utc=" + monthStartUTC + "&" + "client_month_end_utc=" + monthEndUTC
 
     return false;
   }) 
