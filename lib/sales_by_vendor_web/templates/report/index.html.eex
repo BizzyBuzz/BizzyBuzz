@@ -11,19 +11,18 @@
 <script type="application/javascript">
   
   document.getElementById("dtdLink").addEventListener("click", e => {
-    var now = getLocalTime();
-    var utc = now.toUTCString()
-    utc = long_to_short_date_time(utc)
- 
-    window.location = "reports/dtd?client_now_utc=" + utc
+    var now = getLocalTime()
+    
+    now = yesterday(now)
+    yesterdayStartUTC = now.toUTCString()
+    yesterdayStartUTC = long_to_short_date_time(yesterdayStartUTC)
+
+    window.location = "reports/dtd?client_yesterday_start_utc=" + yesterdayStartUTC
 
     return false;
   }) 
 
   document.getElementById("wtdLink").addEventListener("click", e => {
-    var s = 0
-    var e = 0
-
     var now = getLocalTime() // keep the original
     var now2 = new Date(now.valueOf()) // mutate the copy
 

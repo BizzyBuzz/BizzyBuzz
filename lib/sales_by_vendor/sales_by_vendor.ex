@@ -30,20 +30,16 @@ defmodule SalesByVendor.SalesByVendor do
     %{sales_by_vendors: sales_by_vendors}
   end
 
-  def get_dtd(username, client_now_utc) do
-    # convert client_now_utc to elixir
-    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
-    
-    yesterday = client_now_utc |> Timex.shift(days: -1) # ~U[2019-09-13 19:02:07.627417Z]
-    m = yesterday.month
-    d = yesterday.day 
-    yyyy = yesterday.year
+  def get_dtd(username, client_yesterday_start_utc) do
+    # convert to elixir
+    {:ok, client_yesterday_start_utc} = Functions.to_elixir_date_time(client_yesterday_start_utc)
 
     q = 
       from x in SalesByVendor, 
-      where: fragment("date_part('month', ?)", x.inserted_at) == ^m
-      and fragment("date_part('day', ?)", x.inserted_at) >= ^d
-      and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy
+      where: x.inserted_at >= ^client_yesterday_start_utc
+      # where: fragment("date_part('month', ?)", x.inserted_at) == ^m
+      # and fragment("date_part('day', ?)", x.inserted_at) >= ^d
+      # and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy
       and x.k == ^username
     sales_by_vendors = Repo.all(q)
 
@@ -54,20 +50,15 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_all_vendors_dtd(client_now_utc) do 
-    # convert client_now_utc to elixir
-    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
-
-    yesterday = client_now_utc |> Timex.shift(days: -1)
-    m = yesterday.month
-    d = yesterday.day 
-    yyyy = yesterday.year
+  def get_all_vendors_dtd(client_yesterday_start_utc) do 
+    {:ok, client_yesterday_start_utc} = Functions.to_elixir_date_time(client_yesterday_start_utc)
     
     q = 
       from x in SalesByVendor, 
-      where: fragment("date_part('month', ?)", x.inserted_at) == ^m
-      and fragment("date_part('day', ?)", x.inserted_at) >= ^d
-      and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy, 
+      where: x.inserted_at >= ^client_yesterday_start_utc, 
+      # where: fragment("date_part('month', ?)", x.inserted_at) == ^m
+      # and fragment("date_part('day', ?)", x.inserted_at) >= ^d
+      # and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy, 
       order_by: fragment("lower(?) ASC", x.k2)
     sales_by_vendors = Repo.all(q)
 
@@ -268,3 +259,8 @@ end
 #     %{s: s, e: e} = Functions.mon_to_sun(day_of_week)
 #     start_date_time = client_now_utc |> Timex.shift(days: -s)
 #     end_date_time = client_now_utc
+
+# yesterday = client_now_utc |> Timex.shift(days: -1) # ~U[2019-09-13 19:02:07.627417Z]
+# m = yesterday.month
+# d = yesterday.day 
+# yyyy = yesterday.year

@@ -10,10 +10,10 @@ defmodule SalesByVendorWeb.ReportController do
   end
 
   def dtd(conn, params) do # yesterday
-    client_now_utc = params["client_now_utc"]
+    client_yesterday_start_utc = params["client_yesterday_start_utc"]
     dtd =
       if conn.assigns.current_user.admin do
-        all_vendors_dtd = SalesByVendor.get_all_vendors_dtd(client_now_utc)
+        all_vendors_dtd = SalesByVendor.get_all_vendors_dtd(client_yesterday_start_utc)
         total_o = SalesByVendor.calc_total(all_vendors_dtd, :o)
         total_p = SalesByVendor.calc_total(all_vendors_dtd, :p)
         total_s = SalesByVendor.calc_total(all_vendors_dtd, :s)
@@ -39,7 +39,7 @@ defmodule SalesByVendorWeb.ReportController do
         } 
       else
         username = conn.assigns.current_user.username
-        vendor_dtd = SalesByVendor.get_dtd(username, client_now_utc)
+        vendor_dtd = SalesByVendor.get_dtd(username, client_yesterday_start_utc)
         total_o = SalesByVendor.calc_total(vendor_dtd, :o)
         total_p = SalesByVendor.calc_total(vendor_dtd, :p)
         total_s = SalesByVendor.calc_total(vendor_dtd, :s)

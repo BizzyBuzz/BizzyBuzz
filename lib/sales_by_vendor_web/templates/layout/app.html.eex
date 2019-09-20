@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script type="application/javascript">
 
+      // CAN REFACTOR THE FUNCTIONS BELOW AFTER DISCOVERING THESE BUILT-IN JS FUNCTIONS: 
+      // d.getUTCMonth() 
+      // d.getUTCDate() 
+      // d.getUTCFullYear() 
+      // ...
+
       function day_ordinal(dayNumber) {
         var str_values = ["th", "st", "nd", "rd"];
         var values = dayNumber % 100;
@@ -82,7 +88,7 @@
         var s = ""
         var e = ""
 
-        dayOfWeek = now.getDay()
+        var dayOfWeek = now.getDay()
 
         switch(dayOfWeek) { // 0 is Sunday and 6 is Saturday
           case 0:
@@ -146,7 +152,14 @@
           'Oct': 10, 
           'Nov': 11, 
           'Dec': 12}
+
         return months[short]
+      }
+
+      function yesterday(now) {
+        now.setDate(now.getDate() - 1)
+        
+        return now
       }
 
     </script>
