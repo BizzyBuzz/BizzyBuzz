@@ -54,7 +54,7 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_all_vendors_dtd(client_now_utc) do # "2019-9-16 22:07:02" -> {:ok, ~N[2019-09-16 22:07:07]}
+  def get_all_vendors_dtd(client_now_utc) do 
     # convert client_now_utc to elixir
     {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
 
@@ -78,17 +78,14 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_wtd(username, client_now_utc) do
-    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
-    day_of_week = Date.day_of_week client_now_utc
-    %{s: s, e: e} = Functions.mon_to_sun(day_of_week)
-    start_date_time = client_now_utc |> Timex.shift(days: -s)
-    end_date_time = client_now_utc
+  def get_wtd(username, client_week_start_utc, client_week_end_utc) do
+    {:ok, client_week_start_utc} = Functions.to_elixir_date_time(client_week_start_utc)
+    {:ok, client_week_end_utc} = Functions.to_elixir_date_time(client_week_end_utc)
     
     q = 
       from x in SalesByVendor, 
-      where: x.inserted_at >= ^start_date_time
-      and x.inserted_at <= ^end_date_time
+      where: x.inserted_at >= ^client_week_start_utc
+      and x.inserted_at <= ^client_week_end_utc
       and x.k == ^username
     sales_by_vendors = Repo.all(q)
 
@@ -99,17 +96,15 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_all_vendors_wtd(client_now_utc) do
-    {:ok, client_now_utc} = Functions.to_elixir_date_time(client_now_utc)
-    day_of_week = Date.day_of_week client_now_utc
-    %{s: s, e: e} = Functions.mon_to_sun(day_of_week)
-    start_date_time = client_now_utc |> Timex.shift(days: -s)
-    end_date_time = client_now_utc
+  def get_all_vendors_wtd(client_week_start_utc, client_week_end_utc) do 
+    # convert to elixir, # "2019-9-16 22:07:02" -> {:ok, ~N[2019-09-16 22:07:07]}
+    {:ok, client_week_start_utc} = Functions.to_elixir_date_time(client_week_start_utc)
+    {:ok, client_week_end_utc} = Functions.to_elixir_date_time(client_week_end_utc)
     
     q = 
       from x in SalesByVendor,
-      where: x.inserted_at >= ^start_date_time
-      and x.inserted_at <= ^end_date_time 
+      where: x.inserted_at >= ^client_week_start_utc
+      and x.inserted_at <= ^client_week_end_utc
     sales_by_vendors = Repo.all(q)
     
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -268,3 +263,8 @@ end
 #     )                            # comes back as array, 
 #   sales_by_vendors = Repo.all(q) # don't need to take out __meta__ and __struct__
 # end
+
+#     day_of_week = Date.day_of_week client_now_utc
+#     %{s: s, e: e} = Functions.mon_to_sun(day_of_week)
+#     start_date_time = client_now_utc |> Timex.shift(days: -s)
+#     end_date_time = client_now_utc

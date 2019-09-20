@@ -21,11 +21,20 @@
   }) 
 
   document.getElementById("wtdLink").addEventListener("click", e => {
-    var now = getLocalTime();
-    var utc = now.toUTCString()
-    utc = long_to_short_date_time_2(utc)
- 
-    window.location = "reports/wtd?client_now_utc=" + utc
+    var s = 0
+    var e = 0
+
+    var now = getLocalTime() // keep the original
+    var now2 = new Date(now.valueOf()) // mutate the copy
+
+    now2 = mon_to_sun(now2)
+    weekStartUTC = now2.toUTCString()
+    weekStartUTC = long_to_short_date_time(weekStartUTC)
+
+    var weekEndUTC = now.toUTCString()
+    weekEndUTC = long_to_short_date_time_3(weekEndUTC)
+
+    window.location = "reports/wtd?client_week_start_utc=" + weekStartUTC + "&client_week_end_utc=" + weekEndUTC
 
     return false;
   }) 
