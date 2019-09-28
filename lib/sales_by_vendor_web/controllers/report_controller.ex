@@ -10,10 +10,9 @@ defmodule SalesByVendorWeb.ReportController do
   end
 
   def dtd(conn, params) do # yesterday
-    client_yesterday_start_utc = params["client_yesterday_start_utc"]
     dtd =
       if conn.assigns.current_user.admin do
-        all_vendors_dtd = SalesByVendor.get_all_vendors_dtd(client_yesterday_start_utc)
+        all_vendors_dtd = SalesByVendor.get_all_vendors_dtd()
         total_o = SalesByVendor.calc_total(all_vendors_dtd, :o)
         total_p = SalesByVendor.calc_total(all_vendors_dtd, :p)
         total_s = SalesByVendor.calc_total(all_vendors_dtd, :s)
@@ -39,7 +38,7 @@ defmodule SalesByVendorWeb.ReportController do
         } 
       else
         username = conn.assigns.current_user.username
-        vendor_dtd = SalesByVendor.get_dtd(username, client_yesterday_start_utc)
+        vendor_dtd = SalesByVendor.get_dtd(username)
         total_o = SalesByVendor.calc_total(vendor_dtd, :o)
         total_p = SalesByVendor.calc_total(vendor_dtd, :p)
         total_s = SalesByVendor.calc_total(vendor_dtd, :s)
@@ -68,11 +67,9 @@ defmodule SalesByVendorWeb.ReportController do
   end
 
   def wtd(conn, params) do
-    client_week_start_utc = params["client_week_start_utc"]
-    client_week_end_utc = params["client_week_end_utc"]
     wtd = 
       if conn.assigns.current_user.admin do
-        all_vendors_wtd = SalesByVendor.get_all_vendors_wtd(client_week_start_utc, client_week_end_utc)
+        all_vendors_wtd = SalesByVendor.get_all_vendors_wtd()
         total_o = SalesByVendor.calc_total(all_vendors_wtd, :o)
         total_p = SalesByVendor.calc_total(all_vendors_wtd, :p)
         total_s = SalesByVendor.calc_total(all_vendors_wtd, :s)
@@ -98,7 +95,7 @@ defmodule SalesByVendorWeb.ReportController do
         } 
       else
         username = conn.assigns.current_user.username
-        vendor_wtd = SalesByVendor.get_wtd(username, client_week_start_utc, client_week_end_utc)
+        vendor_wtd = SalesByVendor.get_wtd(username)
         total_o = SalesByVendor.calc_total(vendor_wtd, :o)
         total_p = SalesByVendor.calc_total(vendor_wtd, :p)
         total_s = SalesByVendor.calc_total(vendor_wtd, :s)

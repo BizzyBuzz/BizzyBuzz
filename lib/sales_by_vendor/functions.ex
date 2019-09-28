@@ -1,13 +1,29 @@
 defmodule SalesByVendor.Functions do
 
   alias NimbleCSV.RFC4180, as: CSVParser
-  
-  def create_timestamp() do
-    {date, time} = :calendar.local_time()
-    {:ok, date_elixir} = Date.from_erl(date)
-    {:ok, time_elixir} = Time.from_erl(time)
-    {:ok, time_stamp} = NaiveDateTime.new(date_elixir, time_elixir)
-    to_string(time_stamp)
+
+  def beginning_of_week_utc() do
+    dt = DateTime.utc_now # ~U[2019-09-28 22:20:06.658378Z]
+    day_of_week = Date.day_of_week(dt) # 6
+    %{s: s, e: e} = mon_to_sun(day_of_week) # %{e: 6, s: 5}
+    dt = dt |> Timex.shift(days: -s) # ~U[2019-09-23 22:20:06.658378Z]
+    d = NaiveDateTime.to_date(dt) # ~D[2019-09-23]
+    dt = NaiveDateTime.new(d, ~T[00:00:00]) # {:ok, ~N[2019-09-23 00:00:00]}
+  end
+
+  def beginning_of_yesterday_utc() do 
+    dt = DateTime.utc_now() # ~U[2019-09-28 21:42:40.338591Z]
+    dt = Timex.shift(dt, days: -1) # ~U[2019-09-27 21:42:40.338591Z]
+    d = NaiveDateTime.to_date(dt) # ~D[2019-09-27]
+    dt = NaiveDateTime.new(d, ~T[00:00:00]) # {:ok, ~N[2019-09-27 00:00:00]}         
+  end
+
+  def end_of_week_utc() do
+    dt = DateTime.utc_now # ~U[2019-09-28 22:27:06.578683Z]
+    day_of_week = Date.day_of_week(dt) # 6
+    %{s: s, e: e} = mon_to_sun(day_of_week) # %{e: 6, s: 5}
+    d = NaiveDateTime.to_date(dt) # ~D[2019-09-28]
+    dt = NaiveDateTime.new(d, ~T[23:59:59]) # {:ok, ~N[2019-09-28 23:59:59]}
   end
 
   def local_to_utc_date_time(local_date_time) do # local_date_time = :calendar.local_time() -> {{2019, 2, 15}, {11, 34, 15}}
@@ -19,14 +35,14 @@ defmodule SalesByVendor.Functions do
 
   def mon_to_sun(day_of_week) do # mon_to_sun(7) -> %{s: 1, e: 7}
     %{s: s, e: e} = 
-      case day_of_week do # 1 is Monday and 7 is Sunday
+      case day_of_week do
         1 -> %{s: day_of_week, e: day_of_week}
-        2 -> %{s: day_of_week - 1, e: day_of_week}
-        3 -> %{s: day_of_week - 2, e: day_of_week}
-        4 -> %{s: day_of_week - 3, e: day_of_week}
-        5 -> %{s: day_of_week - 4, e: day_of_week}
-        6 -> %{s: day_of_week - 5, e: day_of_week}
-        7 -> %{s: day_of_week - 6, e: day_of_week}
+        2 -> %{s: 1, e: day_of_week}
+        3 -> %{s: 2, e: day_of_week}
+        4 -> %{s: 3, e: day_of_week}
+        5 -> %{s: 4, e: day_of_week}
+        6 -> %{s: 5, e: day_of_week}
+        7 -> %{s: 6, e: day_of_week}
       end 
   end
 
@@ -106,4 +122,12 @@ end
 #   now_utc = :calendar.local_time_to_universal_time_dst(now)
 #   {{year, _, _}, _} = now_utc |> Enum.at(0)
 #   year
+# end
+
+# def create_timestamp() do
+#   {date, time} = :calendar.local_time()
+#   {:ok, date_elixir} = Date.from_erl(date)
+#   {:ok, time_elixir} = Time.from_erl(time)
+#   {:ok, time_stamp} = NaiveDateTime.new(date_elixir, time_elixir)
+#   to_string(time_stamp)
 # end

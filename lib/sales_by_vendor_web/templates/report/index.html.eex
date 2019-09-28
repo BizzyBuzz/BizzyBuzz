@@ -11,48 +11,19 @@
 <script type="application/javascript">
   
   document.getElementById("dtdLink").addEventListener("click", e => {
-    var now = getLocalTime()
-    
-    now = yesterday(now)
-    yesterdayStartUTC = now.toUTCString()
-    yesterdayStartUTC = long_to_short_date_time(yesterdayStartUTC)
-
-    window.location = "reports/dtd?client_yesterday_start_utc=" + yesterdayStartUTC
+    window.location = "reports/dtd"
 
     return false;
   }) 
 
   document.getElementById("wtdLink").addEventListener("click", e => {
-    var now = getLocalTime() // keep the original
-    var now2 = new Date(now.valueOf()) // mutate the copy
-
-    now2 = mon_to_sun(now2)
-    weekStartUTC = now2.toUTCString()
-    weekStartUTC = long_to_short_date_time(weekStartUTC)
-
-    var weekEndUTC = now.toUTCString()
-    weekEndUTC = long_to_short_date_time_3(weekEndUTC)
-
-    window.location = "reports/wtd?client_week_start_utc=" + weekStartUTC + "&client_week_end_utc=" + weekEndUTC
+    window.location = "reports/wtd"
 
     return false;
   }) 
 
   document.getElementById("mtdLink").addEventListener("click", e => {
-    var now = getLocalTime()
-    
-    utcMonth = now.getUTCMonth() + 1 // months are 0 based, add 1
-    utcYear = now.getUTCFullYear() // 2019
-
-    var monthStartUTC = month_start_date_time(utcMonth, utcYear)
-    var monthStartUTC = monthStartUTC.toUTCString()
-    monthStartUTC = long_to_short_date_time(monthStartUTC)
-
-    var monthEndUTC = month_end_date_time(utcMonth, utcYear)
-    monthEndUTC = monthEndUTC.toUTCString()
-    monthEndUTC = long_to_short_date_time_3(monthEndUTC)
-
-    window.location = "reports/mtd?client_month_start_utc=" + monthStartUTC + "&" + "client_month_end_utc=" + monthEndUTC
+    window.location = "reports/mtd"
 
     return false;
   }) 

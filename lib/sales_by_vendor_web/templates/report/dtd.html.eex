@@ -82,12 +82,13 @@ Yesterday's Sales
         <td><%= sales_by_vendor.hh %></td>
       </tr>
       <script type="application/javascript">
-        var client_date_time = extract_date_time("<%= sales_by_vendor.inserted_at %>")
-        var monthName = client_date_time.monthName
-        var dayOrdinal = client_date_time.dayOrdinal
-        var year = client_date_time.year  
-        var time = client_date_time.time
-        document.getElementById("date_<%= i %>").innerHTML = monthName + " " + dayOrdinal + " " + year + " " + time 
+        document.getElementById("date_<%= i %>").innerHTML = "<%= sales_by_vendor.inserted_at %>"
+        // var client_date_time = extract_date_time("<%= sales_by_vendor.inserted_at %>")
+        // var monthName = client_date_time.monthName
+        // var dayOrdinal = client_date_time.dayOrdinal
+        // var year = client_date_time.year  
+        // var time = client_date_time.time
+        // document.getElementById("date_<%= i %>").innerHTML = monthName + " " + dayOrdinal + " " + year + " " + time
       </script>
     <% end %>
       <tr>

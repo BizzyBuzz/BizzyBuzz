@@ -30,16 +30,12 @@ defmodule SalesByVendor.SalesByVendor do
     %{sales_by_vendors: sales_by_vendors}
   end
 
-  def get_dtd(username, client_yesterday_start_utc) do
-    # convert to elixir
-    {:ok, client_yesterday_start_utc} = Functions.to_elixir_date_time(client_yesterday_start_utc)
+  def get_dtd(username) do
+    {:ok, beginning_of_yesterday_utc} = Functions.beginning_of_yesterday_utc()
 
     q = 
       from x in SalesByVendor, 
-      where: x.inserted_at >= ^client_yesterday_start_utc
-      # where: fragment("date_part('month', ?)", x.inserted_at) == ^m
-      # and fragment("date_part('day', ?)", x.inserted_at) >= ^d
-      # and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy
+      where: x.inserted_at >= ^beginning_of_yesterday_utc
       and x.k == ^username
     sales_by_vendors = Repo.all(q)
 
@@ -50,15 +46,12 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_all_vendors_dtd(client_yesterday_start_utc) do 
-    {:ok, client_yesterday_start_utc} = Functions.to_elixir_date_time(client_yesterday_start_utc)
+  def get_all_vendors_dtd() do
+    {:ok, beginning_of_yesterday_utc} = Functions.beginning_of_yesterday_utc()
     
     q = 
       from x in SalesByVendor, 
-      where: x.inserted_at >= ^client_yesterday_start_utc, 
-      # where: fragment("date_part('month', ?)", x.inserted_at) == ^m
-      # and fragment("date_part('day', ?)", x.inserted_at) >= ^d
-      # and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy, 
+      where: x.inserted_at >= ^beginning_of_yesterday_utc,  
       order_by: fragment("lower(?) ASC", x.k2)
     sales_by_vendors = Repo.all(q)
 
@@ -69,14 +62,14 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_wtd(username, client_week_start_utc, client_week_end_utc) do
-    {:ok, client_week_start_utc} = Functions.to_elixir_date_time(client_week_start_utc)
-    {:ok, client_week_end_utc} = Functions.to_elixir_date_time(client_week_end_utc)
-    
+  def get_wtd(username) do
+    {:ok, beginning_of_week_utc} = Functions.beginning_of_week_utc()
+    {:ok, end_of_week_utc} = Functions.end_of_week_utc()
+
     q = 
       from x in SalesByVendor, 
-      where: x.inserted_at >= ^client_week_start_utc
-      and x.inserted_at <= ^client_week_end_utc
+      where: x.inserted_at >= ^beginning_of_week_utc
+      and x.inserted_at <= ^end_of_week_utc
       and x.k == ^username
     sales_by_vendors = Repo.all(q)
 
@@ -87,15 +80,14 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
-  def get_all_vendors_wtd(client_week_start_utc, client_week_end_utc) do 
-    # convert to elixir, # "2019-9-16 22:07:02" -> {:ok, ~N[2019-09-16 22:07:07]}
-    {:ok, client_week_start_utc} = Functions.to_elixir_date_time(client_week_start_utc)
-    {:ok, client_week_end_utc} = Functions.to_elixir_date_time(client_week_end_utc)
-    
+  def get_all_vendors_wtd() do 
+    {:ok, beginning_of_week_utc} = Functions.beginning_of_week_utc()
+    {:ok, end_of_week_utc} = Functions.end_of_week_utc()
+
     q = 
       from x in SalesByVendor,
-      where: x.inserted_at >= ^client_week_start_utc
-      and x.inserted_at <= ^client_week_end_utc
+      where: x.inserted_at >= ^beginning_of_week_utc
+      and x.inserted_at <= ^end_of_week_utc
     sales_by_vendors = Repo.all(q)
     
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -264,3 +256,16 @@ end
 # m = yesterday.month
 # d = yesterday.day 
 # yyyy = yesterday.year
+
+# {:ok, client_yesterday_start_utc} = Functions.to_elixir_date_time(client_yesterday_start_utc)
+
+    # {:ok, client_yesterday_start_utc} = Functions.to_elixir_date_time(client_yesterday_start_utc)
+          # where: fragment("date_part('month', ?)", x.inserted_at) == ^m
+      # and fragment("date_part('day', ?)", x.inserted_at) >= ^d
+      # and fragment("date_part('year', ?)", x.inserted_at) == ^yyyy,
+
+              # {:ok, client_week_start_utc} = Functions.to_elixir_date_time(client_week_start_utc)
+    # {:ok, client_week_end_utc} = Functions.to_elixir_date_time(client_week_end_utc)
+    # convert to elixir, # "2019-9-16 22:07:02" -> {:ok, ~N[2019-09-16 22:07:07]}
+    # {:ok, client_week_start_utc} = Functions.to_elixir_date_time(client_week_start_utc)
+    # {:ok, client_week_end_utc} = Functions.to_elixir_date_time(client_week_end_utc)
