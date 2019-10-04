@@ -46,7 +46,7 @@ defmodule SalesByVendor.Functions do
   def mon_to_sun(day_of_week) do # mon_to_sun(7) -> %{s: 1, e: 7}
     %{s: s, e: e} = 
       case day_of_week do
-        1 -> %{s: day_of_week, e: day_of_week}
+        1 -> %{s: 0, e: day_of_week}
         2 -> %{s: 1, e: day_of_week}
         3 -> %{s: 2, e: day_of_week}
         4 -> %{s: 3, e: day_of_week}
