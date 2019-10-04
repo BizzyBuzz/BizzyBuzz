@@ -36,7 +36,7 @@ defmodule SalesByVendor.SalesByVendor do
     q = 
       from x in SalesByVendor, 
       where: x.inserted_at >= ^beginning_of_yesterday_utc
-      and x.k == ^username
+      and x.i == ^username
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -52,7 +52,7 @@ defmodule SalesByVendor.SalesByVendor do
     q = 
       from x in SalesByVendor, 
       where: x.inserted_at >= ^beginning_of_yesterday_utc,  
-      order_by: fragment("lower(?) ASC", x.k2)
+      order_by: fragment("lower(?) ASC", x.i2)
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -70,7 +70,7 @@ defmodule SalesByVendor.SalesByVendor do
       from x in SalesByVendor, 
       where: x.inserted_at >= ^beginning_of_week_utc
       and x.inserted_at <= ^end_of_week_utc
-      and x.k == ^username
+      and x.i == ^username
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -105,7 +105,7 @@ defmodule SalesByVendor.SalesByVendor do
       from x in SalesByVendor, 
       where: x.inserted_at >= ^beginning_of_month_utc
       and x.inserted_at <= ^end_of_month_utc
-      and x.k == ^username
+      and x.i == ^username
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -138,6 +138,8 @@ defmodule SalesByVendor.SalesByVendor do
         if vendor[column] do
           amount = 
             vendor[column] 
+            |> String.replace("(", "-") # for negatives represented as ($30.00) in CSV
+            |> String.replace(")", "")
             |> String.replace("$", "") 
             |> String.replace(",", "")
             |> String.replace(" ", "") 
@@ -159,9 +161,9 @@ defmodule SalesByVendor.SalesByVendor do
     g = row |> Enum.at(6)
     h = row |> Enum.at(7)
     i = row |> Enum.at(8)
-    j = row |> Enum.at(9)
-    k = row |> Enum.at(10)
-    k2 = row |> Enum.at(11)
+    i2 = row |> Enum.at(9)
+    j = row |> Enum.at(10)
+    k = row |> Enum.at(11)
     l = row |> Enum.at(12)
     m = row |> Enum.at(13)
     n = row |> Enum.at(14)
@@ -185,7 +187,12 @@ defmodule SalesByVendor.SalesByVendor do
     ff = row |> Enum.at(32)
     gg = row |> Enum.at(33)
     hh = row |> Enum.at(34)
-    create(%{a: a, b: b, c: c, d: d, e: e, f: f, g: g, h: h, i: i, j: j, k: k, k2: k2, l: l, m: m, n: n, o: o, p: p, q: q, r: r, s: s, t: t, u: u, v: v, w: w, x: x, y: y, z: z, aa: aa, bb: bb, cc: cc, dd: dd, ee: ee, ff: ff, gg: gg, hh: hh})
+    create(%{a: a, b: b, c: c, d: d, e: e, f: f, g: g, h: h, i: i, i2: i2, j: j, k: k, l: l, m: m, n: n, o: o, p: p, q: q, r: r, s: s, t: t, u: u, v: v, w: w, x: x, y: y, z: z, aa: aa, bb: bb, cc: cc, dd: dd, ee: ee, ff: ff, gg: gg, hh: hh})
+  end
+
+  def update(:id, %{id: id, inserted_at: inserted_at}) do
+    sales_by_vendor = Repo.get_by(SalesByVendor, id: id)
+    {:ok, sales_by_vendor} = Repo.update(cast(sales_by_vendor, %{inserted_at: inserted_at}, [:inserted_at]))
   end
 
 end

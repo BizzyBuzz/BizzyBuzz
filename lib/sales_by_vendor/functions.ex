@@ -12,7 +12,7 @@ defmodule SalesByVendor.Functions do
 
   def beginning_of_week_utc() do
     dt = DateTime.utc_now # ~U[2019-09-28 22:20:06.658378Z]
-    day_of_week = Date.day_of_week(dt) # 6
+    day_of_week = Date.day_of_week(dt) # 6, where Mon = 1, Sun = 7
     %{s: s, e: e} = mon_to_sun(day_of_week) # %{e: 6, s: 5}
     dt = dt |> Timex.shift(days: -s) # ~U[2019-09-23 22:20:06.658378Z]
     d = NaiveDateTime.to_date(dt) # ~D[2019-09-23]
@@ -67,6 +67,18 @@ defmodule SalesByVendor.Functions do
   def to_csv(data) do
     data
     |> CSVParser.dump_to_iodata()
+  end
+
+  def to_elixir_naivedatetime(date) do # "7/9/18" => {:ok, ~N[2018-07-09 00:00:00]}
+    date = String.split(date, "/")
+    month = date |> Enum.at(0) |> String.to_integer()
+    day = date |> Enum.at(1) |> String.to_integer()
+    year = date |> Enum.at(2)
+    year = "20" <> year |> String.to_integer() # 2019
+    [{date, time}] = [{{year, month, day}, {0, 0, 0}}]
+    {:ok, date} = Date.from_erl(date)
+    {:ok, time} = Time.from_erl(time)
+    NaiveDateTime.new(date, time)
   end
 
 end

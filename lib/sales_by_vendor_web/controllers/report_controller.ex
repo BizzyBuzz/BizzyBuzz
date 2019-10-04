@@ -10,173 +10,122 @@ defmodule SalesByVendorWeb.ReportController do
   end
 
   def dtd(conn, params) do # yesterday
-    dtd =
+    vendor_dtd = 
       if conn.assigns.current_user.admin do
         all_vendors_dtd = SalesByVendor.get_all_vendors_dtd()
-        total_o = SalesByVendor.calc_total(all_vendors_dtd, :o)
-        total_p = SalesByVendor.calc_total(all_vendors_dtd, :p)
-        total_s = SalesByVendor.calc_total(all_vendors_dtd, :s)
-        total_v = SalesByVendor.calc_total(all_vendors_dtd, :v)
-        total_w = SalesByVendor.calc_total(all_vendors_dtd, :w)
-        total_z = SalesByVendor.calc_total(all_vendors_dtd, :z)
-        total_bb = SalesByVendor.calc_total(all_vendors_dtd, :bb)
-        total_cc = SalesByVendor.calc_total(all_vendors_dtd, :cc)
-        total_dd = SalesByVendor.calc_total(all_vendors_dtd, :dd)
-        total_gg = SalesByVendor.calc_total(all_vendors_dtd, :gg)
-        dtd = %{
-          sales_by_vendors: all_vendors_dtd, 
-          total_o: total_o, 
-          total_p: total_p,  
-          total_s: total_s, 
-          total_v: total_v, 
-          total_w: total_w, 
-          total_z: total_z, 
-          total_bb: total_bb, 
-          total_cc: total_cc, 
-          total_dd: total_dd, 
-          total_gg: total_gg, 
-        } 
       else
         username = conn.assigns.current_user.username
         vendor_dtd = SalesByVendor.get_dtd(username)
-        total_o = SalesByVendor.calc_total(vendor_dtd, :o)
-        total_p = SalesByVendor.calc_total(vendor_dtd, :p)
-        total_s = SalesByVendor.calc_total(vendor_dtd, :s)
-        total_v = SalesByVendor.calc_total(vendor_dtd, :v)
-        total_w = SalesByVendor.calc_total(vendor_dtd, :w)
-        total_z = SalesByVendor.calc_total(vendor_dtd, :z)
-        total_bb = SalesByVendor.calc_total(vendor_dtd, :bb)
-        total_cc = SalesByVendor.calc_total(vendor_dtd, :cc)
-        total_dd = SalesByVendor.calc_total(vendor_dtd, :dd)
-        total_gg = SalesByVendor.calc_total(vendor_dtd, :gg)
-        dtd = %{
-          sales_by_vendors: vendor_dtd,
-          total_o: total_o, 
-          total_p: total_p, 
-          total_s: total_s, 
-          total_v: total_v, 
-          total_w: total_w, 
-          total_z: total_z, 
-          total_bb: total_bb, 
-          total_cc: total_cc, 
-          total_dd: total_dd, 
-          total_gg: total_gg
-        }
       end
+    total_n = SalesByVendor.calc_total(vendor_dtd, :n)
+    total_o = SalesByVendor.calc_total(vendor_dtd, :o)
+    total_p = SalesByVendor.calc_total(vendor_dtd, :p)
+    total_s = SalesByVendor.calc_total(vendor_dtd, :s)
+    total_t = SalesByVendor.calc_total(vendor_dtd, :t)
+    total_u = SalesByVendor.calc_total(vendor_dtd, :u)
+    total_w = SalesByVendor.calc_total(vendor_dtd, :w)
+    total_x = SalesByVendor.calc_total(vendor_dtd, :x)
+    total_y = SalesByVendor.calc_total(vendor_dtd, :y)
+    total_dd = SalesByVendor.calc_total(vendor_dtd, :dd)
+    total_ee = SalesByVendor.calc_total(vendor_dtd, :ee)
+    total_ff = SalesByVendor.calc_total(vendor_dtd, :ff)
+    total_gg = SalesByVendor.calc_total(vendor_dtd, :gg)
+    dtd = %{
+      sales_by_vendors: vendor_dtd,
+      total_n: total_n, 
+      total_o: total_o, 
+      total_p: total_p, 
+      total_s: total_s, 
+      total_t: total_t, 
+      total_u: total_u, 
+      total_w: total_w,
+      total_x: total_x,
+      total_y: total_y, 
+      total_dd: total_dd, 
+      total_ee: total_ee, 
+      total_ff: total_ff, 
+      total_gg: total_gg
+    }
     render(conn, "dtd.html", dtd)
   end
 
   def wtd(conn, params) do
-    wtd = 
+    vendor_wtd = 
       if conn.assigns.current_user.admin do
         all_vendors_wtd = SalesByVendor.get_all_vendors_wtd()
-        total_o = SalesByVendor.calc_total(all_vendors_wtd, :o)
-        total_p = SalesByVendor.calc_total(all_vendors_wtd, :p)
-        total_s = SalesByVendor.calc_total(all_vendors_wtd, :s)
-        total_v = SalesByVendor.calc_total(all_vendors_wtd, :v)
-        total_w = SalesByVendor.calc_total(all_vendors_wtd, :w)
-        total_z = SalesByVendor.calc_total(all_vendors_wtd, :z)
-        total_bb = SalesByVendor.calc_total(all_vendors_wtd, :bb)
-        total_cc = SalesByVendor.calc_total(all_vendors_wtd, :cc)
-        total_dd = SalesByVendor.calc_total(all_vendors_wtd, :dd)
-        total_gg = SalesByVendor.calc_total(all_vendors_wtd, :gg)
-        wtd = %{
-          sales_by_vendors: all_vendors_wtd, 
-          total_o: total_o, 
-          total_p: total_p, 
-          total_s: total_s, 
-          total_v: total_v, 
-          total_w: total_w,  
-          total_z: total_z, 
-          total_bb: total_bb, 
-          total_cc: total_cc, 
-          total_dd: total_dd, 
-          total_gg: total_gg, 
-        } 
       else
         username = conn.assigns.current_user.username
         vendor_wtd = SalesByVendor.get_wtd(username)
-        total_o = SalesByVendor.calc_total(vendor_wtd, :o)
-        total_p = SalesByVendor.calc_total(vendor_wtd, :p)
-        total_s = SalesByVendor.calc_total(vendor_wtd, :s)
-        total_v = SalesByVendor.calc_total(vendor_wtd, :v)
-        total_w = SalesByVendor.calc_total(vendor_wtd, :w)
-        total_z = SalesByVendor.calc_total(vendor_wtd, :z)
-        total_bb = SalesByVendor.calc_total(vendor_wtd, :bb)
-        total_cc = SalesByVendor.calc_total(vendor_wtd, :cc)
-        total_dd = SalesByVendor.calc_total(vendor_wtd, :dd)
-        total_gg = SalesByVendor.calc_total(vendor_wtd, :gg)
-        wtd = %{
-          sales_by_vendors: vendor_wtd, 
-          total_o: total_o, 
-          total_p: total_p, 
-          total_s: total_s, 
-          total_v: total_v, 
-          total_w: total_w, 
-          total_z: total_z,
-          total_bb: total_bb, 
-          total_cc: total_cc, 
-          total_dd: total_dd, 
-          total_gg: total_gg 
-        } 
       end
+    total_n = SalesByVendor.calc_total(vendor_wtd, :n)
+    total_o = SalesByVendor.calc_total(vendor_wtd, :o)
+    total_p = SalesByVendor.calc_total(vendor_wtd, :p)
+    total_s = SalesByVendor.calc_total(vendor_wtd, :s)
+    total_t = SalesByVendor.calc_total(vendor_wtd, :t)
+    total_u = SalesByVendor.calc_total(vendor_wtd, :u)
+    total_w = SalesByVendor.calc_total(vendor_wtd, :w)
+    total_x = SalesByVendor.calc_total(vendor_wtd, :x)
+    total_y = SalesByVendor.calc_total(vendor_wtd, :y)
+    total_dd = SalesByVendor.calc_total(vendor_wtd, :dd)
+    total_ee = SalesByVendor.calc_total(vendor_wtd, :ee)
+    total_ff = SalesByVendor.calc_total(vendor_wtd, :ff)
+    total_gg = SalesByVendor.calc_total(vendor_wtd, :gg)
+    wtd = %{
+      sales_by_vendors: vendor_wtd,
+      total_n: total_n, 
+      total_o: total_o, 
+      total_p: total_p, 
+      total_s: total_s, 
+      total_t: total_t, 
+      total_u: total_u, 
+      total_w: total_w,
+      total_x: total_x,
+      total_y: total_y, 
+      total_dd: total_dd, 
+      total_ee: total_ee, 
+      total_ff: total_ff, 
+      total_gg: total_gg
+    }
     render(conn, "wtd.html", wtd)
   end
 
   def mtd(conn, params) do
-    mtd = 
+    vendor_mtd = 
       if conn.assigns.current_user.admin do
         all_vendors_mtd = SalesByVendor.get_all_vendors_mtd()
-        total_o = SalesByVendor.calc_total(all_vendors_mtd, :o)
-        total_p = SalesByVendor.calc_total(all_vendors_mtd, :p)
-        total_s = SalesByVendor.calc_total(all_vendors_mtd, :s)
-        total_v = SalesByVendor.calc_total(all_vendors_mtd, :v)
-        total_w = SalesByVendor.calc_total(all_vendors_mtd, :w)
-        total_z = SalesByVendor.calc_total(all_vendors_mtd, :z)
-        total_bb = SalesByVendor.calc_total(all_vendors_mtd, :bb)
-        total_cc = SalesByVendor.calc_total(all_vendors_mtd, :cc)
-        total_dd = SalesByVendor.calc_total(all_vendors_mtd, :dd)
-        total_gg = SalesByVendor.calc_total(all_vendors_mtd, :gg)
-        mtd = %{
-          sales_by_vendors: all_vendors_mtd, 
-          total_o: total_o, 
-          total_p: total_p, 
-          total_s: total_s, 
-          total_v: total_v, 
-          total_w: total_w, 
-          total_z: total_z, 
-          total_bb: total_bb, 
-          total_cc: total_cc, 
-          total_dd: total_dd, 
-          total_gg: total_gg
-        } 
       else
         username = conn.assigns.current_user.username
         vendor_mtd = SalesByVendor.get_mtd(username)
-        total_o = SalesByVendor.calc_total(vendor_mtd, :o)
-        total_p = SalesByVendor.calc_total(vendor_mtd, :p)
-        total_s = SalesByVendor.calc_total(vendor_mtd, :s)
-        total_v = SalesByVendor.calc_total(vendor_mtd, :v)
-        total_w = SalesByVendor.calc_total(vendor_mtd, :w)
-        total_z = SalesByVendor.calc_total(vendor_mtd, :z)
-        total_bb = SalesByVendor.calc_total(vendor_mtd, :bb)
-        total_cc = SalesByVendor.calc_total(vendor_mtd, :cc)
-        total_dd = SalesByVendor.calc_total(vendor_mtd, :dd)
-        total_gg = SalesByVendor.calc_total(vendor_mtd, :gg)
-        mtd = %{
-          sales_by_vendors: vendor_mtd, 
-          total_o: total_o, 
-          total_p: total_p, 
-          total_s: total_s, 
-          total_v: total_v, 
-          total_w: total_w, 
-          total_z: total_z, 
-          total_bb: total_bb, 
-          total_cc: total_cc, 
-          total_dd: total_dd, 
-          total_gg: total_gg
-        } 
       end
+    total_n = SalesByVendor.calc_total(vendor_mtd, :n)
+    total_o = SalesByVendor.calc_total(vendor_mtd, :o)
+    total_p = SalesByVendor.calc_total(vendor_mtd, :p)
+    total_s = SalesByVendor.calc_total(vendor_mtd, :s)
+    total_t = SalesByVendor.calc_total(vendor_mtd, :t)
+    total_u = SalesByVendor.calc_total(vendor_mtd, :u)
+    total_w = SalesByVendor.calc_total(vendor_mtd, :w)
+    total_x = SalesByVendor.calc_total(vendor_mtd, :x)
+    total_y = SalesByVendor.calc_total(vendor_mtd, :y)
+    total_dd = SalesByVendor.calc_total(vendor_mtd, :dd)
+    total_ee = SalesByVendor.calc_total(vendor_mtd, :ee)
+    total_ff = SalesByVendor.calc_total(vendor_mtd, :ff)
+    total_gg = SalesByVendor.calc_total(vendor_mtd, :gg)
+    mtd = %{
+      sales_by_vendors: vendor_mtd,
+      total_n: total_n, 
+      total_o: total_o, 
+      total_p: total_p, 
+      total_s: total_s, 
+      total_t: total_t, 
+      total_u: total_u, 
+      total_w: total_w,
+      total_x: total_x,
+      total_y: total_y, 
+      total_dd: total_dd, 
+      total_ee: total_ee, 
+      total_ff: total_ff, 
+      total_gg: total_gg
+    }
     render(conn, "mtd.html", mtd)
   end
 

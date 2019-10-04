@@ -21,7 +21,7 @@ defmodule Csv do
         for i <- 0..length(cols) - 1 do
           col = cols |> Enum.at(i) |> String.replace(~r/\"/, "", global: true)
           cond do
-            i == 10 -> 
+            i == 8 -> 
               parts = col |> String.replace("VENDOR: ", "") |> String.split(" -- ")
             true ->
               col

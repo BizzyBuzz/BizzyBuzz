@@ -12,9 +12,9 @@ defmodule SalesByVendor.SalesByVendor.SalesByVendor do
     field(:g, :string)
     field(:h, :string)
     field(:i, :string)
+    field(:i2, :string)
     field(:j, :string)
     field(:k, :string)
-    field(:k2, :string)
     field(:l, :string)
     field(:m, :string)
     field(:n, :string)
@@ -43,7 +43,7 @@ defmodule SalesByVendor.SalesByVendor.SalesByVendor do
 
   def changeset(struct, attrs) do
     struct
-    |> cast(attrs, [:a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :k2, :l, :m, :n, :o, :p, :q, :r, :s, :t, :u, :v, :w, :x, :y, :z, :aa, :bb, :cc, :dd, :ee, :ff, :gg, :hh])
+    |> cast(attrs, [:a, :b, :c, :d, :e, :f, :g, :h, :i, :i2, :j, :k, :l, :m, :n, :o, :p, :q, :r, :s, :t, :u, :v, :w, :x, :y, :z, :aa, :bb, :cc, :dd, :ee, :ff, :gg, :hh])
   end
 
 end

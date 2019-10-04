@@ -12,9 +12,9 @@ defmodule SalesByVendor.Repo.Migrations.CreateSalesByVendors do
       add :g, :string
       add :h, :string
       add :i, :string
+      add :i2, :string
       add :j, :string
       add :k, :string
-      add :k2, :string
       add :l, :string
       add :m, :string
       add :n, :string
