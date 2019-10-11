@@ -1,12 +1,3 @@
-dashboard
-<section class="row">
-  <a href="/reports">Reports</a>
-</section>
-<%= if @current_user && @current_user.admin do %>
-  <section class="row">
-    <a href="/vendors">Vendors</a>
-  </section>  
-  <section class="row">
-    <a href="/admin/logs">Admin Logs</a>
-  </section>
-<% end %>
+<div class="dashboard">
+<h1>Dashboard</h1>
+</div>

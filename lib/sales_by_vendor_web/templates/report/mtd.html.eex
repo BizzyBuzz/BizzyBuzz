@@ -1,10 +1,20 @@
 This Month's Sales
-
+<div class="subnav">
+  <div id="left" class="row">
+    <a id="dtdLink">YESTERDAY'S SALES</a>
+  </div>
+  <div id="middle" class="row">
+    <a id="wtdLink">THIS WEEK'S SALES</a>
+  </div>
+  <div id="right" class="row">
+    <a id="mtdLink">THIS MONTH'S SALES</a>
+  </div>
+</div>
 <section class="row">
   <table>
     <tbody>
       <tr>
-        <th>create date</th>
+      <th>create date</th>
         <th>a</th>
         <th>b</th>
         <th>c</th>
@@ -40,10 +50,12 @@ This Month's Sales
         <th>ff</th>
         <th>gg</th>
         <th>hh</th>
+       
+       
       </tr>
     <%= for {sales_by_vendor, i} <- Enum.with_index(@sales_by_vendors) do %>
       <tr>
-        <td id="date_<%= i %>">
+ <td id="date_<%= i %>">
           &nbsp;
         </td>
         <td><%= sales_by_vendor.a %></td>
@@ -81,6 +93,9 @@ This Month's Sales
         <td><%= sales_by_vendor.ff %></td>
         <td><%= sales_by_vendor.gg %></td>
         <td><%= sales_by_vendor.hh %></td>
+       
+       
+        
       </tr>
       <script type="application/javascript">
         document.getElementById("date_<%= i %>").innerHTML = "<%= sales_by_vendor.inserted_at %>" 
@@ -133,3 +148,25 @@ This Month's Sales
     </tbody>
   </table>
 </section>
+
+<script type="application/javascript">
+  
+  document.getElementById("dtdLink").addEventListener("click", e => {
+    window.location = "/reports/dtd"
+
+    return false;
+  }) 
+
+  document.getElementById("wtdLink").addEventListener("click", e => {
+    window.location = "/reports/wtd"
+
+    return false;
+  }) 
+
+  document.getElementById("mtdLink").addEventListener("click", e => {
+    window.location = "/reports/mtd"
+
+    return false;
+  }) 
+
+</script>

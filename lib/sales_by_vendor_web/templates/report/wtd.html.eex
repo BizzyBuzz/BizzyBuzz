@@ -1,5 +1,15 @@
 This Week's Sales
-
+<div class="subnav">
+  <div id="left" class="row">
+    <a id="dtdLink">YESTERDAY'S SALES</a>
+  </div>
+  <div id="middle" class="row">
+    <a id="wtdLink">THIS WEEK'S SALES</a>
+  </div>
+  <div id="right" class="row">
+    <a id="mtdLink">THIS MONTH'S SALES</a>
+  </div>
+</div>
 <section class="row">
   <table>
     <tbody>
@@ -133,3 +143,25 @@ This Week's Sales
     </tbody>
   </table>
 </section>
+
+<script type="application/javascript">
+  
+  document.getElementById("dtdLink").addEventListener("click", e => {
+    window.location = "/reports/dtd"
+
+    return false;
+  }) 
+
+  document.getElementById("wtdLink").addEventListener("click", e => {
+    window.location = "/reports/wtd"
+
+    return false;
+  }) 
+
+  document.getElementById("mtdLink").addEventListener("click", e => {
+    window.location = "/reports/mtd"
+
+    return false;
+  }) 
+
+</script>

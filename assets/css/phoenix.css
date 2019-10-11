@@ -21,7 +21,8 @@ h6{font-size: 1.4rem; letter-spacing: 0; line-height: 1.2}
   max-width: 80.0rem;
   padding: 0 2.0rem;
   position: relative;
-  width: 100%
+  width: 100%;
+  
 }
 select {
   width: auto;
@@ -118,6 +119,7 @@ header nav ul {
 }
 header nav a {
   display: block;
+  color: black;
 }
 
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */
@@ -132,3 +134,45 @@ header nav a {
     margin: 2rem 1rem;
   }
 }
+
+.dashboard {
+  background-image: url("/images/Bee_Large.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  opacity: 0.8;
+  height: 800px;
+  
+}
+
+.subnav {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 15px;
+  background-color: #f2c734;
+  
+}
+
+.subnav a {
+  background-color: #f2c734;
+  color: black;
+  padding-left: 10px;
+  font-weight: 700;
+}
+
+#left {
+  width: 33%;
+  background-color: #f2c734;
+}
+#middle {
+  width: 33%;
+  background-color: #f2c734;
+}
+#right {
+  width: 33%;
+  background-color: #f2c734;
+}
+
