@@ -10,13 +10,15 @@ defmodule SalesByVendorWeb.PasswordController do
   alias SalesByVendorWeb.Router.Helpers, as: Routes
 
   def new(conn, _params) do
-    changeset = Credential.email_changeset(%Credential{}, _params)
+    changeset = User.changeset(%User{}, _params)
+    # changeset = Credential.email_changeset(%Credential{}, _params)
     render(conn, "new.html", changeset: changeset, action: Routes.password_path(conn, :create))
   end
 
   def create(conn, params) do
-    username = params["username"]
+    username = params["user"]["username"]
     email = params["credential"]["email"]
+    IO.inspect params
     user = case username do # user = case email do
       nil ->
         nil
@@ -32,8 +34,9 @@ defmodule SalesByVendorWeb.PasswordController do
         |> redirect(to: Routes.password_path(conn, :new))
       user ->
         user = reset_password_token(user)
-        verification_url = Routes.password_url(conn, :edit, token: user.reset_password_token)
-        SalesByVendorWeb.Auth.send_reset_email(conn, email, verification_url)
+        verification_url = "#{System.get_env("BIZZ_SERVER_HOST")}reset-password?token=#{user.reset_password_token}" 
+        # verification_url = Routes.password_url(conn, :edit, token: user.reset_password_token)
+        SalesByVendorWeb.Auth.send_reset_email(conn, user.credential.email, verification_url)
         conn
         |> put_flash(:info, "If your email address exists in our database, you will receive a password reset link at your email address in a few minutes.")
         |> redirect(to: Routes.password_path(conn, :new))

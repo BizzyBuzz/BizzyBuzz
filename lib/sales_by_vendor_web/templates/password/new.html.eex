@@ -2,9 +2,9 @@
   <h2>Password reset</h2>
   <%= form_for @changeset, Routes.password_path(@conn, :create), fn f -> %>
     <div>
-      <%= label f, :email %>
-      <%= text_input f, :email %>
-      <%= error_tag f, :email %>
+      <%= label f, :username %>
+      <%= text_input f, :username %>
+      <%= error_tag f, :username %>
     </div>
     <div>
       <%= submit "Send reset link" %>

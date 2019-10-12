@@ -33,7 +33,8 @@ defmodule SalesByVendorWeb.UserController do
     case Accounts.register_user(user_params) do
       {:ok, user} -> 
         token = Phoenix.Token.sign(conn, "user auth", user.id)
-        verification_url = Routes.user_url(conn, :verify_email, token: token)
+        verification_url = "#{System.get_env("BIZZ_SERVER_HOST")}verify?token=#{token}" 
+        # verification_url = Routes.user_url(conn, :verify_email, token: token)
         SalesByVendorWeb.Auth.send_account_verification_email(conn, user, verification_url)
         conn
         # |> SalesByVendorWeb.Auth.login(user)
