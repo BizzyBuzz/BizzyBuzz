@@ -25,24 +25,25 @@ defmodule SalesByVendorWeb.PageController do
         filename = file.filename
         path = file.path
         {:ok, file_binary} = File.read(path)
-    
-        Csv.insert_new_sales(file_binary)
-    
-        # csv = 
-        # file_binary
-        # |> String.split("\r\n")
-        # csv = ["a,b,c,d,e,f,g,h,i,j,k,k2, LLC,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,aa,bb,cc,dd,ee,ff,gg,hh"]
-        # csv_filename = "#{Functions.create_timestamp()}.csv"
-        # File.write!("#{csv_filename}", csv) # |> Functions.to_csv())
-        # {:ok, file} = File.open("hello", [:write])
-        # IO.binwrite(file, "world")
-        # File.close(file)
-    
-        Logs.create_log(%{type: "admin", status: "200", desc: filename})
-        conn
-        # |> put_flash(:success, "File uploaded successfully!")
-        |> put_status(200)
-        |> json(%{filename: filename})
+
+        csv = 
+          file_binary
+          |> String.split("\r\n")
+        row = csv |> Enum.at(0)
+        cols = String.split(row, ~r{,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)})
+        
+        if length(cols) == 34 do # There should be exactly 34 columns in the CSV file
+          Csv.insert_new_sales(file_binary)
+          Logs.create_log(%{type: "admin", status: "200", desc: filename})
+          conn
+          |> put_status(200)
+          |> json(%{filename: filename})
+        else
+          Logs.create_log(%{type: "admin", status: "422", desc: filename})
+          conn
+          |> put_status(422) # Unprocessable Entity
+          |> json(%{error: "bad request"})
+        end
       else
         conn
         |> put_status(400)
