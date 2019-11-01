@@ -3,11 +3,27 @@ defmodule SalesByVendorWeb.PageController do
 
   alias SalesByVendor.Functions
   alias SalesByVendor.Logs
+  alias SalesByVendor.SalesByVendor
 
   plug :authenticate when action not in [:dashboard, :insert_new_sales]
 
   def dashboard(conn, _params) do
-    render(conn, "dashboard.html")
+    if conn.assigns.current_user do
+      vendor_mtd = 
+        if conn.assigns.current_user.admin do
+          all_vendors_mtd = SalesByVendor.get_all_vendors_mtd()
+        else
+          username = conn.assigns.current_user.username
+          vendor_mtd = SalesByVendor.get_mtd(username)
+        end
+      total_o = SalesByVendor.calc_total(vendor_mtd, :o)
+      total_aa = SalesByVendor.calc_total(vendor_mtd, :aa)
+      grand_total = %{grand_total: SalesByVendor.calc_grand_total(total_o, total_aa)}
+    
+      render(conn, "dashboard.html", grand_total)
+    else
+      render(conn, "dashboard.html")
+    end
   end
 
   def index(conn, params) do

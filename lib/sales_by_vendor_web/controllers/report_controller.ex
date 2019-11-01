@@ -26,10 +26,12 @@ defmodule SalesByVendorWeb.ReportController do
     total_w = SalesByVendor.calc_total(vendor_dtd, :w)
     total_x = SalesByVendor.calc_total(vendor_dtd, :x)
     total_y = SalesByVendor.calc_total(vendor_dtd, :y)
+    total_aa = SalesByVendor.calc_total(vendor_dtd, :aa)
     total_dd = SalesByVendor.calc_total(vendor_dtd, :dd)
     total_ee = SalesByVendor.calc_total(vendor_dtd, :ee)
     total_ff = SalesByVendor.calc_total(vendor_dtd, :ff)
     total_gg = SalesByVendor.calc_total(vendor_dtd, :gg)
+    grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
     dtd = %{
       sales_by_vendors: vendor_dtd,
       total_n: total_n, 
@@ -41,10 +43,12 @@ defmodule SalesByVendorWeb.ReportController do
       total_w: total_w,
       total_x: total_x,
       total_y: total_y, 
+      total_aa: total_aa,
       total_dd: total_dd, 
       total_ee: total_ee, 
       total_ff: total_ff, 
-      total_gg: total_gg
+      total_gg: total_gg, 
+      grand_total: grand_total
     }
     render(conn, "dtd.html", dtd)
   end
@@ -66,10 +70,12 @@ defmodule SalesByVendorWeb.ReportController do
     total_w = SalesByVendor.calc_total(vendor_wtd, :w)
     total_x = SalesByVendor.calc_total(vendor_wtd, :x)
     total_y = SalesByVendor.calc_total(vendor_wtd, :y)
+    total_aa = SalesByVendor.calc_total(vendor_wtd, :aa)
     total_dd = SalesByVendor.calc_total(vendor_wtd, :dd)
     total_ee = SalesByVendor.calc_total(vendor_wtd, :ee)
     total_ff = SalesByVendor.calc_total(vendor_wtd, :ff)
     total_gg = SalesByVendor.calc_total(vendor_wtd, :gg)
+    grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
     wtd = %{
       sales_by_vendors: vendor_wtd,
       total_n: total_n, 
@@ -81,10 +87,12 @@ defmodule SalesByVendorWeb.ReportController do
       total_w: total_w,
       total_x: total_x,
       total_y: total_y, 
+      total_aa: total_aa,
       total_dd: total_dd, 
       total_ee: total_ee, 
       total_ff: total_ff, 
-      total_gg: total_gg
+      total_gg: total_gg, 
+      grand_total: grand_total
     }
     render(conn, "wtd.html", wtd)
   end
@@ -106,10 +114,12 @@ defmodule SalesByVendorWeb.ReportController do
     total_w = SalesByVendor.calc_total(vendor_mtd, :w)
     total_x = SalesByVendor.calc_total(vendor_mtd, :x)
     total_y = SalesByVendor.calc_total(vendor_mtd, :y)
+    total_aa = SalesByVendor.calc_total(vendor_mtd, :aa)
     total_dd = SalesByVendor.calc_total(vendor_mtd, :dd)
     total_ee = SalesByVendor.calc_total(vendor_mtd, :ee)
     total_ff = SalesByVendor.calc_total(vendor_mtd, :ff)
     total_gg = SalesByVendor.calc_total(vendor_mtd, :gg)
+    grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
     mtd = %{
       sales_by_vendors: vendor_mtd,
       total_n: total_n, 
@@ -121,10 +131,12 @@ defmodule SalesByVendorWeb.ReportController do
       total_w: total_w,
       total_x: total_x,
       total_y: total_y, 
+      total_aa: total_aa, 
       total_dd: total_dd, 
       total_ee: total_ee, 
       total_ff: total_ff, 
-      total_gg: total_gg
+      total_gg: total_gg, 
+      grand_total: grand_total
     }
     render(conn, "mtd.html", mtd)
   end

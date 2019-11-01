@@ -138,6 +138,7 @@ defmodule SalesByVendor.SalesByVendor do
         if vendor[column] do
           amount = 
             vendor[column] 
+            |> String.replace("Commission:", "")
             |> String.replace("(", "-") # for negatives represented as ($30.00) in CSV
             |> String.replace(")", "")
             |> String.replace("$", "") 
@@ -149,6 +150,10 @@ defmodule SalesByVendor.SalesByVendor do
           acc
         end
       end)
+  end
+
+  def calc_grand_total(retail_price, commission) do
+    Decimal.sub(retail_price, commission)
   end
 
   def insert(row) do

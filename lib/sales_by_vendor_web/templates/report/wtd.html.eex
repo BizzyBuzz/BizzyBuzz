@@ -10,87 +10,38 @@ This Week's Sales
     <a id="mtdLink">THIS MONTH'S SALES</a>
   </div>
 </div>
+<div class="row">
+  Grand total: <%= @grand_total %>
+</div>
+<div class="row">
+  * Total does not include monthly license fee expense.
+</div>
 <section class="row">
   <table>
     <tbody>
       <tr>
-        <th>create date</th>
-        <th>a</th>
         <th>b</th>
-        <th>c</th>
-        <th>d</th>
-        <th>e</th>
-        <th>f</th>
-        <th>g</th>
-        <th>h</th>
         <th>i</th>
         <th>i2</th>
-        <th>j</th>
         <th>k</th>
         <th>l</th>
         <th>m</th>
-        <th>n</th>
         <th>o</th>
-        <th>p</th>
-        <th>q</th>
-        <th>r</th>
-        <th>s</th>
-        <th>t</th>
-        <th>u</th>
-        <th>v</th>
-        <th>w</th>
-        <th>x</th>
-        <th>y</th>
-        <th>z</th>
         <th>aa</th>
-        <th>bb</th>
-        <th>cc</th>
-        <th>dd</th>
-        <th>ee</th>
-        <th>ff</th>
-        <th>gg</th>
-        <th>hh</th>
       </tr>
     <%= for {sales_by_vendor, i} <- Enum.with_index(@sales_by_vendors) do %>
       <tr>
-        <td id="date_<%= i %>">
+        <!-- <td id="date_<%= i %>">
           &nbsp;
-        </td>
-        <td><%= sales_by_vendor.a %></td>
+        </td> -->
         <td><%= sales_by_vendor.b %></td>
-        <td><%= sales_by_vendor.c %></td>
-        <td><%= sales_by_vendor.d %></td>
-        <td><%= sales_by_vendor.e %></td>
-        <td><%= sales_by_vendor.f %></td>
-        <td><%= sales_by_vendor.g %></td>
-        <td><%= sales_by_vendor.h %></td>
         <td><%= sales_by_vendor.i %></td>
         <td><%= sales_by_vendor.i2 %></td>
-        <td><%= sales_by_vendor.j %></td>
         <td><%= sales_by_vendor.k %></td>
         <td><%= sales_by_vendor.l %></td>
         <td><%= sales_by_vendor.m %></td>
-        <td><%= sales_by_vendor.n %></td>
         <td><%= sales_by_vendor.o %></td>
-        <td><%= sales_by_vendor.p %></td>
-        <td><%= sales_by_vendor.q %></td>
-        <td><%= sales_by_vendor.r %></td>
-        <td><%= sales_by_vendor.s %></td>
-        <td><%= sales_by_vendor.t %></td>
-        <td><%= sales_by_vendor.u %></td>
-        <td><%= sales_by_vendor.v %></td>
-        <td><%= sales_by_vendor.w %></td>
-        <td><%= sales_by_vendor.x %></td>
-        <td><%= sales_by_vendor.y %></td>
-        <td><%= sales_by_vendor.z %></td>
         <td><%= sales_by_vendor.aa %></td>
-        <td><%= sales_by_vendor.bb %></td>
-        <td><%= sales_by_vendor.cc %></td>
-        <td><%= sales_by_vendor.dd %></td>
-        <td><%= sales_by_vendor.ee %></td>
-        <td><%= sales_by_vendor.ff %></td>
-        <td><%= sales_by_vendor.gg %></td>
-        <td><%= sales_by_vendor.hh %></td>
       </tr>
       <script type="application/javascript">
         document.getElementById("date_<%= i %>").innerHTML = "<%= sales_by_vendor.inserted_at %>"
@@ -109,36 +60,8 @@ This Week's Sales
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><%= @total_n %></td>
         <td><%= @total_o %></td>
-        <td><%= @total_p %></td>
-        <td></td>
-        <td></td>
-        <td><%= @total_s %></td>
-        <td><%= @total_t %></td>
-        <td><%= @total_u %></td>
-        <td></td>
-        <td><%= @total_w %></td>
-        <td><%= @total_x %></td>
-        <td><%= @total_y %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><%= @total_dd %></td>
-        <td><%= @total_ee %></td>
-        <td><%= @total_ff %></td>
-        <td><%= @total_gg %></td>
-        <td></td>
+        <td><%= @total_aa %></td>
       </tr>
     </tbody>
   </table>

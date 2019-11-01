@@ -1,3 +1,11 @@
 <div class="dashboard">
 <h1>Dashboard</h1>
+<%= if @current_user do %>
+  <div class="row">
+    Grand total: <%= @grand_total %>
+  </div>
+  <div class="row">
+    * Total does not include monthly license fee expense.
+  </div>
+<% end %>
 </div>
