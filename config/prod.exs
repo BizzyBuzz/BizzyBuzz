@@ -10,22 +10,24 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :sales_by_vendor, SalesByVendorWeb.Endpoint,
-  http: [:inet6, port: 4000],
-  url: [host: "bizzybuzzportal.com", port: 4000],
-  https: [
-    :inet6,
-    port: 8443,
-    cipher_suite: :strong,
-    keyfile: System.get_env("SSL_KEY_PATH"),
-    certfile: System.get_env("SSL_CERT_PATH")
-  ],
+  # http: [:inet6, port: 4000],
+  url: [scheme: "https", host: "bizzybuzz", port: 443], # Heroku
+  # url: [host: "bizzybuzzportal.com", port: 4000], # EC2
+  # https: [ # EC2
+  #   :inet6,
+  #   port: 8443,
+  #   cipher_suite: :strong, 
+  #   keyfile: System.get_env("SSL_KEY_PATH"),
+  #   certfile: System.get_env("SSL_CERT_PATH")
+  # ],
   cache_static_manifest: "priv/static/cache_manifest.json", 
   server: true,
   root: ".",
   version: Application.spec(:hrc_ux, :vsn)
 
 config :sales_by_vendor, SalesByVendorWeb.Endpoint,
-  force_ssl: [hsts: true]
+  force_ssl: [rewrite_on: [:x_forwarded_proto]] # Heroku
+  # force_ssl: [hsts: true] # EC2
 
 # Do not print debug messages in production
 config :logger, level: :info
