@@ -12,6 +12,10 @@ $ heroku run "POOL_SIZE=2 mix ecto.migrate"
 $ heroku run "POOL_SIZE=2 mix run priv/repo/seeds.exs"
 ```
 
+Url is https://bizzybuzzportal.com
+
+
+
 <!-- # SalesByVendor
 
 To start your Phoenix server:
