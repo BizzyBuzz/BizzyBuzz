@@ -21,14 +21,14 @@ Yesterday's Sales
   <table>
     <tbody>
       <tr>
-        <th>b</th>
-        <th>i</th>
-        <th>i2</th>
-        <th>k</th>
-        <th>l</th>
-        <th>m</th>
-        <th>o</th>
-        <th>aa</th>
+        <th>Transaction Date</th>
+        <th>Vendor Code</th>
+        <th>Vendor Name</th>
+        <th>Item #</th>
+        <th>Item Description</th>
+        <th>Quantity</th>
+        <th>Retail Price</th>
+        <th>Commission</th>
       </tr>
     <%= for {sales_by_vendor, i} <- Enum.with_index(@sales_by_vendors) do %>
       <tr>

@@ -1,3 +1,61 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+
+header {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+header nav a {
+  color: #ffff; 
+}
+
+header nav a:hover {
+  color: white;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+a {
+  color: #ffffff;
+}
+
+input {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+button {
+  background-color: #f2c734;
+  border: 0.1rem solid #f2c734;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  /* border: 1px solid green; */
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.alert-info {
+  color: white;
+  background-color: black;
+}
+
+.alert-danger {
+  color: white;
+  background-color: black;
+}

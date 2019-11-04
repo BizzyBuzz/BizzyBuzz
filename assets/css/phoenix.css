@@ -136,7 +136,7 @@ header nav a {
 }
 
 .dashboard {
-  background-image: url("/images/Bee_Large.jpg");
+  /* background-image: url("/images/Bee_Large.jpg"); */
   background-repeat: no-repeat;
   background-size: 100%;
   opacity: 0.8;
