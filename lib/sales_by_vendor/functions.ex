@@ -56,6 +56,13 @@ defmodule SalesByVendor.Functions do
       end 
   end
 
+  def now_year_in_utc() do
+    now = :calendar.local_time()
+    now_utc = :calendar.local_time_to_universal_time_dst(now)
+    {{year, _, _}, _} = now_utc |> Enum.at(0)
+    year
+  end
+
   def random_string(length) do
     # generate random key, such as an API key
     length
@@ -95,13 +102,6 @@ end
 #   now_utc = :calendar.local_time_to_universal_time_dst(now)
 #   {{_, _, day}, _} = now_utc |> Enum.at(0)
 #   day
-# end
-
-# def now_year_in_utc() do
-#   now = :calendar.local_time()
-#   now_utc = :calendar.local_time_to_universal_time_dst(now)
-#   {{year, _, _}, _} = now_utc |> Enum.at(0)
-#   year
 # end
 
 # def create_timestamp() do

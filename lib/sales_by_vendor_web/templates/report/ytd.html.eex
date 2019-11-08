@@ -1,0 +1,99 @@
+This Year's Sales
+<div class="subnav">
+  <div id="left" class="row border">
+    <a id="dtdLink">YESTERDAY'S SALES</a>
+  </div>
+  <div id="middle" class="row">
+    <a id="wtdLink">THIS WEEK'S SALES</a>
+  </div>
+  <div id="right" class="row">
+    <a id="mtdLink">THIS MONTH'S SALES</a>
+  </div>
+  <div id="right" class="row">
+    <a id="ytdLink">THIS YEARS'S SALES</a>
+  </div>
+</div>
+<div class="row">
+  Grand total: <%= @grand_total %>
+</div>
+<div class="row">
+  * Total does not include monthly license fee expense.
+</div>
+<section class="row">
+  <table>
+    <tbody>
+      <tr>
+        <th>Transaction Date</th>
+        <th>Vendor Code</th>
+        <th>Vendor Name</th>
+        <th>Item #</th>
+        <th>Item Description</th>
+        <th>Quantity</th>
+        <th>Retail Price</th>
+        <th>Commission</th>
+      </tr>
+    <%= for {sales_by_vendor, i} <- Enum.with_index(@sales_by_vendors) do %>
+      <tr>
+        <!-- <td id="date_<%= i %>">
+          &nbsp;
+        </td> -->
+        <td width="10%"><%= sales_by_vendor.b %></td>
+        <td width="10%"><%= sales_by_vendor.i %></td>
+        <td width="10%"><%= sales_by_vendor.i2 %></td>
+        <td width="10%"><%= sales_by_vendor.k %></td>
+        <td width="10%"><%= sales_by_vendor.l %></td>
+        <td width="10%"><%= sales_by_vendor.m %></td>
+        <td width="10%"><%= sales_by_vendor.o %></td>
+        <td width="10%"><%= sales_by_vendor.aa %></td>  
+      </tr>
+      <script type="application/javascript">
+        document.getElementById("date_<%= i %>").innerHTML = "<%= sales_by_vendor.inserted_at %>" 
+        // var client_date_time = extract_date_time("<%= sales_by_vendor.inserted_at %>")
+        // var monthName = client_date_time.monthName
+        // var dayOrdinal = client_date_time.dayOrdinal
+        // var year = client_date_time.year  
+        // var time = client_date_time.time
+        // document.getElementById("date_<%= i %>").innerHTML = monthName + " " + dayOrdinal + " " + year + " " + time
+      </script>
+    <% end %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= @total_o %></td>
+        <td><%= @total_aa %></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<script type="application/javascript">
+  
+  document.getElementById("dtdLink").addEventListener("click", e => {
+    window.location = "/reports/dtd"
+
+    return false;
+  }) 
+
+  document.getElementById("wtdLink").addEventListener("click", e => {
+    window.location = "/reports/wtd"
+
+    return false;
+  }) 
+
+  document.getElementById("mtdLink").addEventListener("click", e => {
+    window.location = "/reports/mtd"
+
+    return false;
+  }) 
+
+  document.getElementById("ytdLink").addEventListener("click", e => {
+    window.location = "/reports/ytd"
+
+    return false;
+  }) 
+
+</script>

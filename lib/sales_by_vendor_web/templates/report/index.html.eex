@@ -8,6 +8,9 @@
   <div id="right" class="row">
     <a id="mtdLink">THIS MONTH'S SALES</a>
   </div>
+  <div id="right" class="row">
+    <a id="ytdLink">THIS YEARS'S SALES</a>
+  </div>
 </div>
 
 

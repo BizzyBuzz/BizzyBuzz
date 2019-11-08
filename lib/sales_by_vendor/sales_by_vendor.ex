@@ -132,6 +132,35 @@ defmodule SalesByVendor.SalesByVendor do
     end)
   end
 
+  def get_ytd(username) do
+    yyyy = Functions.now_year_in_utc()
+    q = 
+      from x in SalesByVendor, 
+      where: fragment("date_part('year', ?)", x.inserted_at) == ^yyyy 
+      # where: like(x.i, ^"%#{yyyy}")
+      and x.i == ^username
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
+  def get_all_vendors_ytd() do
+    yyyy = Functions.now_year_in_utc()
+    q = 
+      from x in SalesByVendor, 
+      where: fragment("date_part('year', ?)", x.inserted_at) == ^yyyy, 
+      order_by: fragment("lower(?) ASC", x.i2)
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
   def calc_total(all_vendors, column) do
     total = 
       Enum.reduce(all_vendors, 0, fn vendor, acc ->  

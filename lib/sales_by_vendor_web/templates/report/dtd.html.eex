@@ -10,6 +10,9 @@ Yesterday's Sales
   <div id="right" class="row">
     <a id="mtdLink">THIS MONTH'S SALES</a>
   </div>
+  <div id="right" class="row">
+    <a id="ytdLink">THIS YEARS'S SALES</a>
+  </div>
 </div>
 <div class="row">
   Grand total: <%= @grand_total %>
@@ -84,6 +87,12 @@ Yesterday's Sales
 
   document.getElementById("mtdLink").addEventListener("click", e => {
     window.location = "/reports/mtd"
+
+    return false;
+  }) 
+
+  document.getElementById("ytdLink").addEventListener("click", e => {
+    window.location = "/reports/ytd"
 
     return false;
   }) 

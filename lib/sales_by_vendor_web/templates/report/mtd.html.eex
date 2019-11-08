@@ -1,6 +1,6 @@
 This Month's Sales
 <div class="subnav">
-  <div id="left" class="row">
+  <div id="left" class="row border">
     <a id="dtdLink">YESTERDAY'S SALES</a>
   </div>
   <div id="middle" class="row">
@@ -8,6 +8,9 @@ This Month's Sales
   </div>
   <div id="right" class="row">
     <a id="mtdLink">THIS MONTH'S SALES</a>
+  </div>
+  <div id="right" class="row">
+    <a id="ytdLink">THIS YEARS'S SALES</a>
   </div>
 </div>
 <div class="row">
@@ -34,14 +37,14 @@ This Month's Sales
         <!-- <td id="date_<%= i %>">
           &nbsp;
         </td> -->
-        <td><%= sales_by_vendor.b %></td>
-        <td><%= sales_by_vendor.i %></td>
-        <td><%= sales_by_vendor.i2 %></td>
-        <td><%= sales_by_vendor.k %></td>
-        <td><%= sales_by_vendor.l %></td>
-        <td><%= sales_by_vendor.m %></td>
-        <td><%= sales_by_vendor.o %></td>
-        <td><%= sales_by_vendor.aa %></td>  
+        <td width="10%"><%= sales_by_vendor.b %></td>
+        <td width="10%"><%= sales_by_vendor.i %></td>
+        <td width="10%"><%= sales_by_vendor.i2 %></td>
+        <td width="10%"><%= sales_by_vendor.k %></td>
+        <td width="10%"><%= sales_by_vendor.l %></td>
+        <td width="10%"><%= sales_by_vendor.m %></td>
+        <td width="10%"><%= sales_by_vendor.o %></td>
+        <td width="10%"><%= sales_by_vendor.aa %></td>  
       </tr>
       <script type="application/javascript">
         document.getElementById("date_<%= i %>").innerHTML = "<%= sales_by_vendor.inserted_at %>" 
@@ -83,6 +86,12 @@ This Month's Sales
 
   document.getElementById("mtdLink").addEventListener("click", e => {
     window.location = "/reports/mtd"
+
+    return false;
+  }) 
+
+  document.getElementById("ytdLink").addEventListener("click", e => {
+    window.location = "/reports/ytd"
 
     return false;
   }) 

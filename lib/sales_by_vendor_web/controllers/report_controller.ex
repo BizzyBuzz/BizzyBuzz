@@ -141,6 +141,50 @@ defmodule SalesByVendorWeb.ReportController do
     render(conn, "mtd.html", mtd)
   end
 
+  def ytd(conn, params) do
+    vendor_ytd = 
+      if conn.assigns.current_user.admin do
+        all_vendors_ytd = SalesByVendor.get_all_vendors_ytd()
+      else
+        username = conn.assigns.current_user.username
+        vendor_ytd = SalesByVendor.get_ytd(username)
+      end
+    total_n = SalesByVendor.calc_total(vendor_ytd, :n)
+    total_o = SalesByVendor.calc_total(vendor_ytd, :o)
+    total_p = SalesByVendor.calc_total(vendor_ytd, :p)
+    total_s = SalesByVendor.calc_total(vendor_ytd, :s)
+    total_t = SalesByVendor.calc_total(vendor_ytd, :t)
+    total_u = SalesByVendor.calc_total(vendor_ytd, :u)
+    total_w = SalesByVendor.calc_total(vendor_ytd, :w)
+    total_x = SalesByVendor.calc_total(vendor_ytd, :x)
+    total_y = SalesByVendor.calc_total(vendor_ytd, :y)
+    total_aa = SalesByVendor.calc_total(vendor_ytd, :aa)
+    total_dd = SalesByVendor.calc_total(vendor_ytd, :dd)
+    total_ee = SalesByVendor.calc_total(vendor_ytd, :ee)
+    total_ff = SalesByVendor.calc_total(vendor_ytd, :ff)
+    total_gg = SalesByVendor.calc_total(vendor_ytd, :gg)
+    grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
+    ytd = %{
+      sales_by_vendors: vendor_ytd,
+      total_n: total_n, 
+      total_o: total_o, 
+      total_p: total_p, 
+      total_s: total_s, 
+      total_t: total_t, 
+      total_u: total_u, 
+      total_w: total_w,
+      total_x: total_x,
+      total_y: total_y, 
+      total_aa: total_aa, 
+      total_dd: total_dd, 
+      total_ee: total_ee, 
+      total_ff: total_ff, 
+      total_gg: total_gg, 
+      grand_total: grand_total
+    }
+    render(conn, "ytd.html", ytd)
+  end
+
   defp authenticate(conn, _opts) do
     if conn.assigns.current_user do
       conn
