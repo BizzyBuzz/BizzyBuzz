@@ -17,6 +17,16 @@ defmodule SalesByVendor.SalesByVendor do
     end
   end
 
+  def get_all() do
+    q = from x in SalesByVendor
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
   def get_all(:id, id) do
     q = 
       from x in SalesByVendor, 
@@ -234,6 +244,27 @@ defmodule SalesByVendor.SalesByVendor do
   def update(:id, %{id: id, inserted_at: inserted_at}) do
     sales_by_vendor = Repo.get_by(SalesByVendor, id: id)
     {:ok, sales_by_vendor} = Repo.update(cast(sales_by_vendor, %{inserted_at: inserted_at}, [:inserted_at]))
+  end
+
+  def update(:id, %{id: id, b: b}) do
+    sales_by_vendor = Repo.get_by(SalesByVendor, id: id)
+    {:ok, sales_by_vendor} = Repo.update(cast(sales_by_vendor, %{b: b}, [:b]))
+  end
+
+  def get_blank_rows() do
+    q = from x in SalesByVendor, 
+        where: is_nil(x.b)
+    sales_by_vendors = Repo.all(q)
+    sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
+      sales_by_vendor
+      |> Map.delete(:__meta__)
+      |> Map.delete(:__struct__)
+    end)
+  end
+
+  def delete(:id, id) do
+    x = Repo.get_by(SalesByVendor, id: id)
+    Repo.delete(x)
   end
 
 end

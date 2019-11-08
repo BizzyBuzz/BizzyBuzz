@@ -35,4 +35,10 @@
     return false;
   }) 
 
+  document.getElementById("ytdLink").addEventListener("click", e => {
+    window.location = "/reports/ytd"
+
+    return false;
+  })
+
 </script>
