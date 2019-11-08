@@ -36,7 +36,8 @@ defmodule SalesByVendor.SalesByVendor do
     q = 
       from x in SalesByVendor, 
       where: x.inserted_at >= ^beginning_of_yesterday_utc
-      and x.i == ^username
+      and x.i == ^username, 
+      order_by: x.b
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -51,8 +52,9 @@ defmodule SalesByVendor.SalesByVendor do
     
     q = 
       from x in SalesByVendor, 
-      where: x.inserted_at >= ^beginning_of_yesterday_utc,  
-      order_by: fragment("lower(?) ASC", x.i2)
+      where: x.inserted_at >= ^beginning_of_yesterday_utc, 
+      order_by: x.b 
+      # order_by: fragment("lower(?) ASC", x.i2)
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -70,7 +72,8 @@ defmodule SalesByVendor.SalesByVendor do
       from x in SalesByVendor, 
       where: x.inserted_at >= ^beginning_of_week_utc
       and x.inserted_at <= ^end_of_week_utc
-      and x.i == ^username
+      and x.i == ^username, 
+      order_by: x.b
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -87,7 +90,8 @@ defmodule SalesByVendor.SalesByVendor do
     q = 
       from x in SalesByVendor,
       where: x.inserted_at >= ^beginning_of_week_utc
-      and x.inserted_at <= ^end_of_week_utc
+      and x.inserted_at <= ^end_of_week_utc, 
+      order_by: x.b
     sales_by_vendors = Repo.all(q)
     
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -105,7 +109,8 @@ defmodule SalesByVendor.SalesByVendor do
       from x in SalesByVendor, 
       where: x.inserted_at >= ^beginning_of_month_utc
       and x.inserted_at <= ^end_of_month_utc
-      and x.i == ^username
+      and x.i == ^username, 
+      order_by: x.b
     sales_by_vendors = Repo.all(q)
 
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -122,7 +127,8 @@ defmodule SalesByVendor.SalesByVendor do
     q = 
       from x in SalesByVendor, 
       where: x.inserted_at >= ^beginning_of_month_utc
-      and x.inserted_at <= ^end_of_month_utc
+      and x.inserted_at <= ^end_of_month_utc, 
+      order_by: x.b
     sales_by_vendors = Repo.all(q)
     
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
@@ -138,7 +144,8 @@ defmodule SalesByVendor.SalesByVendor do
       from x in SalesByVendor, 
       where: fragment("date_part('year', ?)", x.inserted_at) == ^yyyy 
       # where: like(x.i, ^"%#{yyyy}")
-      and x.i == ^username
+      and x.i == ^username, 
+      order_by: x.b
     sales_by_vendors = Repo.all(q)
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
       sales_by_vendor
@@ -152,7 +159,7 @@ defmodule SalesByVendor.SalesByVendor do
     q = 
       from x in SalesByVendor, 
       where: fragment("date_part('year', ?)", x.inserted_at) == ^yyyy, 
-      order_by: fragment("lower(?) ASC", x.i2)
+      order_by: x.b
     sales_by_vendors = Repo.all(q)
     sales_by_vendors = Enum.map(sales_by_vendors, fn sales_by_vendor ->
       sales_by_vendor
