@@ -60,3 +60,6 @@ select:-webkit-autofill:focus {
   background-color: black;
 }
 
+.help-block {
+  color: white;
+}
