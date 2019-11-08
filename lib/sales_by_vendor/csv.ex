@@ -20,22 +20,25 @@ defmodule Csv do
       row = 
         for i <- 0..length(cols) - 1 do
           col = cols |> Enum.at(i) |> String.replace(~r/\"/, "", global: true)
+          
           cond do
-            i == 1 -> 
-              [month, day, year] = String.split(col, "/")
-              day = 
-                if String.length(day) == 2 do
-                  day
-                else
-                  day = "0#{day}" 
-                end
-              year = 
-                if String.length(year) == 4 do
-                  year
-                else
-                  year = "20#{year}"
-                end
-              col = "#{month}/#{day}/#{year}"            
+            i == 1 ->
+              if col != "" && !is_nil(col) do 
+                [month, day, year] = String.split(col, "/")
+                day = 
+                  if String.length(day) == 2 do
+                    day
+                  else
+                    day = "0#{day}" 
+                  end
+                year = 
+                  if String.length(year) == 4 do
+                    year
+                  else
+                    year = "20#{year}"
+                  end
+                col = "#{month}/#{day}/#{year}"
+              end                
             i == 8 -> 
               parts = col |> String.replace("VENDOR: ", "") |> String.split(" -- ")
             true ->
@@ -43,9 +46,11 @@ defmodule Csv do
           end
         end
 
-      row = row |> List.flatten
-
-      SalesByVendor.insert(row)
+      if !is_nil (row |> Enum.at(1)) do
+        row = row |> List.flatten
+      
+        SalesByVendor.insert(row)
+      end
     end
     
   end

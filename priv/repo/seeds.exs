@@ -17,7 +17,7 @@ defmodule CsvDb do
   end
 
   def insert_initial_sales() do
-    "test 4.csv"
+    "test 4 append.csv"
     |> File.read!
     |> CSVParser.parse_string([{:skip_headers, false}]) |>
     Enum.map(fn [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, aa, bb, cc, dd, ee, ff, gg, hh] -> 
