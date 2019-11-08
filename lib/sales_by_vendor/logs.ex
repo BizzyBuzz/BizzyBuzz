@@ -18,7 +18,8 @@ defmodule SalesByVendor.Logs do
   def get_logs(:type, type) do
     q = 
       from x in Log, 
-      where: x.type == ^type
+      where: x.type == ^type, 
+      order_by: x.inserted_at 
     logs = Repo.all(q)
     logs = Enum.map(logs, fn log ->
       log
