@@ -1,4 +1,33 @@
-Heroku Deployment:
+
+
+EC2:
+
+DEPLOYMENT
+
+Backup database process:
+
+backup database from remote server to dump file, 
+
+$ sudo -u ubuntu pg_dump "source db name" > "target_db_name_m-d-yyyy.sql
+
+secure copy the file down to your local do this from your local (on mac), 
+
+$ scp -i "identity file" "username@ip_address:/source path and filename" "target path"
+
+RESTORE
+
+psql> create database "db_name_m-d-yyyy";
+
+$ psql db_name-m-d-yyyy < infile.sql 
+
+LOGS
+
+vim /tmp/info.log. You can use Shift+G to get to the end of the file, denoted by "END." 
+
+
+HEROKU:
+
+DEPLOYMENT
 
 follow https://hexdocs.pm/phoenix/heroku.html
 
