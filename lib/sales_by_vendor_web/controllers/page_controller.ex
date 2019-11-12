@@ -47,8 +47,10 @@ defmodule SalesByVendorWeb.PageController do
           |> String.split("\r\n")
         row = csv |> Enum.at(0)
         cols = String.split(row, ~r{,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)})
-        
-        if length(cols) == 34 do # There should be exactly 34 columns in the CSV file
+
+        first_vendor_col = cols |> Enum.at(8)
+
+        if length(cols) == 34 && String.contains?(first_vendor_col, "--") do # There should be exactly 34 columns and 8th column should contain "--" in the CSV file
           Csv.insert_new_sales(file_binary)
           Logs.create_log(%{type: "admin", status: "200", desc: filename})
           conn
