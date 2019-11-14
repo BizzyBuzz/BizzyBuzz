@@ -10,16 +10,16 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :sales_by_vendor, SalesByVendorWeb.Endpoint,
-  http: [:inet6, port: 4000], # EC2
-  # url: [scheme: "https", host: "bizzybuzz", port: 443], # Heroku
-  url: [host: "bizzybuzzportal.com", port: 4000], # EC2
-  https: [ # EC2
-    :inet6,
-    port: 8443,
-    cipher_suite: :strong, 
-    keyfile: System.get_env("SSL_KEY_PATH"),
-    certfile: System.get_env("SSL_CERT_PATH")
-  ],
+  # http: [:inet6, port: 4000], # AWS
+  url: [scheme: "https", host: "bizzybuzz", port: 443], # Heroku
+  # url: [host: "bizzybuzzportal.com", port: 4000], # AWS
+  # https: [ # AWS
+  #   :inet6,
+  #   port: 8443,
+  #   cipher_suite: :strong, 
+  #   keyfile: System.get_env("SSL_KEY_PATH"),
+  #   certfile: System.get_env("SSL_CERT_PATH")
+  # ],
   cache_static_manifest: "priv/static/cache_manifest.json", 
   server: true,
   root: ".",
