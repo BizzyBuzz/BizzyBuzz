@@ -23,7 +23,7 @@ config :logger,
   truncate: :infinity
 
 config :logger, :info_log, 
-  path: "/tmp/info.log",
+  path: "info.log",
   level: :info, 
   truncate: :infinity
 

@@ -22,7 +22,7 @@ $ psql db_name-m-d-yyyy < infile.sql
 
 LOGS
 
-vim /tmp/info.log. You can use Shift+G to get to the end of the file, denoted by "END." 
+vim /tmp/info.log or wherever the log file is located in config.exs. You can use Shift+G to get to the end of the file, denoted by "END." 
 
 
 HEROKU:
@@ -40,6 +40,8 @@ $ heroku run "POOL_SIZE=2 mix ecto.migrate"
 
 $ heroku run "POOL_SIZE=2 mix run priv/repo/seeds.exs"
 ```
+
+IF YOU CHANGE OR ADD AND ENV VARIABLE, EVEN THRU HEROKU INTERFACE, YOU HAVE TO REDEPLOY AT LEAST A SPACE, because the elixir_buildpack.config forces recompilation, that includes compiling with new env. var. values, and that force recomplie is only activated with a deploy.
 
 Url is https://bizzybuzzportal.com
 
