@@ -26,7 +26,7 @@ defmodule SalesByVendorWeb.UserController do
   #     |> put_flash(:error, "You must be logged in as admin to access that page") 
   #     |> redirect(to: Routes.session_path(conn, :new))
   #     |> halt()
-  #   end 
+  #   end  
   # end
 
   def create(conn, %{"user" => user_params}) do 
