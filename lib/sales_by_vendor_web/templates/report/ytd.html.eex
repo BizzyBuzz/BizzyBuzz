@@ -36,7 +36,7 @@ This Year's Sales
         <!-- <td id="date_<%= i %>">
           &nbsp;
         </td> -->
-        <td width="10%"><%= sales_by_vendor.b %></td>
+        <td width="10%"><%= sales_by_vendor.j %></td>
         <td width="10%"><%= sales_by_vendor.i %></td>
         <td width="10%"><%= sales_by_vendor.i2 %></td>
         <td width="10%"><%= sales_by_vendor.k %></td>

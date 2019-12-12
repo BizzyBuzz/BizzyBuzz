@@ -37,7 +37,7 @@ Yesterday's Sales
         <!-- <td id="date_<%= i %>">
           &nbsp;
         </td> -->
-        <td><%= sales_by_vendor.b %></td>
+        <td><%= sales_by_vendor.j %></td>
         <td><%= sales_by_vendor.i %></td>
         <td><%= sales_by_vendor.i2 %></td>
         <td><%= sales_by_vendor.k %></td>
