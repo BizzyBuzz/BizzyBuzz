@@ -22,7 +22,7 @@ defmodule Csv do
           col = cols |> Enum.at(i) |> String.replace(~r/\"/, "", global: true)
           
           cond do
-            i == 1 ->
+            i == 1 || i == 9 -> 
               if col != "" && !is_nil(col) do 
                 [month, day, year] = String.split(col, "/")
                 day = 

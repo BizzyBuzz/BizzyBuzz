@@ -251,6 +251,11 @@ defmodule SalesByVendor.SalesByVendor do
     {:ok, sales_by_vendor} = Repo.update(cast(sales_by_vendor, %{b: b}, [:b]))
   end
 
+  def update(:id, %{id: id, j: j}) do
+    sales_by_vendor = Repo.get_by(SalesByVendor, id: id)
+    {:ok, sales_by_vendor} = Repo.update(cast(sales_by_vendor, %{j: j}, [:j]))
+  end
+
   def get_blank_rows() do
     q = from x in SalesByVendor, 
         where: is_nil(x.b)

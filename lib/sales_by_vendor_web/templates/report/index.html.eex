@@ -13,8 +13,6 @@
   </div>
 </div>
 
-
-
 <script type="application/javascript">
   
   document.getElementById("dtdLink").addEventListener("click", e => {

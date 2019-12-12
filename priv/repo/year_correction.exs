@@ -25,6 +25,29 @@ defmodule YearCorrectionDb do
         SalesByVendor.update(:id, %{id: id, b: col}) |> IO.inspect
       end
     end)
+
+    Enum.each(sales_by_vendors, fn sales_by_vendor ->
+      id = sales_by_vendor.id
+      col = sales_by_vendor.j
+      if !is_nil(col) do 
+        [month, day, year] = String.split(col, "/")
+        day = 
+          if String.length(day) == 2 do
+            month
+          else
+            month = "0#{day}" 
+          end
+        year = 
+          if String.length(year) == 4 do
+            year
+          else
+            year = "20#{year}"
+          end
+        col = "#{month}/#{day}/#{year}"
+        SalesByVendor.update(:id, %{id: id, j: col}) |> IO.inspect
+      end
+    end)
+
   end
 
 end

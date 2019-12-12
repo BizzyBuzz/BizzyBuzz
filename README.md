@@ -45,6 +45,10 @@ IF YOU CHANGE OR ADD AND ENV VARIABLE, EVEN THRU HEROKU INTERFACE, YOU HAVE TO R
 
 Url is https://bizzybuzzportal.com
 
+BACK UP DATABASE
+
+$ heroku pg:pull DATABASE_URL sales_by_vendor_prod_m_d_yyyy
+
 
 
 <!-- # SalesByVendor
