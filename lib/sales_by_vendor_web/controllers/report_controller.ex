@@ -31,7 +31,8 @@ defmodule SalesByVendorWeb.ReportController do
     total_ee = SalesByVendor.calc_total(vendor_dtd, :ee)
     total_ff = SalesByVendor.calc_total(vendor_dtd, :ff)
     total_gg = SalesByVendor.calc_total(vendor_dtd, :gg)
-    grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
+    grand_total = SalesByVendor.calc_total_quantity_times_price(vendor_dtd)
+    # grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
     dtd = %{
       sales_by_vendors: vendor_dtd,
       total_n: total_n, 
@@ -75,7 +76,8 @@ defmodule SalesByVendorWeb.ReportController do
     total_ee = SalesByVendor.calc_total(vendor_wtd, :ee)
     total_ff = SalesByVendor.calc_total(vendor_wtd, :ff)
     total_gg = SalesByVendor.calc_total(vendor_wtd, :gg)
-    grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
+    grand_total = SalesByVendor.calc_total_quantity_times_price(vendor_wtd)
+    # grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
     wtd = %{
       sales_by_vendors: vendor_wtd,
       total_n: total_n, 
@@ -119,7 +121,8 @@ defmodule SalesByVendorWeb.ReportController do
     total_ee = SalesByVendor.calc_total(vendor_mtd, :ee)
     total_ff = SalesByVendor.calc_total(vendor_mtd, :ff)
     total_gg = SalesByVendor.calc_total(vendor_mtd, :gg)
-    grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
+    grand_total = SalesByVendor.calc_total_quantity_times_price(vendor_mtd)
+    # grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
     mtd = %{
       sales_by_vendors: vendor_mtd,
       total_n: total_n, 
@@ -163,7 +166,8 @@ defmodule SalesByVendorWeb.ReportController do
     total_ee = SalesByVendor.calc_total(vendor_ytd, :ee)
     total_ff = SalesByVendor.calc_total(vendor_ytd, :ff)
     total_gg = SalesByVendor.calc_total(vendor_ytd, :gg)
-    grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
+    grand_total = SalesByVendor.calc_total_quantity_times_price(vendor_ytd)
+    # grand_total = SalesByVendor.calc_grand_total(total_o, total_aa)
     ytd = %{
       sales_by_vendors: vendor_ytd,
       total_n: total_n, 

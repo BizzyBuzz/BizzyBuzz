@@ -198,6 +198,27 @@ defmodule SalesByVendor.SalesByVendor do
       end)
   end
 
+  def calc_total_quantity_times_price(all_vendors) do
+    total = 
+      Enum.reduce(all_vendors, 0, fn vendor, acc ->  
+        if vendor[:m] && vendor[:o] do
+          amount = 
+            vendor[:o] 
+            |> String.replace("(", "-") # for negatives represented as ($30.00) in CSV
+            |> String.replace(")", "")
+            |> String.replace("$", "") 
+            |> String.replace(",", "")
+            |> String.replace(" ", "") 
+            |> Decimal.new()
+          quantity = Decimal.new(vendor[:m])
+          quantity_times_price = Decimal.mult(quantity, amount) 
+          Decimal.add(quantity_times_price, acc)
+        else
+          acc
+        end
+      end)
+  end
+
   def calc_grand_total(retail_price, commission) do
     Decimal.sub(retail_price, commission)
   end

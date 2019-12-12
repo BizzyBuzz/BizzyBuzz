@@ -30,7 +30,6 @@ This Week's Sales
         <th>Item Description</th>
         <th>Quantity</th>
         <th>Retail Price</th>
-        <th>Commission</th>
       </tr>
     <%= for {sales_by_vendor, i} <- Enum.with_index(@sales_by_vendors) do %>
       <tr>
@@ -44,7 +43,6 @@ This Week's Sales
         <td><%= sales_by_vendor.l %></td>
         <td><%= sales_by_vendor.m %></td>
         <td><%= sales_by_vendor.o %></td>
-        <td><%= sales_by_vendor.aa %></td>
       </tr>
       <script type="application/javascript">
         document.getElementById("date_<%= i %>").innerHTML = "<%= sales_by_vendor.inserted_at %>"
@@ -64,7 +62,6 @@ This Week's Sales
         <td></td>
         <td></td>
         <td><%= @total_o %></td>
-        <td><%= @total_aa %></td>
       </tr>
     </tbody>
   </table>

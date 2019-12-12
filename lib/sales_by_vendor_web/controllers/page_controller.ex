@@ -16,9 +16,10 @@ defmodule SalesByVendorWeb.PageController do
           username = conn.assigns.current_user.username
           vendor_mtd = SalesByVendor.get_mtd(username)
         end
-      total_o = SalesByVendor.calc_total(vendor_mtd, :o)
-      total_aa = SalesByVendor.calc_total(vendor_mtd, :aa)
-      grand_total = %{grand_total: SalesByVendor.calc_grand_total(total_o, total_aa)}
+      # total_o = SalesByVendor.calc_total(vendor_mtd, :o)
+      # total_aa = SalesByVendor.calc_total(vendor_mtd, :aa)
+      grand_total = %{grand_total: SalesByVendor.calc_total_quantity_times_price(vendor_mtd)}
+      # grand_total = %{grand_total: SalesByVendor.calc_grand_total(total_o, total_aa)}
     
       render(conn, "dashboard.html", grand_total)
     else

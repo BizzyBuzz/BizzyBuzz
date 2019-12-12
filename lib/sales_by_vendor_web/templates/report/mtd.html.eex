@@ -30,21 +30,19 @@ This Month's Sales
         <th>Item Description</th>
         <th>Quantity</th>
         <th>Retail Price</th>
-        <th>Commission</th>
       </tr>
     <%= for {sales_by_vendor, i} <- Enum.with_index(@sales_by_vendors) do %>
       <tr>
         <!-- <td id="date_<%= i %>">
           &nbsp;
         </td> -->
-        <td width="10%"><%= sales_by_vendor.b %></td>
+        <td width="10%"><%= sales_by_vendor.j %></td>
         <td width="10%"><%= sales_by_vendor.i %></td>
         <td width="10%"><%= sales_by_vendor.i2 %></td>
         <td width="10%"><%= sales_by_vendor.k %></td>
         <td width="10%"><%= sales_by_vendor.l %></td>
         <td width="10%"><%= sales_by_vendor.m %></td>
         <td width="10%"><%= sales_by_vendor.o %></td>
-        <td width="10%"><%= sales_by_vendor.aa %></td>  
       </tr>
       <script type="application/javascript">
         document.getElementById("date_<%= i %>").innerHTML = "<%= sales_by_vendor.inserted_at %>" 
@@ -64,7 +62,6 @@ This Month's Sales
         <td></td>
         <td></td>
         <td><%= @total_o %></td>
-        <td><%= @total_aa %></td>
       </tr>
     </tbody>
   </table>
