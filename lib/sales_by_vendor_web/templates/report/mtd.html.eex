@@ -14,10 +14,17 @@ This Month's Sales
   </div>
 </div>
 <div class="row">
-  Grand total: <%= @grand_total %>
+  Grand total:&nbsp;<span id="grandTotal"><%= @grand_total %></span>
+</div>
+<div class="row">
+    Commission:&nbsp;<span id="commission">&nbsp;</span>
 </div>
 <div class="row">
   * Total does not include monthly license fee expense.
+</div>
+<div class="row">
+  <input id="commissionRate" type="text" width="21%" placeholder="Enter 18 to calculate 18%" />%
+  <button id="calculateCommissionButton" type="submit">Calculate</button>
 </div>
 <section class="row">
   <table>
