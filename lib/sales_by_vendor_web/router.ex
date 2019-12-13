@@ -28,7 +28,8 @@ defmodule SalesByVendorWeb.Router do
     resources "/password", PasswordController, only: [:new, :create]
     get "/reset-password", PasswordController, :edit
     resources "/sessions", SessionController, only: [:new, :create, :delete]
-    resources "/users", UserController, only: [:index, :show, :new, :create]
+    resources "/users", UserController, only: [:new, :create]
+    # resources "/users", UserController, only: [:index, :show, :new, :create]
     put "/update-password/:token", PasswordController, :update
     get "/verify", UserController, :verify_email
     resources "/vendors", VendorController
