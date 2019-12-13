@@ -17,7 +17,7 @@ This Month's Sales
   Grand total:&nbsp;<span id="grandTotal"><%= @grand_total %></span>
 </div>
 <div class="row">
-    Commission:&nbsp;<span id="commission">&nbsp;</span>
+  Commission:&nbsp;<span id="commission">&nbsp;</span>
 </div>
 <div class="row">
   * Total does not include monthly license fee expense.
