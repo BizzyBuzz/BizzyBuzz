@@ -11,7 +11,7 @@
     * Total does not include monthly license fee expense.
   </div>
   <div class="row">
-    <input id="commissionRate" type="text" placeholder="enter 18 for 18%" />
+    <input id="commissionRate" type="text" placeholder="Enter 18 for 18%" />
     <button id="calculateCommissionButton" type="submit">Calculate</button>
   </div>
 <% end %>

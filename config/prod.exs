@@ -26,7 +26,8 @@ config :sales_by_vendor, SalesByVendorWeb.Endpoint,
   version: Application.spec(:hrc_ux, :vsn)
 
 config :sales_by_vendor, SalesByVendorWeb.Endpoint,
-  force_ssl: [rewrite_on: [:x_forwarded_proto]] # Heroku
+  force_ssl: [rewrite_on: [:x_forwarded_proto]], # Heroku
+  check_origin: false
   # force_ssl: [hsts: true] # EC2
 
 # Do not print debug messages in production
