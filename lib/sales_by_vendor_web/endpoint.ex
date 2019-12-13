@@ -2,7 +2,7 @@ defmodule SalesByVendorWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :sales_by_vendor
 
   socket "/socket", SalesByVendorWeb.UserSocket,
-    websocket: true,
+    websocket: [timeout: 45_000],
     longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
