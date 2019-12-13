@@ -1,7 +1,25 @@
+import css from "../css/app.css"
+
+import "phoenix_html"
+
+import CommissionSocket from "./sockets/commission_socket"
+
+let commissionElem = document.getElementById("calculateCommissionButton")
+
+if (commissionElem) {
+  const commission_socket = new CommissionSocket()
+  commission_socket.connect_to_commission()
+  document.getElementById("calculateCommissionButton").addEventListener("click", e => {
+    let commissionRate = document.getElementById("commissionRate").value
+    let grandTotal = document.getElementById("grandTotal").innerText 
+    commission_socket.calculate_commission(commissionRate, grandTotal)
+    // new_person_socket.create_person_and_client_affiliation(first_name, last_name, email, phone, municipality_id)
+  })
+} 
+
 // We need to import the CSS so that webpack will load it.
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
-import css from "../css/app.css"
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -9,9 +27,10 @@ import css from "../css/app.css"
 //
 // Import dependencies
 //
-import "phoenix_html"
 
 // Import local files
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+
+

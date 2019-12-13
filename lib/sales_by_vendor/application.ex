@@ -6,14 +6,16 @@ defmodule SalesByVendor.Application do
   use Application
 
   def start(_type, _args) do
+    import Supervisor.Spec, warn: false
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
       SalesByVendor.Repo,
       # Start the endpoint when the application starts
-      SalesByVendorWeb.Endpoint
+      SalesByVendorWeb.Endpoint, 
       # Starts a worker by calling: SalesByVendor.Worker.start_link(arg)
       # {SalesByVendor.Worker, arg},
+      worker(SalesByVendor.Server, [])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

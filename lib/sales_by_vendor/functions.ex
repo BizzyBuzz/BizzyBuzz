@@ -26,6 +26,15 @@ defmodule SalesByVendor.Functions do
     dt = NaiveDateTime.new(d, ~T[00:00:00]) # {:ok, ~N[2019-09-27 00:00:00]}         
   end
 
+  def calculate_commission(commission_rate, grand_total) do
+    commission_rate = 
+      commission_rate 
+      |> Decimal.new()
+      |> Decimal.div(100)
+
+    Decimal.mult(commission_rate, Decimal.new(grand_total))
+  end
+
   def end_of_month_utc() do
     dt = DateTime.utc_now # ~U[2019-09-28 23:10:57.370578Z
     y = dt.year # 2019
