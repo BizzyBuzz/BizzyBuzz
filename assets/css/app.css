@@ -63,3 +63,13 @@ select:-webkit-autofill:focus {
 .help-block {
   color: white;
 }
+
+#commissionRate
+{
+  width: 21%
+}
+
+/* input[type="text"] 
+{
+  width: 21%
+} */
