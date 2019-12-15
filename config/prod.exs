@@ -15,7 +15,7 @@ config :sales_by_vendor, SalesByVendorWeb.Endpoint,
   # url: [host: "bizzybuzzportal.com", port: 4000], # AWS
   # https: [ # AWS
   #   :inet6,
-  #   port: 8443,
+  #   port: 844,3
   #   cipher_suite: :strong, 
   #   keyfile: System.get_env("SSL_KEY_PATH"),
   #   certfile: System.get_env("SSL_CERT_PATH")
