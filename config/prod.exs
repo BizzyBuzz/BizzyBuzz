@@ -11,7 +11,7 @@ use Mix.Config
 # before starting your production server.
 config :sales_by_vendor, SalesByVendorWeb.Endpoint,
   # http: [:inet6, port: 4000], # AWS
-  url: [scheme: "https", host: "bizzybuzz", port: 443], # Heroku
+  url: [scheme: "https", host: "bizzybuzzportal.com", port: 443], # Heroku
   # url: [host: "bizzybuzzportal.com", port: 4000], # AWS
   # https: [ # AWS
   #   :inet6,
