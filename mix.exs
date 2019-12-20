@@ -50,6 +50,8 @@ defmodule SalesByVendor.MixProject do
       {:timex, "~> 3.1"}, 
       {:decimal, "~> 1.0"}, 
       {:logger_file_backend, "~> 0.0.10"}, 
+      {:timber, "~> 3.1"},
+      {:timber_phoenix, "~> 1.0"}
     ]
   end
 

@@ -15,17 +15,18 @@ config :sales_by_vendor, SalesByVendorWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "d7yl4t2TJb7iq3ORtjxl8cF1l8iaFEam9JBM2+zjtPdMOHrP/su1PMuOWcEcHkuf",
   render_errors: [view: SalesByVendorWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: SalesByVendor.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: SalesByVendor.PubSub, adapter: Phoenix.PubSub.PG2], 
+  instrumenters: [Timber.Phoenix]
 
-config :logger, 
-  backends: [:console, {LoggerFileBackend, :info_log}],
-  format: "[$level] $message\n", 
-  truncate: :infinity
+# config :logger, 
+#   backends: [:console, {LoggerFileBackend, :info_log}],
+#   format: "[$level] $message\n", 
+#   truncate: :infinity
 
-config :logger, :info_log, 
-  path: "info.log",
-  level: :info, 
-  truncate: :infinity
+# config :logger, :info_log, 
+#   path: "info.log",
+#   level: :info, 
+#   truncate: :infinity
 
 # Configures Elixir's Logger
 config :logger, :console,
