@@ -28,9 +28,9 @@ defmodule SalesByVendorWeb.Email do
         }
       ],
       "from"=> %{
-        "email"=> "james@onenie.com"
+        "email"=> "ryan_walther@hotmail.com "
       }, 
-      "subject"=> "subject", 
+      "subject"=> "Bizzy Buzz Account", 
       "content"=> [
         %{
           "type"=> "text/plain",
