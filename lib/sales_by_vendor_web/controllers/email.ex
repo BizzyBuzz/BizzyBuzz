@@ -30,7 +30,7 @@ defmodule SalesByVendorWeb.Email do
       "from"=> %{
         "email"=> "ryan_walther@hotmail.com "
       }, 
-      "subject"=> "Bizzy Buzz Account", 
+      "subject"=> "Bizzy Buzz Artisan Market", 
       "content"=> [
         %{
           "type"=> "text/plain",

@@ -55,6 +55,18 @@ defmodule SalesByVendor.SalesByVendor do
       |> Map.delete(:__meta__)
       |> Map.delete(:__struct__)
     end)
+
+    # sort by date
+    sales_by_vendors = 
+      Enum.map(sales_by_vendors, fn sales_by_vendor ->
+        {:ok, new_j} = Timex.parse(sales_by_vendor.j, "{M}/{D}/{YYYY}")
+        Map.put(sales_by_vendor, :j2, new_j)
+      end)
+    sales_by_vendors = 
+      sales_by_vendors |> 
+      Enum.sort_by(fn sales_by_vendor -> 
+        {sales_by_vendor.j2.year, sales_by_vendor.j2.month, sales_by_vendor.j2.day} 
+      end)
   end
 
   def get_all_vendors_dtd() do
@@ -72,6 +84,18 @@ defmodule SalesByVendor.SalesByVendor do
       |> Map.delete(:__meta__)
       |> Map.delete(:__struct__)
     end)
+
+    # sort by date
+    sales_by_vendors = 
+      Enum.map(sales_by_vendors, fn sales_by_vendor ->
+        {:ok, new_j} = Timex.parse(sales_by_vendor.j, "{M}/{D}/{YYYY}")
+        Map.put(sales_by_vendor, :j2, new_j)
+      end)
+    sales_by_vendors = 
+      sales_by_vendors |> 
+      Enum.sort_by(fn sales_by_vendor -> 
+        {sales_by_vendor.j2.year, sales_by_vendor.j2.month, sales_by_vendor.j2.day} 
+      end)
   end
 
   def get_wtd(username) do
@@ -91,6 +115,18 @@ defmodule SalesByVendor.SalesByVendor do
       |> Map.delete(:__meta__)
       |> Map.delete(:__struct__)
     end)
+
+    # sort by date
+    sales_by_vendors = 
+      Enum.map(sales_by_vendors, fn sales_by_vendor ->
+        {:ok, new_j} = Timex.parse(sales_by_vendor.j, "{M}/{D}/{YYYY}")
+        Map.put(sales_by_vendor, :j2, new_j)
+      end)
+    sales_by_vendors = 
+      sales_by_vendors |> 
+      Enum.sort_by(fn sales_by_vendor -> 
+        {sales_by_vendor.j2.year, sales_by_vendor.j2.month, sales_by_vendor.j2.day} 
+      end)
   end
 
   def get_all_vendors_wtd() do 
@@ -109,6 +145,18 @@ defmodule SalesByVendor.SalesByVendor do
       |> Map.delete(:__meta__)
       |> Map.delete(:__struct__)
     end)
+
+    # sort by date
+    sales_by_vendors = 
+      Enum.map(sales_by_vendors, fn sales_by_vendor ->
+        {:ok, new_j} = Timex.parse(sales_by_vendor.j, "{M}/{D}/{YYYY}")
+        Map.put(sales_by_vendor, :j2, new_j)
+      end)
+    sales_by_vendors = 
+      sales_by_vendors |> 
+      Enum.sort_by(fn sales_by_vendor -> 
+        {sales_by_vendor.j2.year, sales_by_vendor.j2.month, sales_by_vendor.j2.day} 
+      end)
   end
 
   def get_mtd(username) do
@@ -128,6 +176,18 @@ defmodule SalesByVendor.SalesByVendor do
       |> Map.delete(:__meta__)
       |> Map.delete(:__struct__)
     end)
+
+    # sort by date
+    sales_by_vendors = 
+      Enum.map(sales_by_vendors, fn sales_by_vendor ->
+        {:ok, new_j} = Timex.parse(sales_by_vendor.j, "{M}/{D}/{YYYY}")
+        Map.put(sales_by_vendor, :j2, new_j)
+      end)
+    sales_by_vendors = 
+      sales_by_vendors |> 
+      Enum.sort_by(fn sales_by_vendor -> 
+        {sales_by_vendor.j2.year, sales_by_vendor.j2.month, sales_by_vendor.j2.day} 
+      end)
   end
 
   def get_all_vendors_mtd() do
@@ -146,6 +206,18 @@ defmodule SalesByVendor.SalesByVendor do
       |> Map.delete(:__meta__)
       |> Map.delete(:__struct__)
     end)
+
+    # sort by date
+    sales_by_vendors = 
+      Enum.map(sales_by_vendors, fn sales_by_vendor ->
+        {:ok, new_j} = Timex.parse(sales_by_vendor.j, "{M}/{D}/{YYYY}")
+        Map.put(sales_by_vendor, :j2, new_j)
+      end)
+    sales_by_vendors = 
+      sales_by_vendors |> 
+      Enum.sort_by(fn sales_by_vendor -> 
+        {sales_by_vendor.j2.year, sales_by_vendor.j2.month, sales_by_vendor.j2.day} 
+      end)
   end
 
   def get_ytd(username) do
@@ -162,6 +234,18 @@ defmodule SalesByVendor.SalesByVendor do
       |> Map.delete(:__meta__)
       |> Map.delete(:__struct__)
     end)
+
+    # sort by date
+    sales_by_vendors = 
+      Enum.map(sales_by_vendors, fn sales_by_vendor ->
+        {:ok, new_j} = Timex.parse(sales_by_vendor.j, "{M}/{D}/{YYYY}")
+        Map.put(sales_by_vendor, :j2, new_j)
+      end)
+    sales_by_vendors = 
+      sales_by_vendors |> 
+      Enum.sort_by(fn sales_by_vendor -> 
+        {sales_by_vendor.j2.year, sales_by_vendor.j2.month, sales_by_vendor.j2.day} 
+      end)
   end
 
   def get_all_vendors_ytd() do
@@ -176,6 +260,18 @@ defmodule SalesByVendor.SalesByVendor do
       |> Map.delete(:__meta__)
       |> Map.delete(:__struct__)
     end)
+
+        # sort by date
+    sales_by_vendors = 
+      Enum.map(sales_by_vendors, fn sales_by_vendor ->
+        {:ok, new_j} = Timex.parse(sales_by_vendor.j, "{M}/{D}/{YYYY}")
+        Map.put(sales_by_vendor, :j2, new_j)
+      end)
+    sales_by_vendors = 
+      sales_by_vendors |> 
+      Enum.sort_by(fn sales_by_vendor -> 
+        {sales_by_vendor.j2.year, sales_by_vendor.j2.month, sales_by_vendor.j2.day} 
+      end)
   end
 
   def calc_total(all_vendors, column) do

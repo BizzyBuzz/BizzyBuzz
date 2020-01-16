@@ -14,7 +14,7 @@ This Month's Sales
   </div>
 </div>
 <div class="row">
-  Grand total:&nbsp;<span id="grandTotal"><%= @grand_total %></span>
+  Grand total:&nbsp;<span id="grandTotal"><%= Decimal.round(@grand_total, 2) %></span>
 </div>
 <div class="row">
   Commission:&nbsp;<span id="commission">&nbsp;</span>
