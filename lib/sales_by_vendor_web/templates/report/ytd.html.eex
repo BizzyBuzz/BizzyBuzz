@@ -1,4 +1,4 @@
-This Year's Sales
+<b>This Year's Sales</b>
 <div class="subnav">
   <div id="left" class="row border">
     <a id="dtdLink">YESTERDAY'S SALES</a>
@@ -10,7 +10,7 @@ This Year's Sales
     <a id="mtdLink">THIS MONTH'S SALES</a>
   </div>
   <div id="right" class="row">
-    <a id="ytdLink">THIS YEARS'S SALES</a>
+    <a id="ytdLink" class="active-link">THIS YEARS'S SALES</a>
   </div>
 </div>
 <div class="row">

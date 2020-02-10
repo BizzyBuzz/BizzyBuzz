@@ -176,3 +176,36 @@ header nav a {
   background-color: #f2c734;
 }
 
+/* Added to fix reports style*/
+.subnav div a:hover {
+	background-color: #000;
+	color:#f2c734;
+	cursor: pointer;
+}
+
+.subnav a {
+	padding-right:10px; 
+	width:100%;
+}
+
+.subnav {
+	line-height: 33px;
+	padding: 0px;
+}
+
+.subnav  a:active {
+	background-color: #000;
+	color:#f2c734;
+}
+
+header nav a {
+	display: block;
+	color: white;
+}
+
+.subnav .active-link { 
+	background-color: #000;
+	color:#f2c734; 
+	border:1px solid;
+}
+
